@@ -47,7 +47,9 @@
       "@utils": ["src/utils"],
       "@utils/*": ["src/utils/*"],
       "@context": ["src/context"],
-      "@context/*": ["src/context/*"]
+      "@context/*": ["src/context/*"],
+      "@abi": ["src/abi"],
+      "@abi/*": ["src/abi/*"]
     }
   },
   "include": ["src"]

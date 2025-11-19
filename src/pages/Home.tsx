@@ -1,9 +1,9 @@
-import { Test } from "@components/home";
+import { VoucherTest } from "@components/home";
 
 const Home = () => {
   return (
     <div className="">
-      <Test />
+      <VoucherTest />
     </div>
   );
 };

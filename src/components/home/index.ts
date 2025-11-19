@@ -1,2 +1,2 @@
 // home
-export { default as Test } from "./Test";
+export { default as VoucherTest } from "./VoucherTest";

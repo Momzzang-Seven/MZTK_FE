@@ -16,20 +16,22 @@ export const MapView = ({ center, mapKey, mapId }: MapViewProps) => {
   if (!center) return null;
 
   return (
-    <APIProvider apiKey={mapKey}>
-      <Map
-        mapId={mapId}
-        style={{ width: "100vw", height: "100vh" }}
-        defaultCenter={center}
-        defaultZoom={16}
-        gestureHandling="greedy"
-        disableDefaultUI
-      >
-        <RangeCircle center={center} />
-        <AdvancedMarker position={center}>
-          <Pin background="#fab12f" glyphColor="#fff" borderColor="#fab12f" />
-        </AdvancedMarker>
-      </Map>
-    </APIProvider>
+    <div className="flex">
+      <APIProvider apiKey={mapKey}>
+        <Map
+          mapId={mapId}
+          style={{ width: "100vw", height: "100vh" }}
+          defaultCenter={center}
+          defaultZoom={16}
+          gestureHandling="greedy"
+          disableDefaultUI
+        >
+          <RangeCircle center={center} />
+          <AdvancedMarker position={center}>
+            <Pin background="#fab12f" glyphColor="#fff" borderColor="#fab12f" />
+          </AdvancedMarker>
+        </Map>
+      </APIProvider>
+    </div>
   );
 };

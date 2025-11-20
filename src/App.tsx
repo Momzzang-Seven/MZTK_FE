@@ -1,5 +1,5 @@
 import { Layout } from "@components/layout";
-import { Err404, Home, Login } from "@pages";
+import { Community, Err404, Home, Login, My, Verify } from "@pages";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -9,6 +9,12 @@ function App() {
         <Routes>
           {/* Home */}
           <Route path="/" element={<Home />} />
+          {/* Verify */}
+          <Route path="/verify" element={<Verify />} />
+          {/* Community */}
+          <Route path="/community" element={<Community />} />
+          {/* my */}
+          <Route path="/my" element={<My />} />
           {/* Auth */}
           <Route path="/login" element={<Login />} />
           <Route path="/login-success" element={<Navigate to="/" replace />} />

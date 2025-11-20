@@ -46,13 +46,15 @@ const Login = () => {
       <div className="flex flex-col flex-1 justify-end gap-y-5 w-full">
         <CommonButton
           label="메타마스크로 시작하기"
-          bgColor="bg-[#BAF24A]"
-          textColor="text-black"
+          img="/icon/metamask.svg"
+          bgColor="bg-[#ff5c16]"
+          textColor="text-white"
           onClick={() => handleLogin("metamask")}
           className="w-full title shadow-[2px_2px_2px_0_rgba(0,0,0,0.12)]"
         />
         <CommonButton
           label="카카오로 시작하기"
+          img="/icon/kakao.svg"
           bgColor="bg-[#FEE500]"
           textColor="text-black"
           onClick={() => handleLogin("kakao")}
@@ -60,6 +62,7 @@ const Login = () => {
         />
         <CommonButton
           label="구글로 시작하기"
+          img="/icon/google.svg"
           bgColor="bg-[#EFEFEF]"
           textColor="text-black"
           onClick={() => handleLogin("google")}

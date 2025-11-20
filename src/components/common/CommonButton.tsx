@@ -40,8 +40,8 @@ const CommonButton = ({
         ${disabled ? "cursor-not-allowed" : ""}
         `}
     >
+      {img && <img src={img} alt="buttonImage" width="20px" className="mr-3" />}
       {label}
-      {img && <img src={img} alt="buttonImage" />}
     </button>
   );
 };

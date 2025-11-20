@@ -35,3 +35,11 @@ export const authApi = attachInterceptors(
     headers: { "Content-Type": "application/json" },
   })
 );
+
+export const walletApi = attachInterceptors(
+  axios.create({
+    baseURL: `${BASE}/api/auth/wallet`,
+    withCredentials: true,
+    headers: { "Content-Type": "application/json" },
+  })
+);

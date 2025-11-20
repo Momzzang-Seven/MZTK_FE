@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ethers, toUtf8Bytes, hexlify } from "ethers";
 import { VOUCHER_ABI } from "@abi"; // Voucher ABI를 import
+import { PostIssueChallenge, PostVerifyChallenge } from "@services/auth";
 
 const VoucherTest = () => {
   const [account, setAccount] = useState<string>();
@@ -8,6 +9,7 @@ const VoucherTest = () => {
   const [voucherCode, setVoucherCode] = useState<string>("");
   const [redeemCode, setRedeemCode] = useState<string>("");
   const [tokenBalance, setTokenBalance] = useState<string>("0");
+  const [challenge, setChallenge] = useState<string>("");
 
   const VOUCHER_ADDRESS = import.meta.env.VITE_VOUCHER_ADDRESS;
 
@@ -84,9 +86,39 @@ const VoucherTest = () => {
     }
   };
 
+  const issueChallenge = async (addr: string) => {
+    const res = await PostIssueChallenge(addr);
+    const signature = await window.ethereum.request({
+      method: "personal_sign",
+      params: [res, addr],
+    });
+    setChallenge(signature);
+  };
+
+  const verifyChallenge = async (addr: string, challenge: string) => {
+    const res = await PostVerifyChallenge(addr, challenge);
+    setChallenge(res);
+  };
+
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold">Voucher Dashboard</h2>
+      <button
+        type="button"
+        className="bg-main p-2"
+        onClick={() => issueChallenge(account ?? "")}
+        disabled={!account}
+      >
+        Issue Challenge
+      </button>
+      <button
+        type="button"
+        className="bg-main p-2"
+        onClick={() => verifyChallenge(account ?? "", challenge ?? "")}
+        disabled={!account || !challenge}
+      >
+        Verify Challenge
+      </button>
       <p>Connected account: {account}</p>
       <p>Voucher contract token balance: {tokenBalance}</p>
 

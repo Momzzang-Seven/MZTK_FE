@@ -1,2 +1,2 @@
-export { default as MapView } from "./MapView";
-export { default as RangeCircle } from "./RangeCircle";
+export * from "./MapView";
+export * from "./RangeCircle";

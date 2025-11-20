@@ -11,7 +11,7 @@ interface CommonButtonProps {
   onClick?: () => void;
   disabled?: boolean;
 }
-const CommonButton = ({
+export const CommonButton = ({
   textColor,
   bgColor,
   border,
@@ -45,5 +45,3 @@ const CommonButton = ({
     </button>
   );
 };
-
-export default CommonButton;

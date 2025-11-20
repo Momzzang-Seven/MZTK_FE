@@ -1,5 +1,5 @@
 import DOMPurify from "dompurify";
-import CommonButton from "./CommonButton";
+import { CommonButton } from "./CommonButton";
 
 interface CommonModalProps {
   title?: string;
@@ -10,7 +10,7 @@ interface CommonModalProps {
   onCancelClick?: () => void;
 }
 
-const CommonModal = ({
+export const CommonModal = ({
   title,
   desc,
   confirmLabel,
@@ -47,5 +47,3 @@ const CommonModal = ({
     </div>
   );
 };
-
-export default CommonModal;

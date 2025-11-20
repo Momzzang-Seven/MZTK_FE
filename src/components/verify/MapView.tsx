@@ -12,7 +12,7 @@ interface MapViewProps {
   mapId?: string;
 }
 
-const MapView = ({ center, mapKey, mapId }: MapViewProps) => {
+export const MapView = ({ center, mapKey, mapId }: MapViewProps) => {
   if (!center) return null;
 
   return (
@@ -33,5 +33,3 @@ const MapView = ({ center, mapKey, mapId }: MapViewProps) => {
     </APIProvider>
   );
 };
-
-export default MapView;

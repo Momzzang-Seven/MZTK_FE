@@ -1,2 +1,2 @@
-export { default as CommonButton } from "./CommonButton";
-export { default as CommonModal } from "./CommonModal";
+export * from "./CommonButton";
+export * from "./CommonModal";

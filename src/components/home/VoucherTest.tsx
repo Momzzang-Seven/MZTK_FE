@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ethers, toUtf8Bytes, hexlify } from "ethers";
-import { VOUCHER_ABI } from "@abi"; // Voucher ABI를 import
+import { VOUCHER_ABI } from "@abi";
 import { PostIssueChallenge, PostVerifyChallenge } from "@services/auth";
 import axios from "axios";
 
@@ -88,7 +88,7 @@ const VoucherTest = () => {
   };
 
   const issueChallenge = async (addr: string) => {
-    const challengeMsg = await PostIssueChallenge(addr); // 백엔드에서 보내주는 메시지
+    const challengeMsg = await PostIssueChallenge(addr);
 
     const domain = {
       name: "VoucherLogin",

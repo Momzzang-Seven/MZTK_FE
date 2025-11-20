@@ -1,5 +1,5 @@
 import { Layout } from "@components/layout";
-import { Home, Login } from "@pages";
+import { Err401, Home, Login } from "@pages";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -12,6 +12,8 @@ function App() {
           {/* Auth */}
           <Route path="/login" element={<Login />} />
           <Route path="/login-success" element={<Navigate to="/" replace />} />
+          {/* Error */}
+          <Route path="/auth/error" element={<Err401 />} />
           {/* fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

@@ -1,7 +1,7 @@
 import { footerItem } from "@constant";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const Footer = () => {
+export const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,5 +39,3 @@ const Footer = () => {
     </div>
   );
 };
-
-export default Footer;

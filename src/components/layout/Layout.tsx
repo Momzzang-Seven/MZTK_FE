@@ -3,7 +3,7 @@ import { useAuthModalStore } from "@store";
 import { CommonModal } from "@components/common";
 import { Header, Footer } from "@components/layout";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+export const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const { unauthorized, setUnauthorized } = useAuthModalStore();
   const hideFooterPages = ["/login"];
@@ -38,5 +38,3 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     </div>
   );
 };
-
-export default Layout;

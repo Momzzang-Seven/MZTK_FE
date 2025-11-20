@@ -1,7 +1,7 @@
 import { headerByPath } from "@constant";
 import { useLocation } from "react-router-dom";
 
-const Header = () => {
+export const Header = () => {
   const location = useLocation();
   const path = location.pathname;
   const currentHeader = headerByPath.find((part) => part.path === path);
@@ -14,5 +14,3 @@ const Header = () => {
     </div>
   );
 };
-
-export default Header;

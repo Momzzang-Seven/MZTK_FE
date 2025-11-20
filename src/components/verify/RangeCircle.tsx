@@ -8,7 +8,7 @@ interface RangeCircleProps {
   fillColor?: string;
 }
 
-const RangeCircle = ({
+export const RangeCircle = ({
   center,
   radius = 200,
   strokeColor = "#fab12f",
@@ -36,5 +36,3 @@ const RangeCircle = ({
 
   return null;
 };
-
-export default RangeCircle;

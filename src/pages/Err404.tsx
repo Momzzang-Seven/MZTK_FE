@@ -8,9 +8,7 @@ const Err404 = () => {
         animationData={bubble}
         style={{ width: "150px", height: "150px" }}
       />
-      <div className="title font-bold">
-        로그인 정보가 없습니다. <br /> 다시 로그인해주세요
-      </div>
+      <div className="title font-bold">404</div>
     </div>
   );
 };

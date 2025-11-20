@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
     "axios": "^1.13.2",
+    "dompurify": "^3.3.0",
     "ethers": "^6.15.0",
     "lottie-react": "^2.4.1",
     "react": "^19.2.0",

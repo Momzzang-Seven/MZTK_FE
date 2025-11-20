@@ -1,21 +1,40 @@
-import Footer from "./Footer";
-import Header from "./Header";
+import { useNavigate } from "react-router-dom";
+import { useAuthModalStore } from "@store";
+import { CommonModal } from "@components/common";
+import { Header, Footer } from "@components/layout";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const hideLayoutPages = [""];
-  const shouldHideLayout = hideLayoutPages.includes(location.pathname);
+  const navigate = useNavigate();
+  const { unauthorized, setUnauthorized } = useAuthModalStore();
+  const hideFooterPages = ["/login"];
+  const showHeaderPages = ["/verify"];
+  const shouldShowHeader = showHeaderPages.includes(location.pathname);
+  const shouldHideFooter = hideFooterPages.includes(location.pathname);
 
   return (
     <div className="bg-white w-full max-w-[420px] min-h-screen mx-auto flex flex-col items-center">
-      <Header />
+      {shouldShowHeader && <Header />}
       <div
-        className={`w-full flex flex-col flex-1 overflow-y-auto ${
-          !shouldHideLayout ? "pb-[52px]" : ""
-        }`}
+        className={`w-full flex flex-col flex-1 overflow-y-auto
+          ${!shouldHideFooter ? "pb-[82px]" : ""}
+          ${shouldShowHeader ? "pt-[72px]" : ""}
+          `}
       >
         {children}
+
+        {unauthorized && (
+          <CommonModal
+            title="로그인이 필요해요"
+            desc="  서비스를 이용하시려면 로그인이 필요해요. <br /> 로그인 페이지로 이동할까요?"
+            confirmLabel="로그인 페이지로 이동"
+            onConfirmClick={() => {
+              setUnauthorized(false);
+              navigate("/login");
+            }}
+          />
+        )}
       </div>
-      <Footer />
+      {!shouldHideFooter && <Footer />}
     </div>
   );
 };

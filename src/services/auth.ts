@@ -30,3 +30,10 @@ export const PostVerifyChallenge = async (addr: string, challenge: string) => {
 
   return data;
 };
+
+// GET: Check Login Status
+export const GetLoginStatus = async () => {
+  const { data } = await walletApi.get("/me");
+
+  return data;
+};

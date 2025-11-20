@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ethers, toUtf8Bytes, hexlify } from "ethers";
 import { VOUCHER_ABI } from "@abi"; // Voucher ABI를 import
 import { PostIssueChallenge, PostVerifyChallenge } from "@services/auth";
+import axios from "axios";
 
 const VoucherTest = () => {
   const [account, setAccount] = useState<string>();
@@ -87,17 +88,57 @@ const VoucherTest = () => {
   };
 
   const issueChallenge = async (addr: string) => {
-    const res = await PostIssueChallenge(addr);
-    const signature = await window.ethereum.request({
-      method: "personal_sign",
-      params: [res, addr],
+    const challengeMsg = await PostIssueChallenge(addr); // 백엔드에서 보내주는 메시지
+
+    const domain = {
+      name: "VoucherLogin",
+      version: "1",
+      chainId: 11155111,
+      verifyingContract: VOUCHER_ADDRESS,
+    };
+
+    const types = {
+      Login: [{ name: "message", type: "string" }],
+    };
+
+    const messageObj = {
+      message: challengeMsg,
+    };
+
+    const typedData = JSON.stringify({
+      domain,
+      types,
+      primaryType: "Login",
+      message: messageObj,
     });
+
+    const signature = await window.ethereum.request({
+      method: "eth_signTypedData_v4",
+      params: [addr, typedData],
+    });
+
     setChallenge(signature);
   };
 
   const verifyChallenge = async (addr: string, challenge: string) => {
-    const res = await PostVerifyChallenge(addr, challenge);
-    setChallenge(res);
+    try {
+      const res = await PostVerifyChallenge(addr, challenge);
+      setChallenge(res);
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        if (err.response?.status === 401) {
+          alert(
+            "Login failed: Unauthorized. Please check your wallet or signature."
+          );
+        } else {
+          alert(`Login failed: ${err.response?.statusText}`);
+        }
+      } else if (err instanceof Error) {
+        alert("Login failed: " + err.message);
+      } else {
+        alert("Login failed: Unknown error");
+      }
+    }
   };
 
   return (

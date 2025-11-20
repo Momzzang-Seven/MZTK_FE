@@ -1,3 +1,3 @@
 export { default as Home } from "./Home";
 export { default as Login } from "./Login";
-export { default as Err401 } from "./Err401";
+export { default as Err404 } from "./Err404";

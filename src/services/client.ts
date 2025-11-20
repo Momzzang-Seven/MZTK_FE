@@ -8,9 +8,9 @@ const attachInterceptors = (instance: AxiosInstance) => {
     (error) => {
       const status = error.response?.status;
 
-      // 401 Unauthorize
-      if (status === 401 || status === 403) {
-        window.location.href = "/auth/error";
+      // 404
+      if (status === 404) {
+        window.location.href = "/404";
       }
 
       return Promise.reject(error);

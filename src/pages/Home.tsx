@@ -1,9 +1,12 @@
+import { CommonButton } from "@components/common";
 import { IssueVoucher, RedeemVoucher } from "@components/home";
 import { useVoucher } from "@hooks/useVoucher";
+import { useNavigate } from "react-router-dom";
 
 const VOUCHER_ADDRESS = import.meta.env.VITE_VOUCHER_ADDRESS;
 
 const Home = () => {
+  const navigate = useNavigate();
   const { account, tokenBalance, issueVoucher, redeemVoucher } =
     useVoucher(VOUCHER_ADDRESS);
 
@@ -15,6 +18,14 @@ const Home = () => {
 
       <IssueVoucher onIssue={issueVoucher} />
       <RedeemVoucher onRedeem={redeemVoucher} />
+
+      <CommonButton
+        label="로그인 체험 - 로컬 DB 기준 동작"
+        className="mt-5"
+        textColor="text-black"
+        bgColor="bg-main"
+        onClick={() => navigate("/login")}
+      />
     </div>
   );
 };

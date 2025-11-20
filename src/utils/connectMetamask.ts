@@ -2,7 +2,7 @@ import { PostIssueChallenge, PostVerifyChallenge } from "@services/auth";
 import { ethers } from "ethers";
 import axios from "axios";
 
-// const VOUCHER_ADDRESS = import.meta.env.VITE_VOUCHER_ADDRESS;
+const VOUCHER_ADDRESS = import.meta.env.VITE_VOUCHER_ADDRESS;
 
 export const connectMetamask = async () => {
   const provider = new ethers.BrowserProvider(window.ethereum);
@@ -19,31 +19,35 @@ export const loginWithMetamask = async () => {
     // Issue challenge
     const challengeMsg = await PostIssueChallenge(address);
 
-    // const domain = {
-    //   name: "VoucherLogin",
-    //   version: "1",
-    //   chainId: 11155111,
-    //   verifyingContract: VOUCHER_ADDRESS,
-    // };
+    const domain = {
+      name: "VoucherLogin",
+      version: "1",
+      chainId: 11155111,
+      verifyingContract: VOUCHER_ADDRESS,
+    };
 
-    // const types = { Login: [{ name: "message", type: "string" }] };
-    // const message = { message: challengeMsg };
+    const types = {
+      EIP712Domain: [
+        { name: "name", type: "string" },
+        { name: "version", type: "string" },
+        { name: "chainId", type: "uint256" },
+        { name: "verifyingContract", type: "address" },
+      ],
+      Login: [{ name: "message", type: "string" }],
+    };
+    const message = { message: challengeMsg };
 
-    // const typedData = JSON.stringify({
-    //   domain,
-    //   types,
-    //   primaryType: "Login",
-    //   message,
-    // });
+    const typedData = JSON.stringify({
+      domain,
+      types,
+      primaryType: "Login",
+      message,
+    });
 
     // Sign
     const signature = await window.ethereum.request({
-      // EIP 712
-      // method: "eth_signTypedData_v4",
-      // params: [address, typedData],
-      // Personal sign
-      method: "personal_sign",
-      params: [challengeMsg, address],
+      method: "eth_signTypedData_v4",
+      params: [address, typedData],
     });
 
     // Verify

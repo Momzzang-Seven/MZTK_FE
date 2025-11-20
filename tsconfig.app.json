@@ -52,5 +52,7 @@
       "@abi/*": ["src/abi/*"]
     }
   },
+  "resolveJsonModule": true,
+  "esModuleInterop": true,
   "include": ["src"]
 }

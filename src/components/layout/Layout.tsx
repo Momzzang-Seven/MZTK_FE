@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
-import Header from "./Header";
 import { useAuthModalStore } from "@store";
 import { CommonModal } from "@components/common";
 
@@ -12,10 +11,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="bg-white w-full max-w-[420px] min-h-screen mx-auto flex flex-col items-center">
-      {!shouldHideLayout && <Header />}
       <div
         className={`w-full flex flex-col flex-1 overflow-y-auto ${
-          !shouldHideLayout ? "pb-[52px]" : ""
+          !shouldHideLayout ? "pb-[82px]" : ""
         }`}
       >
         {children}

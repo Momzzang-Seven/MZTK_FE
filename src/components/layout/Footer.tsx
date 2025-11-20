@@ -6,7 +6,7 @@ const Footer = () => {
   const location = useLocation();
 
   return (
-    <div className="w-full fixed max-w-[420px] rounded-t-[20px] bottom-0 flex flex-row justify-between h-[82px] px-[20px] py-[10px] shadow-[0_-4px_8px_rgba(0,0,0,0.05)]">
+    <div className="w-full fixed max-w-[420px] rounded-t-[20px] bg-white bottom-0 flex flex-row justify-between h-[82px] px-[20px] py-[10px] shadow-[0_-4px_8px_rgba(0,0,0,0.05)]">
       {/* footer item map */}
       <div className="w-full grid grid-cols-4 col-span-4">
         {footerItem.map((item) => {

@@ -7,12 +7,12 @@ import { CommonModal } from "@components/common";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const { unauthorized, setUnauthorized } = useAuthModalStore();
-  const hideLayoutPages = [""];
+  const hideLayoutPages = ["/login"];
   const shouldHideLayout = hideLayoutPages.includes(location.pathname);
 
   return (
     <div className="bg-white w-full max-w-[420px] min-h-screen mx-auto flex flex-col items-center">
-      <Header />
+      {!shouldHideLayout && <Header />}
       <div
         className={`w-full flex flex-col flex-1 overflow-y-auto ${
           !shouldHideLayout ? "pb-[52px]" : ""
@@ -32,7 +32,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           />
         )}
       </div>
-      <Footer />
+      {!shouldHideLayout && <Footer />}
     </div>
   );
 };

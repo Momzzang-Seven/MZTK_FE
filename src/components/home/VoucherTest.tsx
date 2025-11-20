@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { ethers, toUtf8Bytes, hexlify } from "ethers";
 import { VOUCHER_ABI } from "@abi";
-import { PostIssueChallenge, PostVerifyChallenge } from "@services/auth";
-import axios from "axios";
 
 const VoucherTest = () => {
   const [account, setAccount] = useState<string>();
@@ -10,7 +8,6 @@ const VoucherTest = () => {
   const [voucherCode, setVoucherCode] = useState<string>("");
   const [redeemCode, setRedeemCode] = useState<string>("");
   const [tokenBalance, setTokenBalance] = useState<string>("0");
-  const [challenge, setChallenge] = useState<string>("");
 
   const VOUCHER_ADDRESS = import.meta.env.VITE_VOUCHER_ADDRESS;
 
@@ -87,79 +84,10 @@ const VoucherTest = () => {
     }
   };
 
-  const issueChallenge = async (addr: string) => {
-    const challengeMsg = await PostIssueChallenge(addr);
-
-    const domain = {
-      name: "VoucherLogin",
-      version: "1",
-      chainId: 11155111,
-      verifyingContract: VOUCHER_ADDRESS,
-    };
-
-    const types = {
-      Login: [{ name: "message", type: "string" }],
-    };
-
-    const messageObj = {
-      message: challengeMsg,
-    };
-
-    const typedData = JSON.stringify({
-      domain,
-      types,
-      primaryType: "Login",
-      message: messageObj,
-    });
-
-    const signature = await window.ethereum.request({
-      method: "eth_signTypedData_v4",
-      params: [addr, typedData],
-    });
-
-    setChallenge(signature);
-  };
-
-  const verifyChallenge = async (addr: string, challenge: string) => {
-    try {
-      const res = await PostVerifyChallenge(addr, challenge);
-      setChallenge(res);
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        if (err.response?.status === 401) {
-          alert(
-            "Login failed: Unauthorized. Please check your wallet or signature."
-          );
-        } else {
-          alert(`Login failed: ${err.response?.statusText}`);
-        }
-      } else if (err instanceof Error) {
-        alert("Login failed: " + err.message);
-      } else {
-        alert("Login failed: Unknown error");
-      }
-    }
-  };
-
   return (
     <div className="p-4">
       <h2 className="text-xl font-bold">Voucher Dashboard</h2>
-      <button
-        type="button"
-        className="bg-main p-2"
-        onClick={() => issueChallenge(account ?? "")}
-        disabled={!account}
-      >
-        Issue Challenge
-      </button>
-      <button
-        type="button"
-        className="bg-main p-2"
-        onClick={() => verifyChallenge(account ?? "", challenge ?? "")}
-        disabled={!account || !challenge}
-      >
-        Verify Challenge
-      </button>
+
       <p>Connected account: {account}</p>
       <p>Voucher contract token balance: {tokenBalance}</p>
 

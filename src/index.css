@@ -1,6 +1,14 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 @import "tailwindcss";
 
+@font-face {
+  font-family: "GMarketSans";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff")
+    format("woff");
+  font-weight: 700;
+  font-display: swap;
+}
+
 @theme {
   --font-sans: "Pretendard Variable", Pretendard, -apple-system,
     BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
@@ -11,6 +19,10 @@
   --color-sub: #ffcc00;
   --color-grey-main: #a09cab;
   --color-grey-pale: #f9fafb;
+}
+
+.font-gmarket {
+  font-family: "GMarketSans", "Pretendard Variable", sans-serif;
 }
 
 body {

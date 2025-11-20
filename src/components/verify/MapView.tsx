@@ -1,0 +1,37 @@
+import {
+  APIProvider,
+  Map,
+  AdvancedMarker,
+  Pin,
+} from "@vis.gl/react-google-maps";
+import { RangeCircle } from "@components/verify";
+
+interface MapViewProps {
+  center: { lat: number; lng: number } | null;
+  mapKey: string;
+  mapId?: string;
+}
+
+const MapView = ({ center, mapKey, mapId }: MapViewProps) => {
+  if (!center) return null;
+
+  return (
+    <APIProvider apiKey={mapKey}>
+      <Map
+        mapId={mapId}
+        style={{ width: "100vw", height: "100vh" }}
+        defaultCenter={center}
+        defaultZoom={16}
+        gestureHandling="greedy"
+        disableDefaultUI
+      >
+        <RangeCircle center={center} />
+        <AdvancedMarker position={center}>
+          <Pin background="#fab12f" glyphColor="#fff" borderColor="#fab12f" />
+        </AdvancedMarker>
+      </Map>
+    </APIProvider>
+  );
+};
+
+export default MapView;

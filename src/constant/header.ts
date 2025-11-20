@@ -1,0 +1,15 @@
+type HeaderByPathType = {
+  label: string;
+  path: string;
+};
+
+export const headerByPath: HeaderByPathType[] = [
+  {
+    label: "위치 인증하기",
+    path: "/verify",
+  },
+  {
+    label: "운동 인증하기",
+    path: "/verify/health",
+  },
+];

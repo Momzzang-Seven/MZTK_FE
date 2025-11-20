@@ -1,20 +1,24 @@
 import { useNavigate } from "react-router-dom";
-import Footer from "./Footer";
 import { useAuthModalStore } from "@store";
 import { CommonModal } from "@components/common";
+import { Header, Footer } from "@components/layout";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const { unauthorized, setUnauthorized } = useAuthModalStore();
-  const hideLayoutPages = ["/login"];
-  const shouldHideLayout = hideLayoutPages.includes(location.pathname);
+  const hideFooterPages = ["/login"];
+  const showHeaderPages = ["/verify"];
+  const shouldShowHeader = showHeaderPages.includes(location.pathname);
+  const shouldHideFooter = hideFooterPages.includes(location.pathname);
 
   return (
     <div className="bg-white w-full max-w-[420px] min-h-screen mx-auto flex flex-col items-center">
+      {shouldShowHeader && <Header />}
       <div
-        className={`w-full flex flex-col flex-1 overflow-y-auto ${
-          !shouldHideLayout ? "pb-[82px]" : ""
-        }`}
+        className={`w-full flex flex-col flex-1 overflow-y-auto
+          ${!shouldHideFooter ? "pb-[82px]" : ""}
+          ${shouldShowHeader ? "pt-[72px]" : ""}
+          `}
       >
         {children}
 
@@ -30,7 +34,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           />
         )}
       </div>
-      {!shouldHideLayout && <Footer />}
+      {!shouldHideFooter && <Footer />}
     </div>
   );
 };

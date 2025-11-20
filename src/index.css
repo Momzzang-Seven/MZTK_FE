@@ -30,7 +30,7 @@ body {
   width: 100vw;
   background-color: #f9fafb;
   min-height: 100vh;
-  font-family: var(--font-sans);
+  font-family: var(--font-family);
 }
 
 :root {

@@ -1,5 +1,6 @@
 import { CommonButton, CommonModal } from "@components/common";
-import { GetGoogleLogin, GetKakaoLogin } from "@services/auth";
+import { useUserStore } from "@store";
+
 import runner from "@assets/runner.json";
 import Lottie from "lottie-react";
 import { useState } from "react";
@@ -10,22 +11,34 @@ const Login = () => {
   const navigate = useNavigate();
   const [metaModalOpen, setMetaModalOpen] = useState(false);
 
-  const handleLogin = async (type: "metamask" | "kakao" | "google") => {
+  const handleLogin = (type: "metamask" | "kakao" | "google") => {
     try {
       if (type === "metamask") {
         if (!window.ethereum) {
           setMetaModalOpen(true);
           return;
         }
-        await loginWithMetamask();
-      } else if (type === "kakao") {
-        const url = await GetKakaoLogin();
-        window.location.href = url;
-      } else if (type === "google") {
-        const url = await GetGoogleLogin();
+        loginWithMetamask().then((data: any) => {
+          if (data && data.userInfo && data.accessToken) {
+            useUserStore.getState().setUser(data.userInfo);
+            useUserStore.getState().setAccessToken(data.accessToken);
+          }
+          navigate("/", { replace: true });
+        });
+      } else {
+        const redirectUri = window.location.origin + "/callback";
+        let url = "";
+
+        if (type === "kakao") {
+          const clientId = import.meta.env.VITE_KAKAO_CLIENT_ID || "YOUR_KAKAO_CLIENT_ID";
+          url = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&state=kakao`;
+        } else if (type === "google") {
+          const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "YOUR_GOOGLE_CLIENT_ID";
+          url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email profile&state=google`;
+        }
+
         window.location.href = url;
       }
-      navigate("/", { replace: true });
     } catch {
       if (type === "metamask") setMetaModalOpen(true);
     }

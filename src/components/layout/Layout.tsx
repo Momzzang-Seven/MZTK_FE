@@ -6,7 +6,7 @@ import { Header, Footer } from "@components/layout";
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const { unauthorized, setUnauthorized } = useAuthModalStore();
-  const hideFooterPages = ["/login"];
+  const hideFooterPages = ["/login", "/community/free/postId"];
   const showHeaderPages = ["/verify"];
   const shouldShowHeader = showHeaderPages.includes(location.pathname);
   const shouldHideFooter = hideFooterPages.includes(location.pathname);

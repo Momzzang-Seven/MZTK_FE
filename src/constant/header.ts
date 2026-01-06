@@ -12,4 +12,8 @@ export const headerByPath: HeaderByPathType[] = [
     label: "운동 인증하기",
     path: "/verify/health",
   },
+  {
+    label: "댓글",
+    path: "/community/free/postId",
+  },
 ];

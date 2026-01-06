@@ -1,30 +1,33 @@
-import { CommonButton } from "@components/common";
-import { IssueVoucher, RedeemVoucher } from "@components/home";
-import { useVoucher } from "@hooks/useVoucher";
+import { AttendanceBanner, LevelProgress, AuthActionButtons } from "@components/home";
 import { useNavigate } from "react-router-dom";
-
-const VOUCHER_ADDRESS = import.meta.env.VITE_VOUCHER_ADDRESS;
 
 const Home = () => {
   const navigate = useNavigate();
-  const { account, tokenBalance, issueVoucher, redeemVoucher } =
-    useVoucher(VOUCHER_ADDRESS);
+
+  const handleExerciseAuth = () => {
+    navigate("/exercise-auth");
+  };
+
+  const handleLocationAuth = () => {
+    // Navigate to location auth page (future)
+    console.log("Navigate to Location Auth");
+    alert("위치 인증 페이지로 이동합니다 (준비중)");
+  };
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold">Voucher Dashboard</h2>
-      <p>Connected account: {account}</p>
-      <p>Voucher contract token balance: {tokenBalance}</p>
+    <div className="flex flex-col h-full bg-white px-5 pt-6 pb-20 overflow-y-auto">
+      {/* 1. Banner */}
+      <AttendanceBanner />
 
-      <IssueVoucher onIssue={issueVoucher} />
-      <RedeemVoucher onRedeem={redeemVoucher} />
+      {/* 2. Level Progress (Center) */}
+      <div className="flex-1 flex items-center justify-center">
+        <LevelProgress />
+      </div>
 
-      <CommonButton
-        label="로그인 체험 - 로컬 DB 기준 동작"
-        className="mt-5"
-        textColor="text-black"
-        bgColor="bg-main"
-        onClick={() => navigate("/login")}
+      {/* 3. Action Buttons (Bottom) */}
+      <AuthActionButtons
+        onExerciseClick={handleExerciseAuth}
+        onLocationClick={handleLocationAuth}
       />
     </div>
   );

@@ -1,8 +1,18 @@
-import { useAuthModalStore } from "@store";
+import { useAuthModalStore, useUserStore } from "@store";
 import axios, { type AxiosInstance } from "axios";
 
-const BASE = `${import.meta.env.VITE_API_BASE_URL}`;
+const BASE_ENV = `${import.meta.env.VITE_API_BASE_URL}`;
+// Robust fix: If we are in DEV and the user set the BASE to the backend port directly,
+// we force it to empty string to ensure the Vite proxy is used.
+let BASE = BASE_ENV;
+if (import.meta.env.DEV && BASE_ENV.includes("localhost:8080")) {
+  console.warn("Detected localhost:8080 in VITE_API_BASE_URL during DEV. Forcing proxy usage.");
+  BASE = "";
+}
+
+console.log("Current API BASE URL:", BASE); // Debugging
 const authModalState = useAuthModalStore.getState();
+
 
 const attachInterceptors = (instance: AxiosInstance) => {
   instance.interceptors.response.use(
@@ -24,6 +34,14 @@ const attachInterceptors = (instance: AxiosInstance) => {
     }
   );
 
+  instance.interceptors.request.use((config) => {
+    const token = useUserStore.getState().accessToken;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  });
+
   return instance;
 };
 
@@ -34,6 +52,7 @@ export const api = attachInterceptors(
     headers: { "Content-Type": "application/json" },
   })
 );
+
 
 export const authApi = attachInterceptors(
   axios.create({

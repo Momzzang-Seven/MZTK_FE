@@ -14,7 +14,7 @@ export const connectMetamask = async () => {
 
 export const loginWithMetamask = async () => {
   try {
-    const { signer, address } = await connectMetamask();
+    const { address } = await connectMetamask();
 
     // Issue challenge
     const challengeMsg = await PostIssueChallenge(address);
@@ -51,9 +51,17 @@ export const loginWithMetamask = async () => {
     });
 
     // Verify
-    const jwt = await PostVerifyChallenge(address, signature);
+    const response = await PostVerifyChallenge(address, signature);
+    // Expecting response to contain { userInfo, accessToken } like other logins
+    // If backend only returns jwt, we might need to map it.
+    // For now assuming the backend will follow the standard LoginResponseDTO structure.
 
-    return { address, jwt, signer };
+    // Check if response has data property (axios response) or if PostVerifyChallenge returns data directly
+    // connectMetamask.ts line 54 says: const jwt = await PostVerifyChallenge...
+    // Let's check auth.ts PostVerifyChallenge implementation.
+    // auth.ts: return data; (which is the body)
+
+    return response;
   } catch (err: unknown) {
     if (axios.isAxiosError(err) && err.response?.status === 401) {
       throw new Error("Unauthorized: Check wallet or signature.");

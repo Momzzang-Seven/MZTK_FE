@@ -8,7 +8,7 @@ export function formatTimeAgo(dateString: string): string {
   const diffDays = Math.floor(diffHours / 24);
 
   if (diffMinutes < 1) {
-    return '방금 전';
+    return "방금 전";
   }
 
   if (diffMinutes < 60) {

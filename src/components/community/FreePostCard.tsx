@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import type { FreePost } from '@types';
-import { formatTimeAgo } from '@utils';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import type { FreePost } from "@types";
+import { formatTimeAgo } from "@utils";
 
 interface Props {
   post: FreePost;
@@ -13,22 +13,21 @@ const FreePostCard = ({ post }: Props) => {
   const [likeCount, setLikeCount] = useState(post.likes);
 
   const handleLikeClick = () => {
-    setLiked(prev => !prev);
-    setLikeCount(prev => (liked ? prev - 1 : prev + 1));
+    setLiked((prev) => !prev);
+    setLikeCount((prev) => (liked ? prev - 1 : prev + 1));
   };
 
   const handleCommentClick = () => {
-    navigate('/community/free/postId');
+    navigate("/community/free/postId");
     // navigate('/community/free/' + post.id);
-  }
+  };
 
-  
   return (
     <article className="bg-white">
       {/* 헤더 */}
       <div className="flex items-center gap-3 px-4 pt-4">
         <img
-          src={post.author.profileImage?? 'icon/user.svg'}
+          src={post.author.profileImage ?? "icon/user.svg"}
           alt="profile"
           className="w-10 h-10 rounded-full bg-yellow-400"
         />
@@ -59,7 +58,7 @@ const FreePostCard = ({ post }: Props) => {
           className="flex items-center gap-1 active:scale-95 transition"
         >
           <img
-            src={liked ? '/icon/likeActive.svg' : '/icon/like.svg'}
+            src={liked ? "/icon/likeActive.svg" : "/icon/like.svg"}
             alt="like"
             className="w-5 h-5"
           />
@@ -71,21 +70,17 @@ const FreePostCard = ({ post }: Props) => {
           onClick={handleCommentClick}
           className="flex items-center gap-1 active:scale-95 transition"
         >
-          <img
-            src="/icon/comment.svg"
-            alt="comment"
-            className="w-5 h-5"
-          />
-          <span className="text-sm font-medium text-gray-700">{post.comments}</span>
+          <img src="/icon/comment.svg" alt="comment" className="w-5 h-5" />
+          <span className="text-sm font-medium text-gray-700">
+            {post.comments}
+          </span>
         </button>
       </div>
 
       {/* 설명 */}
-      <p className="px-4 pb-4 text-sm">
-        {post.description}
-      </p>
+      <p className="px-4 pb-4 text-sm">{post.description}</p>
     </article>
   );
-}
+};
 
-export default FreePostCard
+export default FreePostCard;

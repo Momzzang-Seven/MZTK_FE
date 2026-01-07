@@ -18,7 +18,7 @@ const CommentItem = ({ comment, isReply = false }: Props) => {
 
   return (
     <div
-      className={`flex gap-3 px-4 py-3 border-b border-gray-200${
+      className={`flex gap-3 px-4 py-3 border-b border-gray-300${
         isReply ? "ml-12" : ""
       }`}
     >

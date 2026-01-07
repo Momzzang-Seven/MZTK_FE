@@ -1,5 +1,18 @@
 import { Layout } from "@components/layout";
-import { Callback, Err404, Home, Login, My, Verify, FreeListPage, FreeDetailPage, FreeCreatePage, QuestionListPage, QuestionDetailPage, QuestionCreatePage, } from "@pages";
+import {
+  Callback,
+  Err404,
+  Home,
+  Login,
+  My,
+  Verify,
+  FreeListPage,
+  FreeDetailPage,
+  FreeCreatePage,
+  QuestionListPage,
+  QuestionDetailPage,
+  QuestionCreatePage,
+} from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
@@ -18,8 +31,14 @@ function App() {
           <Route path="/community/free/postId" element={<FreeDetailPage />} />
           <Route path="/community/free/new" element={<FreeCreatePage />} />
           <Route path="/community/question" element={<QuestionListPage />} />
-          <Route path="/community/question/:postId" element={<QuestionDetailPage />} />
-          <Route path="/community/question/new" element={<QuestionCreatePage />} />
+          <Route
+            path="/community/question/:postId"
+            element={<QuestionDetailPage />}
+          />
+          <Route
+            path="/community/question/new"
+            element={<QuestionCreatePage />}
+          />
           {/* my */}
           <Route path="/my" element={<My />} />
           {/* Auth */}

@@ -15,7 +15,7 @@ const CommentInputBar = ({ onSend }: Props) => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-transparent border-t border-gray-300 px-4 py-2 flex items-center gap-3">
+    <div className="z-[998] fixed bottom-0 w-full fixed max-w-[420px] bg-white border-t border-gray-300 px-4 py-2 flex items-center gap-3">
       {/* 입력창 */}
       <input
         type="text"

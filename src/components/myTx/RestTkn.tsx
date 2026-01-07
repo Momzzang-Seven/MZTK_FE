@@ -1,35 +1,55 @@
-export const RestTkn = () => {
-  const tknAmount = 1234567;
-  const handleClickRefresh = () => {
-    alert("잔액이 새로고침 되었습니다.");
+import { useState } from "react";
+
+interface RestTknProps {
+  amt: number;
+  onRefresh?: () => void;
+}
+
+export const RestTkn = ({ amt, onRefresh }: RestTknProps) => {
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleRefresh = () => {
+    setIsRefreshing(true);
+    if (onRefresh) {
+      onRefresh();
+    } else {
+      alert("잔액이 새로고침 되었습니다.");
+    }
+    setTimeout(() => setIsRefreshing(false), 500);
   };
 
   return (
-    <div className="flex flex-col rounded-lg p-6 bg-gradient-to-r from-main to-sub w-full h-fit items-start justify-center text-white">
-      {/* token label */}
-      <div className="flex flex-row w-full gap-x-4 items-center justify-between">
-        <div className="flex flex-row gap-x-2 items-center">
-          <img
-            src="/icon/token.svg"
-            alt="tokenIcon"
-            className="bg-white/20 rounded-full w-8 h-8 p-1"
-          />
-          <div className="label-bold">사용 가능한 잔액</div>
+    <section className="w-full p-6 rounded-lg bg-gradient-to-r from-main to-sub text-white">
+      {/* Header Area */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-x-2">
+          <div className="p-1 rounded-full bg-white/20">
+            <img src="/icon/token.svg" alt="MZT Token" className="w-6 h-6" />
+          </div>
+          <span className="font-bold text-sm">사용 가능한 잔액</span>
         </div>
-        <div
-          className="flex flex-row gap-x-2 bg-white/20 rounded-lg py-1 px-3"
-          onClick={handleClickRefresh}
+
+        <button
+          type="button"
+          onClick={handleRefresh}
+          className="flex items-center gap-x-1.5 px-3 py-1.5 rounded-lg bg-white/20 hover:bg-white/30 active:scale-95 transition-all text-xs"
         >
-          <img src="/icon/refresh.svg" alt="refreshIcon" /> 새로고침
-        </div>
+          <img
+            src="/icon/refresh.svg"
+            alt="refresh"
+            className={`w-3 h-3 ${isRefreshing ? "animate-spin" : ""}`}
+          />
+          <span>새로고침</span>
+        </button>
       </div>
-      {/* token amount */}
-      <div className="flex flex-row gap-x-4 items-center">
-        <div className="text-[30px] font-bold">
-          {tknAmount.toLocaleString()}
-        </div>
-        <div className="body">MZT</div>
+
+      {/* Amount Area */}
+      <div className="flex items-baseline justify-end gap-x-2">
+        <span className="text-[32px] font-extrabold leading-tight">
+          {amt.toLocaleString()}
+        </span>
+        <span className="text-lg opacity-90">MZT</span>
       </div>
-    </div>
+    </section>
   );
 };

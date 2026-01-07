@@ -10,16 +10,17 @@
 }
 
 @theme {
-  --font-sans: "Pretendard Variable", Pretendard, -apple-system,
-    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  --font-sans:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", sans-serif;
 
   --color-main: #fab12f;
   --color-sub: #ffcc00;
   --color-grey-main: #a09cab;
   --color-grey-pale: #f9fafb;
-  --color-grey-deep: #4B5563;
+  --color-grey-deep: #4b5563;
 }
 
 .font-gmarket {
@@ -106,4 +107,10 @@ button:disabled {
   display: none;
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

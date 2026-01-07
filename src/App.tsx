@@ -1,5 +1,14 @@
 import { Layout } from "@components/layout";
-import { Callback, Community, Err404, Home, Login, My, Verify } from "@pages";
+import {
+  Callback,
+  Community,
+  Err404,
+  Home,
+  Login,
+  My,
+  MyTx,
+  Verify,
+} from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
@@ -16,6 +25,7 @@ function App() {
           <Route path="/community" element={<Community />} />
           {/* my */}
           <Route path="/my" element={<My />} />
+          <Route path="/myTknTx" element={<MyTx />} />
           {/* Auth */}
           <Route path="/login" element={<Login />} />
           <Route path="/callback" element={<Callback />} />

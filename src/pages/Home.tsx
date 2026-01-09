@@ -20,7 +20,7 @@ const Home = () => {
       <AttendanceBanner />
 
       {/* 2. Level Progress (Center) */}
-      <div className="flex-1 flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center mb-10 pt-16">
         <LevelProgress />
       </div>
 

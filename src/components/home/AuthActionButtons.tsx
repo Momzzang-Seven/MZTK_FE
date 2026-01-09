@@ -6,29 +6,45 @@ interface ActionButtonsProps {
     onLocationClick: () => void;
 }
 
+// ... imports
+// ... props
+
 const AuthActionButtons = ({ onExerciseClick, onLocationClick }: ActionButtonsProps) => {
     return (
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-col gap-6 w-full">
             <button
                 onClick={onExerciseClick}
-                className="w-full bg-[#FAB12F] hover:opacity-90 text-white font-bold py-5 rounded-2xl shadow-md flex items-center justify-center gap-3 transition-colors text-xl"
+                style={{ fontSize: '20px' }}
+                className="w-full h-[56px] bg-[#FAB12F] hover:opacity-90 text-white font-bold rounded-xl shadow-md flex items-center justify-center gap-3 transition-colors"
             >
-                {/* Runner Icon - FontAwesome Running Solid */}
+                {/* Runner Icon */}
+                {/* ... svg ... */}
                 <svg
                     width="32"
                     height="32"
-                    viewBox="0 0 512 512"
-                    fill="currentColor"
+                    viewBox="0 0 31 31"
+                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                 >
-                    <path d="M384 176c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM19.2 249.6c-4.4 12.2 .4 25.7 11.2 32.7l77.4 50.3c15.1 9.8 19.3 29.8 9.6 44.9l-25.1 39.1c-13.4 20.8-7.5 48.7 13.3 62.1s48.7 7.5 62.1-13.3l25.1-39.1c32.3-50.2 18.2-117.1-32.2-149.8L111.4 244l40.4-20.2c47-23.5 103.8-13.9 140.2 22.5l29 29 0 0c14.6 14.6 35.8 19.3 55.3 12.2l48-17.5c16.1-5.9 24.6-23.9 18.7-40s-23.9-24.6-40-18.7l-35.1 12.8-24.6-24.6c-54.6-54.6-139.8-69.1-210.4-33.8L59.6 198.2c-15.6 7.8-25.9 24.2-25.4 41.6c.5 17.5 11.2 33.3 27.6 39.5L19.2 249.6zM288 304l-30.1-52.7c-9.1-16 1.1-36.1 19.3-38.3l85.2-10.7c20.3-2.5 35.8 17.6 28.6 36.8L348.6 352c-7.9 21-33.3 31.9-54.3 23c-20.7-8.7-30.8-31.9-22.3-52.4l16-38.6z" />
+                    <g clipPath="url(#clip0_7_1406)">
+                        <path
+                            d="M24.6305 5.47329C23.7586 6.70845 22.0633 6.99907 20.8282 6.15141C19.593 5.30376 19.3024 3.58423 20.15 2.34907C21.0219 1.11391 22.7172 0.82329 23.9524 1.67095C25.1875 2.5186 25.5024 4.23813 24.6305 5.47329ZM30.7821 8.50063L27.5852 13.1022C27.2219 13.6592 26.4711 13.7803 25.9141 13.417L21.3125 10.2202L16.3961 17.51L20.586 20.4405C20.9493 20.6827 21.2399 21.0944 21.3125 21.5303L22.4993 28.2389C22.6446 29.1592 22.0149 30.0553 21.0946 30.2249C20.1743 30.3702 19.2782 29.7405 19.1086 28.8202L18.043 22.7897L12.7633 19.0358C12.7633 19.0358 9.97817 23.0561 9.78442 23.2983C9.59067 23.5405 9.42113 23.8795 9.10629 24.0491C8.69457 24.2913 8.2102 24.3155 7.79848 24.2186L1.21098 22.4506C0.314886 22.2084 -0.217927 21.2881 0.0242603 20.3678C0.266448 19.4717 1.18676 18.9389 2.10707 19.1811L7.50785 20.61L16.1297 8.08891H12.8118L9.97817 12.1577C9.61489 12.7147 8.8641 12.8358 8.30707 12.4725C7.75004 12.1092 7.62895 11.3584 7.99223 10.8014L11.1891 6.22407C11.4313 5.86079 11.843 5.66704 12.2547 5.71548H17.7766C18.6 5.71548 19.4235 5.95766 20.1258 6.46626L21.8938 7.72563L26.2532 10.8014L28.8204 7.1686C29.1836 6.61157 29.9344 6.49048 30.4914 6.85376C31.0485 7.21704 31.1696 7.99204 30.7821 8.50063Z"
+                            fill="currentColor"
+                        />
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_7_1406">
+                            <rect width="31" height="31" fill="white" />
+                        </clipPath>
+                    </defs>
                 </svg>
                 운동 인증하기
             </button>
 
             <button
                 onClick={onLocationClick}
-                className="w-full bg-[#FAB12F] hover:opacity-90 text-white font-bold py-5 rounded-2xl shadow-md flex items-center justify-center gap-3 transition-colors text-xl"
+                style={{ fontSize: '20px' }}
+                className="w-full h-[56px] bg-[#FAB12F] hover:opacity-90 text-white font-bold rounded-xl shadow-md flex items-center justify-center gap-3 transition-colors"
             >
                 {/* Pin Icon */}
                 <svg

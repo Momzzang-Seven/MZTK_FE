@@ -38,7 +38,7 @@ const Callback = () => {
           const { userInfo, accessToken } = response.data;
           setUser(userInfo);
           setAccessToken(accessToken);
-          navigate("/");
+          navigate("/onboarding");
         }
       } catch (err: unknown) {
         if (err instanceof Error) console.error("Login failed", err.message);

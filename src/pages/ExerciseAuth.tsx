@@ -1,4 +1,10 @@
 import { useState, useEffect, useRef } from "react";
+
+// ... (existing imports, but this tool only replaces chunks, so I need to be careful with imports)
+// Wait, I cannot add import at top and replace body in one go with replace_file_content unless contiguous.
+// I will do two edits or use multi_replace.
+// Let's use multi_replace.
+
 import { useNavigate } from "react-router-dom";
 
 const ExerciseAuth = () => {
@@ -55,7 +61,7 @@ const ExerciseAuth = () => {
   return (
     <div className="flex flex-col h-full bg-white px-5 pt-6 pb-20 overflow-y-auto min-h-screen">
       {/* Header */}
-      <h1 className="text-2xl font-bold text-left text-[#FAB12F] mb-8">
+      <h1 className="text-2xl font-bold text-left text-[#FAB12F] mb-14">
         운동 인증하기
       </h1>
 
@@ -63,7 +69,7 @@ const ExerciseAuth = () => {
       {step === "upload" && (
         <div className="flex flex-col flex-1 animate-fade-in">
           {/* Guide Banner */}
-          <div className="bg-[#FAB12F] text-white p-4 rounded-xl mb-6 shadow-md">
+          <div className="bg-[#FAB12F] text-white p-4 rounded-xl mb-6 shadow-md mt-5">
             <div className="flex items-start gap-2">
               <span className="font-bold bg-white text-[#FAB12F] rounded-full w-5 h-5 flex items-center justify-center text-xs mt-0.5 shrink-0">
                 1
@@ -129,11 +135,10 @@ const ExerciseAuth = () => {
           {/* Upload Button */}
           <button
             onClick={handleUpload}
-            className={`w-full font-bold py-4 rounded-2xl shadow-md transition-colors text-lg ${
-              selectedFile
-                ? "bg-[#FAB12F] hover:opacity-90 text-white"
-                : "bg-gray-300 text-gray-500 cursor-not-allowed"
-            }`}
+            className={`w-full font-bold py-4 rounded-2xl shadow-md transition-colors text-lg ${selectedFile
+              ? "bg-[#FAB12F] hover:opacity-90 text-white"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+              }`}
           >
             등록
           </button>
@@ -194,35 +199,44 @@ const ExerciseAuth = () => {
 
       {/* Step 3: Result */}
       {step === "result" && (
-        <div className="flex flex-col flex-1 items-center justify-center animate-fade-in">
-          {/* Dumbbell Icon - FontAwesome Solid */}
-          <div className="mb-8 text-[#FAB12F]">
-            <svg
-              width="120"
-              height="77"
-              viewBox="0 0 100 64"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect x="0" y="12" width="14" height="40" rx="7" />
-              <rect x="19" y="0" width="14" height="64" rx="7" />
-              <rect x="33" y="26" width="34" height="12" />
-              <rect x="67" y="0" width="14" height="64" rx="7" />
-              <rect x="86" y="12" width="14" height="40" rx="7" />
-            </svg>
+        <div className="flex flex-col flex-1 animate-fade-in">
+          {/* Main Content (Centered) */}
+          <div className="flex-grow flex flex-col items-center justify-center pt-32">
+            {/* Dumbbell Icon - FontAwesome Solid */}
+            <div className="mb-8 text-[#FAB12F]">
+              <svg
+                width="220"
+                height="100"
+                viewBox="0 0 150 64"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="none"
+              >
+                <rect x="0" y="12" width="14" height="40" rx="7" />
+                <rect x="19" y="0" width="14" height="64" rx="7" />
+                <rect x="33" y="27" width="84" height="10" />
+                <rect x="117" y="0" width="14" height="64" rx="7" />
+                <rect x="136" y="12" width="14" height="40" rx="7" />
+              </svg>
+            </div>
+
+            <div className="h-32"></div>
+
+            <h2 className="text-3xl font-bold text-[#FAB12F] mb-2">
+              오늘도 운동 성공!
+            </h2>
+            <p className="text-[#FAB12F] font-bold text-3xl">+10XP</p>
           </div>
 
-          <h2 className="text-2xl font-bold text-[#FAB12F] mb-2">
-            오늘도 운동 성공!
-          </h2>
-          <p className="text-[#FAB12F] font-bold mb-10 text-xl">+10XP</p>
-
-          <button
-            onClick={handleHome}
-            className="w-full bg-[#FAB12F] hover:opacity-90 text-white font-bold py-4 rounded-2xl shadow-md transition-colors text-lg"
-          >
-            홈으로 돌아가기
-          </button>
+          {/* Bottom Button */}
+          <div className="w-full pb-8">
+            <button
+              onClick={handleHome}
+              className="w-full bg-[#FAB12F] hover:opacity-90 text-white font-bold py-4 rounded-2xl shadow-md transition-colors text-lg"
+            >
+              홈으로 돌아가기
+            </button>
+          </div>
         </div>
       )}
     </div>

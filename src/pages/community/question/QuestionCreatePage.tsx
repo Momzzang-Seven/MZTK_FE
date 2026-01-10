@@ -1,4 +1,4 @@
-const Community = () => {
+const QuestionCreatePage = () => {
   return (
     <div className="flex flex-1 flex-col gap-y-5 items-center justify-center">
       <img src="/icon/error.svg" alt="errorIcon" width="60px" />
@@ -7,4 +7,4 @@ const Community = () => {
   );
 };
 
-export default Community;
+export default QuestionCreatePage;

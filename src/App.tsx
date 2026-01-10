@@ -1,5 +1,19 @@
 import { Layout } from "@components/layout";
-import { Callback, Community, Err404, Home, Login, My, Verify } from "@pages";
+import {
+  Callback,
+  Err404,
+  Home,
+  Login,
+  My,
+  MyTx,
+  Verify,
+  FreeListPage,
+  FreeDetailPage,
+  FreeCreatePage,
+  QuestionListPage,
+  QuestionDetailPage,
+  QuestionCreatePage,
+} from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
 import Onboarding from "./pages/Onboarding";
 
@@ -19,8 +33,26 @@ function App() {
           {/* Protected Routes (Temporarily Open) */}
           <Route path="/" element={<Home />} />
           <Route path="/verify" element={<Verify />} />
-          <Route path="/community" element={<Community />} />
+          {/* Community */}
+          <Route path="/community" element={<FreeListPage />} />
+          <Route path="/community/free" element={<FreeListPage />} />
+          <Route path="/community/free/postId" element={<FreeDetailPage />} />
+          <Route path="/community/free/new" element={<FreeCreatePage />} />
+          <Route path="/community/question" element={<QuestionListPage />} />
+          <Route
+            path="/community/question/:postId"
+            element={<QuestionDetailPage />}
+          />
+          <Route
+            path="/community/question/new"
+            element={<QuestionCreatePage />}
+          />
+          {/* my */}
           <Route path="/my" element={<My />} />
+          {/* Auth */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/callback" element={<Callback />} />
+          <Route path="/login-success" element={<Navigate to="/" replace />} />
           <Route path="/exercise-auth" element={<ExerciseAuth />} />
 
           {/* Error */}

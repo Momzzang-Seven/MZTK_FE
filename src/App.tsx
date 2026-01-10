@@ -5,6 +5,7 @@ import {
   Home,
   Login,
   My,
+  MyTx,
   Verify,
   FreeListPage,
   FreeDetailPage,

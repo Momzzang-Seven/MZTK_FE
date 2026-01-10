@@ -41,6 +41,7 @@ function App() {
           />
           {/* my */}
           <Route path="/my" element={<My />} />
+          <Route path="/myTknTx" element={<MyTx />} />
           {/* Auth */}
           <Route path="/login" element={<Login />} />
           <Route path="/callback" element={<Callback />} />

@@ -1,8 +1,19 @@
+import {
+  CurrentTkn,
+  LevelProgress,
+  LevelReward,
+  TxTkn,
+  UserProfile,
+} from "@components/my";
+
 const My = () => {
   return (
-    <div className="flex flex-1 flex-col gap-y-5 items-center justify-center">
-      <img src="/icon/error.svg" alt="errorIcon" width="60px" />
-      <div className="title">프론트엔드 테스트</div>
+    <div className="flex flex-1 flex-col pt-[38px] px-[22px] gap-y-5 items-start justify-start">
+      <UserProfile />
+      <CurrentTkn />
+      <TxTkn />
+      <LevelProgress />
+      <LevelReward />
     </div>
   );
 };

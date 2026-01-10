@@ -51,7 +51,9 @@
       "@context": ["src/context"],
       "@context/*": ["src/context/*"],
       "@abi": ["src/abi"],
-      "@abi/*": ["src/abi/*"]
+      "@abi/*": ["src/abi/*"],
+      "@types": ["src/types"],
+      "@types/*": ["src/types/*"],
     }
   },
   "resolveJsonModule": true,

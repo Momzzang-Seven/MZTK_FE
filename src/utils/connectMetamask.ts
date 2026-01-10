@@ -14,7 +14,7 @@ export const connectMetamask = async () => {
 
 export const loginWithMetamask = async () => {
   try {
-    const { signer, address } = await connectMetamask();
+    const { address } = await connectMetamask();
 
     // Issue challenge
     const challengeMsg = await PostIssueChallenge(address);
@@ -53,7 +53,7 @@ export const loginWithMetamask = async () => {
     // Verify
     const response = await PostVerifyChallenge(address, signature);
     // Expecting response to contain { userInfo, accessToken } like other logins
-    // If backend only returns jwt, we might need to map it. 
+    // If backend only returns jwt, we might need to map it.
     // For now assuming the backend will follow the standard LoginResponseDTO structure.
 
     // Check if response has data property (axios response) or if PostVerifyChallenge returns data directly

@@ -12,4 +12,12 @@ export const headerByPath: HeaderByPathType[] = [
     label: "운동 인증하기",
     path: "/verify/health",
   },
+  {
+    label: "댓글",
+    path: "/community/free/postId",
+  },
+  {
+    label: "새 게시물",
+    path: "/community/free/new",
+  },
 ];

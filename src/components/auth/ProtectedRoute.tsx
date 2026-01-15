@@ -1,9 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useUserStore } from "@store";
 
 const ProtectedRoute = () => {
-    // Check for authentication token in store
-    const isAuthenticated = useUserStore((state) => state.isAuthenticated);
+    // Check for authentication token in localStorage
+    const isAuthenticated = !!localStorage.getItem("accessToken");
 
     if (!isAuthenticated) {
         // If not authenticated, redirect to login page

@@ -35,7 +35,8 @@ export const useUserStore = create<UserState>()(
             partialize: (state) => ({
                 user: state.user,
                 isAuthenticated: state.isAuthenticated,
-            }), // accessToken is NOT persisted
+                accessToken: state.accessToken,
+            }),
         }
     )
 );

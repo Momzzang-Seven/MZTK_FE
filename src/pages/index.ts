@@ -5,4 +5,6 @@ export { default as MyTx } from "./MyTx";
 export { default as Login } from "./Login";
 export { default as Callback } from "./Callback";
 export { default as Err404 } from "./Err404";
+export { default as Market } from "./Market";
+export { default as Leaderboard } from "./Leaderboard";
 export * from './community';

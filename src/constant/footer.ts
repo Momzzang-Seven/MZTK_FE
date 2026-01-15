@@ -13,22 +13,16 @@ export const footerItem: FooterItemType[] = [
     path: "/",
   },
   {
-    label: "리더보드",
-    src: "/icon/leaderboard.svg",
-    activeSrc: "/icon/leaderboardActive.svg",
-    path: "/leaderboard",
+    label: "인증",
+    src: "/icon/verify.svg",
+    activeSrc: "/icon/verifyActive.svg",
+    path: "/verify",
   },
   {
     label: "커뮤니티",
     src: "/icon/community.svg",
     activeSrc: "/icon/communityActive.svg",
     path: "/community",
-  },
-  {
-    label: "마켓",
-    src: "/icon/market.svg",
-    activeSrc: "/icon/marketActive.svg",
-    path: "/market",
   },
   {
     label: "마이페이지",

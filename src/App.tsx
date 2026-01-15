@@ -13,10 +13,6 @@ import {
   QuestionListPage,
   QuestionDetailPage,
   QuestionCreatePage,
-  Market,
-  MarketDetail,
-  MarketPurchase,
-  Leaderboard,
 } from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
 import Onboarding from "./pages/Onboarding";
@@ -39,10 +35,6 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/verify" element={<Verify />} />
             {/* Community */}
-            <Route path="/market" element={<Market />} />
-            <Route path="/market/:id" element={<MarketDetail />} />
-            <Route path="/market/:id/purchase" element={<MarketPurchase />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/community" element={<FreeListPage />} />
             <Route path="/community/free" element={<FreeListPage />} />
             <Route path="/community/free/postId" element={<FreeDetailPage />} />

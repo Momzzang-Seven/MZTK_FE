@@ -12,6 +12,8 @@ import {
   FreeCreatePage,
   QuestionListPage,
   QuestionDetailPage,
+  Market,
+  Leaderboard,
   QuestionCreatePage,
 } from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
@@ -35,6 +37,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/verify" element={<Verify />} />
             {/* Community */}
+            <Route path="/market" element={<Market />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/community" element={<FreeListPage />} />
             <Route path="/community/free" element={<FreeListPage />} />
             <Route path="/community/free/postId" element={<FreeDetailPage />} />

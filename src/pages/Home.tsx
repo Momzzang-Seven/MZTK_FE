@@ -1,26 +1,28 @@
-import { AttendanceBanner, LevelProgress, AuthActionButtons } from "@components/home";
+import { AttendanceBanner, LevelProgress, AuthActionButtons, AuthChoiceModal } from "@components/home";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const handleExerciseAuth = () => {
-    navigate("/exercise-auth");
+    setIsAuthModalOpen(true);
   };
 
   const handleLocationAuth = () => {
     // Navigate to location auth page (future)
     console.log("Navigate to Location Auth");
-    alert("위치 인증 페이지로 이동합니다 (준비중)");
+    alert("위치 인증 페이지으로 이동합니다 (준비중)");
   };
 
   return (
-    <div className="flex flex-col h-full bg-white px-5 pt-6 pb-20 overflow-y-auto">
+    <div className="flex flex-col h-full bg-white px-5 pt-6 pb-20 overflow-y-auto gap-5 relative">
       {/* 1. Banner */}
       <AttendanceBanner />
 
       {/* 2. Level Progress (Center) */}
-      <div className="flex-1 flex items-center justify-center mb-10 pt-16">
+      <div className="w-full flex justify-center -mt-4">
         <LevelProgress />
       </div>
 
@@ -28,6 +30,12 @@ const Home = () => {
       <AuthActionButtons
         onExerciseClick={handleExerciseAuth}
         onLocationClick={handleLocationAuth}
+      />
+
+      {/* Auth Method Selection Modal */}
+      <AuthChoiceModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
       />
     </div>
   );

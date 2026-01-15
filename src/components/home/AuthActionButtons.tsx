@@ -1,67 +1,82 @@
+import { useUserStore } from "@store";
+import { useEffect, useState } from "react";
 
-
-
-interface ActionButtonsProps {
+interface AuthActionButtonsProps {
     onExerciseClick: () => void;
     onLocationClick: () => void;
 }
 
-// ... imports
-// ... props
+export const AuthActionButtons = ({ onExerciseClick, onLocationClick }: AuthActionButtonsProps) => {
+    const { checkAttendance, lastAttendanceDate, lastExerciseDate } = useUserStore();
+    const [isAttended, setIsAttended] = useState(false);
+    const [isExerciseDone, setIsExerciseDone] = useState(false);
 
-const AuthActionButtons = ({ onExerciseClick, onLocationClick }: ActionButtonsProps) => {
+    useEffect(() => {
+        const today = new Date().toISOString().split("T")[0];
+        setIsAttended(lastAttendanceDate === today);
+        setIsExerciseDone(lastExerciseDate === today);
+    }, [lastAttendanceDate, lastExerciseDate]);
+
+    const handleAttendance = () => {
+        const result = checkAttendance();
+        if (result.success) {
+            alert(result.message);
+        } else {
+            alert(result.message);
+        }
+    };
+
+    const activeStyle = "bg-[#FFC107] text-white shadow-lg active:scale-95 border-none cursor-pointer";
+    const inactiveStyle = "!bg-white border-2 border-dashed border-gray-300 text-gray-400 cursor-default";
+
     return (
-        <div className="flex flex-col gap-6 w-full">
+        <div className="w-full flex flex-col gap-4">
+            {/* Attendance Button */}
             <button
-                onClick={onExerciseClick}
-                style={{ fontSize: '20px' }}
-                className="w-full h-[56px] bg-[#FAB12F] hover:opacity-90 text-white font-bold rounded-xl shadow-md flex items-center justify-center gap-3 transition-colors"
+                onClick={isAttended ? undefined : handleAttendance}
+                className={`w-full flex items-center gap-5 p-6 rounded-3xl transition-all text-left ${isAttended ? inactiveStyle : activeStyle}`}
             >
-                {/* Runner Icon */}
-                {/* ... svg ... */}
-                <svg
-                    width="32"
-                    height="32"
-                    viewBox="0 0 31 31"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <g clipPath="url(#clip0_7_1406)">
-                        <path
-                            d="M24.6305 5.47329C23.7586 6.70845 22.0633 6.99907 20.8282 6.15141C19.593 5.30376 19.3024 3.58423 20.15 2.34907C21.0219 1.11391 22.7172 0.82329 23.9524 1.67095C25.1875 2.5186 25.5024 4.23813 24.6305 5.47329ZM30.7821 8.50063L27.5852 13.1022C27.2219 13.6592 26.4711 13.7803 25.9141 13.417L21.3125 10.2202L16.3961 17.51L20.586 20.4405C20.9493 20.6827 21.2399 21.0944 21.3125 21.5303L22.4993 28.2389C22.6446 29.1592 22.0149 30.0553 21.0946 30.2249C20.1743 30.3702 19.2782 29.7405 19.1086 28.8202L18.043 22.7897L12.7633 19.0358C12.7633 19.0358 9.97817 23.0561 9.78442 23.2983C9.59067 23.5405 9.42113 23.8795 9.10629 24.0491C8.69457 24.2913 8.2102 24.3155 7.79848 24.2186L1.21098 22.4506C0.314886 22.2084 -0.217927 21.2881 0.0242603 20.3678C0.266448 19.4717 1.18676 18.9389 2.10707 19.1811L7.50785 20.61L16.1297 8.08891H12.8118L9.97817 12.1577C9.61489 12.7147 8.8641 12.8358 8.30707 12.4725C7.75004 12.1092 7.62895 11.3584 7.99223 10.8014L11.1891 6.22407C11.4313 5.86079 11.843 5.66704 12.2547 5.71548H17.7766C18.6 5.71548 19.4235 5.95766 20.1258 6.46626L21.8938 7.72563L26.2532 10.8014L28.8204 7.1686C29.1836 6.61157 29.9344 6.49048 30.4914 6.85376C31.0485 7.21704 31.1696 7.99204 30.7821 8.50063Z"
-                            fill="currentColor"
-                        />
-                    </g>
-                    <defs>
-                        <clipPath id="clip0_7_1406">
-                            <rect width="31" height="31" fill="white" />
-                        </clipPath>
-                    </defs>
-                </svg>
-                운동 인증하기
+                {/* Icon Circle */}
+                <div className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 ${isAttended ? "bg-transparent" : "bg-white/25"}`}>
+                    <img
+                        src="/icon/clock.svg"
+                        alt="clock"
+                        className={`w-8 h-8 ${isAttended ? "brightness-0 opacity-40" : "brightness-0 invert"}`}
+                    />
+                </div>
+
+                <div className="flex flex-col items-start gap-1">
+                    <div className="font-bold text-xl">
+                        {isAttended ? "오늘의 출석 완료!" : "출석 인증하고 10XP 받기"}
+                    </div>
+                    <div className={`text-sm font-medium ${isAttended ? "opacity-70" : "opacity-90"}`}>
+                        {isAttended ? "수고하셨어요! 우리 내일 봐요 +_+" : "7일 연속 출석 시 +100XP 추가 보상"}
+                    </div>
+                </div>
             </button>
 
+            {/* Exercise Button */}
             <button
-                onClick={onLocationClick}
-                style={{ fontSize: '20px' }}
-                className="w-full h-[56px] bg-[#FAB12F] hover:opacity-90 text-white font-bold rounded-xl shadow-md flex items-center justify-center gap-3 transition-colors"
+                onClick={isExerciseDone ? undefined : onExerciseClick}
+                className={`w-full flex items-center gap-5 p-6 rounded-3xl transition-all text-left ${isExerciseDone ? inactiveStyle : activeStyle}`}
             >
-                {/* Pin Icon */}
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="28"
-                    height="28"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                >
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                    <circle cx="12" cy="10" r="3" />
-                </svg>
-                위치 인증하기
+                {/* Icon Circle */}
+                <div className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 ${isExerciseDone ? "bg-transparent" : "bg-white/25"}`}>
+                    <img
+                        src="/icon/dumbell.svg"
+                        alt="dumbell"
+                        className={`w-8 h-8 ${isExerciseDone ? "brightness-0 opacity-40" : "brightness-0 invert"}`}
+                    />
+                </div>
+
+                <div className="flex flex-col items-start gap-1">
+                    <div className="font-bold text-xl">
+                        {isExerciseDone ? "오늘의 운동 완료!" : "오늘의 운동 인증하기"}
+                    </div>
+                    <div className={`text-sm font-medium ${isExerciseDone ? "opacity-70" : "text-white/90"}`}>
+                        {isExerciseDone ? "고생하셨어요! ( •̀ ω •́ )✧" : "하루에 1번 100XP 획득 가능!"}
+                    </div>
+                </div>
             </button>
         </div>
     );

@@ -39,6 +39,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/verify" element={<Verify />} />
             {/* Community */}
+            {/* <Route path="/market" element={<Market />} /> */}
             <Route path="/market" element={<Market />} />
             <Route path="/market/:id" element={<MarketDetail />} />
             <Route path="/market/:id/purchase" element={<MarketPurchase />} />

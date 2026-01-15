@@ -1,9 +1,7 @@
 import { CommonButton } from "@components/common";
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);

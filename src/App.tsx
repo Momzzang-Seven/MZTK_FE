@@ -14,6 +14,7 @@ import {
   QuestionDetailPage,
   Market,
   MarketDetail,
+  MarketPurchase,
   Leaderboard,
   QuestionCreatePage,
 } from "@pages";
@@ -41,6 +42,7 @@ function App() {
             {/* <Route path="/market" element={<Market />} /> */}
             <Route path="/market" element={<Market />} />
             <Route path="/market/:id" element={<MarketDetail />} />
+            <Route path="/market/:id/purchase" element={<MarketPurchase />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/community" element={<FreeListPage />} />
             <Route path="/community/free" element={<FreeListPage />} />

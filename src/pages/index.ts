@@ -8,4 +8,5 @@ export { default as Err404 } from "./Err404";
 export { default as Market } from "./Market";
 export { default as Leaderboard } from "./Leaderboard";
 export { default as MarketDetail } from "./MarketDetail";
+export { default as MarketPurchase } from "./MarketPurchase";
 export * from './community';

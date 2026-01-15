@@ -57,7 +57,7 @@ export const useUserStore = create<UserState>()(
             addXp: (amount) => set((state) => ({ xp: state.xp + amount })),
 
             checkAttendance: () => {
-                const { lastAttendanceDate, attendanceStreak, addXp } = get();
+                const { lastAttendanceDate, attendanceStreak } = get();
                 const today = new Date().toISOString().split("T")[0];
 
                 if (lastAttendanceDate === today) {
@@ -92,7 +92,7 @@ export const useUserStore = create<UserState>()(
             },
 
             completeExercise: () => {
-                const { lastExerciseDate, addXp } = get();
+                const { lastExerciseDate } = get();
                 const today = new Date().toISOString().split("T")[0];
 
                 if (lastExerciseDate === today) {

@@ -1,4 +1,4 @@
-import React, { createPortal } from "react-dom";
+import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 
 interface AuthChoiceModalProps {
@@ -29,9 +29,6 @@ export const AuthChoiceModal = ({ isOpen, onClose }: AuthChoiceModalProps) => {
         alert("기록 인증 페이지 준비 중입니다.");
         onClose();
     };
-
-    // Filter to convert black to #FAB12F (Orange)
-    const orangeFilter = "invert(76%) sepia(68%) saturate(548%) hue-rotate(322deg) brightness(101%) contrast(97%)";
 
     return createPortal(
         <div className="fixed inset-0 z-[9999] flex items-center justify-center px-6">

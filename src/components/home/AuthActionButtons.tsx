@@ -6,7 +6,7 @@ interface AuthActionButtonsProps {
     onLocationClick: () => void;
 }
 
-export const AuthActionButtons = ({ onExerciseClick, onLocationClick }: AuthActionButtonsProps) => {
+export const AuthActionButtons = ({ onExerciseClick }: AuthActionButtonsProps) => {
     const { checkAttendance, lastAttendanceDate, lastExerciseDate } = useUserStore();
     const [isAttended, setIsAttended] = useState(false);
     const [isExerciseDone, setIsExerciseDone] = useState(false);

@@ -1,9 +1,7 @@
 import { AttendanceBanner, LevelProgress, AuthActionButtons, AuthChoiceModal } from "@components/home";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const navigate = useNavigate();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const handleExerciseAuth = () => {

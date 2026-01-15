@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useUserStore } from "@store/userStore";
 
 // ... (existing imports, but this tool only replaces chunks, so I need to be careful with imports)
 // Wait, I cannot add import at top and replace body in one go with replace_file_content unless contiguous.
@@ -55,6 +56,11 @@ const ExerciseAuth = () => {
   };
 
   const handleHome = () => {
+    const { completeExercise } = useUserStore.getState();
+    const result = completeExercise();
+    if (result.success) {
+      console.log("Exercise completed:", result.message);
+    }
     navigate("/");
   };
 
@@ -69,23 +75,18 @@ const ExerciseAuth = () => {
       {step === "upload" && (
         <div className="flex flex-col flex-1 animate-fade-in">
           {/* Guide Banner */}
-          <div className="bg-[#FAB12F] text-white p-4 rounded-xl mb-6 shadow-md mt-5">
-            <div className="flex items-start gap-2">
-              <span className="font-bold bg-white text-[#FAB12F] rounded-full w-5 h-5 flex items-center justify-center text-xs mt-0.5 shrink-0">
-                1
-              </span>
-              <p className="font-medium text-sm leading-relaxed">
-                러닝 기록이 보이는 사진이나 파일을 올려주세요.
-                <br />
-                업로드하신 사진은 자동으로 분석됩니다.
-              </p>
-            </div>
+          <div className="bg-[#FAB12F] text-white p-6 rounded-2xl mb-8 shadow-sm mt-2">
+            <p className="font-bold text-lg leading-relaxed whitespace-pre-line text-left">
+              땀 흘린 당신, 오늘의 운동을 인증하세요!
+              <br />
+              업로드하신 사진은 자동으로 분석됩니다.
+            </p>
           </div>
 
           {/* Image Upload Area */}
           <div
             onClick={triggerFileUpload}
-            className="flex-1 bg-gray-100 rounded-xl flex flex-col items-center justify-center text-gray-400 mb-8 min-h-[300px] border-2 border-dashed border-gray-300 cursor-pointer hover:bg-gray-50 transition-colors overflow-hidden relative"
+            className="flex-1 bg-[#F3F4F6] rounded-xl flex flex-col items-center justify-center text-gray-400 mb-8 min-h-[400px] cursor-pointer hover:bg-gray-200 transition-colors overflow-hidden relative"
           >
             <input
               type="file"
@@ -102,43 +103,22 @@ const ExerciseAuth = () => {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <>
-                <div className="bg-gray-200 p-4 rounded-full mb-3">
-                  <svg
-                    width="32"
-                    height="32"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <rect
-                      x="3"
-                      y="3"
-                      width="18"
-                      height="18"
-                      rx="2"
-                      ry="2"
-                    ></rect>
-                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                    <polyline points="21 15 16 10 5 21"></polyline>
-                  </svg>
-                </div>
-                <p className="text-sm">등록된 사진이 없습니다.</p>
-                <p className="text-xs mt-1">권장 크기 750x750 (px)</p>
-              </>
+              <div className="flex flex-col items-center gap-2">
+                {/* Red Badge for 2 if needed, but skipping for clean look as per text request first, or I can add a pseudo badge if user insists on exact match of the red bubbles. The user said 'screen like this', the red bubbles might be annotations. I will assume they are annotations. */}
+                <p className="text-gray-500 font-bold text-lg">등록된 사진이 없습니다.</p>
+                <p className="text-gray-400 text-sm">권장 크기 750x750 (px)</p>
+              </div>
             )}
           </div>
 
           {/* Upload Button */}
           <button
             onClick={handleUpload}
-            className={`w-full font-bold py-4 rounded-2xl shadow-md transition-colors text-lg ${selectedFile
-              ? "bg-[#FAB12F] hover:opacity-90 text-white"
-              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            className={`w-full font-bold py-4 rounded-2xl border-2 text-xl transition-all ${selectedFile
+              ? "bg-white border-[#FAB12F] text-[#FAB12F] shadow-md active:scale-95"
+              : "bg-white border-gray-300 text-gray-300 cursor-not-allowed"
               }`}
+            disabled={!selectedFile}
           >
             등록
           </button>

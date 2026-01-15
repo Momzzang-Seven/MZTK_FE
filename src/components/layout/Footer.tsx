@@ -11,7 +11,10 @@ export const Footer = () => {
       <div className="w-full grid grid-cols-5 col-span-5">
         {footerItem.map((item) => {
           const path = location.pathname;
-          const isActive = path === item.path;
+          // Home ('/') should be exact match, others can be prefix matches
+          const isActive = item.path === "/"
+            ? path === "/"
+            : path.startsWith(item.path);
 
           return (
             <button

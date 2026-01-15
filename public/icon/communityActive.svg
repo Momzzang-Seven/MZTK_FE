@@ -1,13 +1,6 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_10_2090)">
-<path d="M8.5 4H5.5C4.67157 4 4 4.67157 4 5.5V9.5C4 10.3284 4.67157 11 5.5 11H8.5C9.32843 11 10 10.3284 10 9.5V5.5C10 4.67157 9.32843 4 8.5 4Z" stroke="#FAB12F" stroke-linejoin="round"/>
-<path d="M18.5 4H15.5C14.6716 4 14 4.67157 14 5.5V6.5C14 7.32843 14.6716 8 15.5 8H18.5C19.3284 8 20 7.32843 20 6.5V5.5C20 4.67157 19.3284 4 18.5 4Z" stroke="#FAB12F" stroke-linejoin="round"/>
-<path d="M18.5 12H15.5C14.6716 12 14 12.6716 14 13.5V18.5C14 19.3284 14.6716 20 15.5 20H18.5C19.3284 20 20 19.3284 20 18.5V13.5C20 12.6716 19.3284 12 18.5 12Z" stroke="#FAB12F" stroke-linejoin="round"/>
-<path d="M8.5 15H5.5C4.67157 15 4 15.6716 4 16.5V18.5C4 19.3284 4.67157 20 5.5 20H8.5C9.32843 20 10 19.3284 10 18.5V16.5C10 15.6716 9.32843 15 8.5 15Z" stroke="#FAB12F" stroke-linejoin="round"/>
-</g>
-<defs>
-<clipPath id="clip0_10_2090">
-<rect width="24" height="24" fill="white"/>
-</clipPath>
-</defs>
+<svg width="27" height="21" viewBox="0 0 27 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.196 9.83319C12.7512 9.83319 14.8226 7.74387 14.8226 5.1666C14.8226 2.58932 12.7512 0.5 10.196 0.5C7.64076 0.5 5.56934 2.58932 5.56934 5.1666C5.56934 7.74387 7.64076 9.83319 10.196 9.83319Z" stroke="#FAB12F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13.3053 9.8335C15.0731 12.1514 16.2394 15.714 16.3622 19.7488C16.3745 20.1566 16.178 20.5 15.9448 20.5H0.930233C0.684698 20.5 0.488269 20.1566 0.500546 19.7488C0.63559 15.714 1.8019 12.1514 3.58203 9.8335" stroke="#FAB12F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M20.1102 13.8334C22.3005 13.8334 24.0759 12.0425 24.0759 9.83343C24.0759 7.62436 22.3005 5.8335 20.1102 5.8335C17.9201 5.8335 16.1445 7.62436 16.1445 9.83343C16.1445 12.0425 17.9201 13.8334 20.1102 13.8334Z" stroke="#FAB12F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M24.3486 13.8325C25.5853 15.3732 26.3918 17.4347 26.4993 19.6914C26.5172 19.9952 26.3201 20.2122 26.0692 20.2122H19.1152" stroke="#FAB12F" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

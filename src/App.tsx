@@ -13,6 +13,7 @@ import {
   QuestionListPage,
   QuestionDetailPage,
   Market,
+  MarketDetail,
   Leaderboard,
   QuestionCreatePage,
 } from "@pages";
@@ -37,7 +38,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/verify" element={<Verify />} />
             {/* Community */}
+            {/* <Route path="/market" element={<Market />} /> */}
             <Route path="/market" element={<Market />} />
+            <Route path="/market/:id" element={<MarketDetail />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/community" element={<FreeListPage />} />
             <Route path="/community/free" element={<FreeListPage />} />

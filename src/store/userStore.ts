@@ -29,6 +29,7 @@ interface UserState {
         message: string;
     };
     analysisStatus: 'idle' | 'analyzing' | 'completed';
+    analysisType: 'exercise' | 'record' | null;
     analysisTargetTime: number | null; // Timestamp for when analysis should 'complete' // YYYY-MM-DD
 
     setUser: (user: UserInfo) => void;
@@ -41,7 +42,7 @@ interface UserState {
     completeExercise: () => { success: boolean; message: string; rewardedXp: number };
 
     // Async Analysis Actions
-    startAnalysis: () => void;
+    startAnalysis: (type: 'exercise' | 'record') => void;
     checkAnalysisCompletion: () => void;
     closeSnackbar: () => void;
     levelUp: () => boolean;
@@ -63,6 +64,7 @@ export const useUserStore = create<UserState>()(
             lastExerciseDate: null,
             snackbar: { isOpen: false, message: "" },
             analysisStatus: 'idle',
+            analysisType: null,
             analysisTargetTime: null,
 
             setUser: (user) => set({ user, isAuthenticated: true }),
@@ -120,26 +122,31 @@ export const useUserStore = create<UserState>()(
                 return { success: true, message: "분석 시작", rewardedXp: 0 };
             },
 
-            startAnalysis: () => {
+            startAnalysis: (type) => {
                 const targetTime = Date.now() + 5000; // 5 seconds from now
-                set({ analysisStatus: 'analyzing', analysisTargetTime: targetTime });
+                set({ analysisStatus: 'analyzing', analysisTargetTime: targetTime, analysisType: type });
             },
 
             checkAnalysisCompletion: () => {
-                const { analysisStatus, analysisTargetTime } = get();
+                const { analysisStatus, analysisTargetTime, analysisType } = get();
                 if (analysisStatus === 'analyzing' && analysisTargetTime && Date.now() >= analysisTargetTime) {
                     // Analysis Complete!
                     const today = new Date().toISOString().split("T")[0];
                     const reward = 100; // 100 XP Reward
 
+                    const message = analysisType === 'record'
+                        ? `기록 인증 분석이 완료되었어요! 오늘도 운동 성공 +${reward}XP`
+                        : `운동 인증 분석이 완료되었어요! 오늘도 운동 성공 +${reward}XP`;
+
                     set({
                         analysisStatus: 'idle',
                         analysisTargetTime: null,
+                        analysisType: null,
                         lastExerciseDate: today,
                         xp: get().xp + reward,
                         snackbar: {
                             isOpen: true,
-                            message: `운동 인증 분석이 완료되었어요! 오늘도 운동 성공 +${reward}XP`
+                            message: message
                         }
                     });
                 }
@@ -177,6 +184,7 @@ export const useUserStore = create<UserState>()(
                 // Do not persist snackbar or running analysis across reloads purely (optional choice)
                 // but let's persist analysis to survive reload
                 analysisStatus: state.analysisStatus,
+                analysisType: state.analysisType,
                 analysisTargetTime: state.analysisTargetTime
             }),
         }

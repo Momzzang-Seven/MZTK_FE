@@ -20,6 +20,7 @@ import {
   QuestionCreatePage,
 } from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
+import RecordAuth from "./pages/RecordAuth";
 import Onboarding from "./pages/Onboarding";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
@@ -77,6 +78,7 @@ function App() {
               <Route path="/myTknTx" element={<MyTx />} />
               {/* auth */}
               <Route path="/exercise-auth" element={<ExerciseAuth />} />
+              <Route path="/record-auth" element={<RecordAuth />} />
             </Route>
 
             {/* Error */}

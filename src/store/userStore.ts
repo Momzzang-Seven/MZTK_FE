@@ -139,7 +139,7 @@ export const useUserStore = create<UserState>()(
                         xp: get().xp + reward,
                         snackbar: {
                             isOpen: true,
-                            message: `운동 인증 성공! +${reward} 포인트 지급`
+                            message: `운동 인증 분석이 완료되었어요! 오늘도 운동 성공 +${reward}XP`
                         }
                     });
                 }

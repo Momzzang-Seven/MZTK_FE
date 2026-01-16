@@ -16,7 +16,7 @@ const ExerciseAuth = () => {
   useEffect(() => {
     if (step === "analyzing") {
       // Start the analysis (mock)
-      startAnalysis();
+      startAnalysis('exercise');
 
       // Redirect to home after 2 seconds
       const timer = setTimeout(() => {

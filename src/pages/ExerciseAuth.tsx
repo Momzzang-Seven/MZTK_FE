@@ -1,37 +1,31 @@
 import { useState, useEffect, useRef } from "react";
 import { useUserStore } from "@store/userStore";
-
-// ... (existing imports, but this tool only replaces chunks, so I need to be careful with imports)
-// Wait, I cannot add import at top and replace body in one go with replace_file_content unless contiguous.
-// I will do two edits or use multi_replace.
-// Let's use multi_replace.
-
 import { useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import runnerAnimation from "@assets/runner.json";
 
 const ExerciseAuth = () => {
   const navigate = useNavigate();
-  const [step, setStep] = useState<"upload" | "analyzing" | "result">("upload");
-  const [progress, setProgress] = useState(0);
+  const { startAnalysis } = useUserStore();
+  const [step, setStep] = useState<"upload" | "analyzing">("upload");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Mock Analysis Effect
+  // Async Analysis Redirect Effect
   useEffect(() => {
     if (step === "analyzing") {
-      const interval = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 100) {
-            clearInterval(interval);
-            setStep("result");
-            return 100;
-          }
-          return prev + 2; // Speed of progress
-        });
-      }, 50);
-      return () => clearInterval(interval);
+      // Start the analysis (mock)
+      startAnalysis();
+
+      // Redirect to home after 2 seconds
+      const timer = setTimeout(() => {
+        navigate("/");
+      }, 2000);
+
+      return () => clearTimeout(timer);
     }
-  }, [step]);
+  }, [step, navigate, startAnalysis]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -51,17 +45,7 @@ const ExerciseAuth = () => {
       alert("사진을 등록해주세요!");
       return;
     }
-    // In a real app, handle actual file upload logic here
     setStep("analyzing");
-  };
-
-  const handleHome = () => {
-    const { completeExercise } = useUserStore.getState();
-    const result = completeExercise();
-    if (result.success) {
-      console.log("Exercise completed:", result.message);
-    }
-    navigate("/");
   };
 
   return (
@@ -104,7 +88,6 @@ const ExerciseAuth = () => {
               />
             ) : (
               <div className="flex flex-col items-center gap-2 -mt-20">
-                {/* Red Badge for 2 if needed, but skipping for clean look as per text request first, or I can add a pseudo badge if user insists on exact match of the red bubbles. The user said 'screen like this', the red bubbles might be annotations. I will assume they are annotations. */}
                 <p className="text-gray-500 font-bold text-lg">등록된 사진이 없습니다.</p>
                 <p className="text-gray-400 text-sm">권장 크기 750x750 (px)</p>
               </div>
@@ -125,98 +108,16 @@ const ExerciseAuth = () => {
         </div>
       )}
 
-      {/* Step 2: Analyzing */}
+      {/* Step 2: Analyzing (Async Wait Screen) */}
       {step === "analyzing" && (
-        <div className="flex flex-col flex-1 items-center justify-center animate-fade-in relative">
-          {/* Tip Banner */}
-          <div className="absolute top-0 w-full bg-gradient-to-r from-[#FAB12F] to-[#FFCC00] text-white p-4 rounded-xl mb-10 shadow-md">
-            <p className="font-bold text-sm mb-1">Tip.</p>
-            <p className="text-sm">
-              열심히 운동할수록 더 큰 보상을 받을 수 있어요!
-            </p>
+        <div className="flex flex-col flex-1 items-center justify-center animate-fade-in h-[60vh]">
+          <div className="w-64 h-64 mb-8">
+            <Lottie animationData={runnerAnimation} loop={true} />
           </div>
 
-          <div className="relative w-64 h-64 flex items-center justify-center mt-20">
-            {/* SVG Circular Progress */}
-            <svg className="w-full h-full transform -rotate-90">
-              <circle
-                cx="128"
-                cy="128"
-                r="120"
-                stroke="#f3f4f6"
-                strokeWidth="16"
-                fill="transparent"
-              />
-              <circle
-                cx="128"
-                cy="128"
-                r="120"
-                stroke="#FAB12F"
-                strokeWidth="16"
-                fill="transparent"
-                strokeDasharray={2 * Math.PI * 120}
-                strokeDashoffset={2 * Math.PI * 120 * (1 - progress / 100)}
-                strokeLinecap="round"
-                className="transition-all duration-75"
-              />
-            </svg>
-            {/* Percentage Text */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-4xl font-bold text-[#FAB12F]">
-                {progress}%
-              </span>
-            </div>
-          </div>
-
-          <div className="mt-8 text-center">
-            <p className="text-[#FAB12F] font-bold text-lg mb-1">
-              분석 중이에요.
-            </p>
-            <p className="text-gray-500 text-sm">잠시만 기다려주세요.</p>
-          </div>
-        </div>
-      )}
-
-      {/* Step 3: Result */}
-      {step === "result" && (
-        <div className="flex flex-col flex-1 animate-fade-in">
-          {/* Main Content (Centered) */}
-          <div className="flex-grow flex flex-col items-center justify-center pt-32">
-            {/* Dumbbell Icon - FontAwesome Solid */}
-            <div className="mb-8 text-[#FAB12F]">
-              <svg
-                width="220"
-                height="100"
-                viewBox="0 0 150 64"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-              >
-                <rect x="0" y="12" width="14" height="40" rx="7" />
-                <rect x="19" y="0" width="14" height="64" rx="7" />
-                <rect x="33" y="27" width="84" height="10" />
-                <rect x="117" y="0" width="14" height="64" rx="7" />
-                <rect x="136" y="12" width="14" height="40" rx="7" />
-              </svg>
-            </div>
-
-            <div className="h-32"></div>
-
-            <h2 className="text-3xl font-bold text-[#FAB12F] mb-2">
-              오늘도 운동 성공!
-            </h2>
-            <p className="text-[#FAB12F] font-bold text-3xl">+10XP</p>
-          </div>
-
-          {/* Bottom Button */}
-          <div className="w-full pb-8">
-            <button
-              onClick={handleHome}
-              className="w-full bg-[#FAB12F] hover:opacity-90 text-white font-bold py-4 rounded-2xl shadow-md transition-colors text-lg"
-            >
-              홈으로 돌아가기
-            </button>
-          </div>
+          <p className="text-[#FAB12F] font-bold text-3xl text-center leading-tight">
+            분석이 완료되면<br />알려드릴게요!
+          </p>
         </div>
       )}
     </div>

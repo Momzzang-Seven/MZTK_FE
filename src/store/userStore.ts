@@ -21,7 +21,15 @@ interface UserState {
     maxXp: number;
     attendanceStreak: number; // 0 ~ 7
     lastAttendanceDate: string | null; // YYYY-MM-DD
-    lastExerciseDate: string | null; // YYYY-MM-DD
+    lastExerciseDate: string | null;
+
+    // Async Analysis & Snackbar State
+    snackbar: {
+        isOpen: boolean;
+        message: string;
+    };
+    analysisStatus: 'idle' | 'analyzing' | 'completed';
+    analysisTargetTime: number | null; // Timestamp for when analysis should 'complete' // YYYY-MM-DD
 
     setUser: (user: UserInfo) => void;
     setAccessToken: (token: string) => void;
@@ -31,6 +39,11 @@ interface UserState {
     addXp: (amount: number) => void;
     checkAttendance: () => { success: boolean; message: string; rewardedXp: number };
     completeExercise: () => { success: boolean; message: string; rewardedXp: number };
+
+    // Async Analysis Actions
+    startAnalysis: () => void;
+    checkAnalysisCompletion: () => void;
+    closeSnackbar: () => void;
     levelUp: () => boolean;
 }
 
@@ -48,6 +61,9 @@ export const useUserStore = create<UserState>()(
             attendanceStreak: 0,
             lastAttendanceDate: null,
             lastExerciseDate: null,
+            snackbar: { isOpen: false, message: "" },
+            analysisStatus: 'idle',
+            analysisTargetTime: null,
 
             setUser: (user) => set({ user, isAuthenticated: true }),
             setAccessToken: (token) => set({ accessToken: token }),
@@ -99,9 +115,38 @@ export const useUserStore = create<UserState>()(
                     return { success: false, message: "오늘의 운동을 이미 인증했습니다.", rewardedXp: 0 };
                 }
 
-                const reward = 100;
-                set({ lastExerciseDate: today, xp: get().xp + reward });
-                return { success: true, message: "운동 인증 완료! +100XP", rewardedXp: reward };
+                // Instead of immediate reward, we just start analysis flow UI side
+                // Actual reward happens in checkAnalysisCompletion
+                return { success: true, message: "분석 시작", rewardedXp: 0 };
+            },
+
+            startAnalysis: () => {
+                const targetTime = Date.now() + 5000; // 5 seconds from now
+                set({ analysisStatus: 'analyzing', analysisTargetTime: targetTime });
+            },
+
+            checkAnalysisCompletion: () => {
+                const { analysisStatus, analysisTargetTime } = get();
+                if (analysisStatus === 'analyzing' && analysisTargetTime && Date.now() >= analysisTargetTime) {
+                    // Analysis Complete!
+                    const today = new Date().toISOString().split("T")[0];
+                    const reward = 100; // 100 XP Reward
+
+                    set({
+                        analysisStatus: 'idle',
+                        analysisTargetTime: null,
+                        lastExerciseDate: today,
+                        xp: get().xp + reward,
+                        snackbar: {
+                            isOpen: true,
+                            message: `운동 인증 성공! +${reward} 포인트 지급`
+                        }
+                    });
+                }
+            },
+
+            closeSnackbar: () => {
+                set((state) => ({ snackbar: { ...state.snackbar, isOpen: false } }));
             },
 
             levelUp: () => {
@@ -128,7 +173,11 @@ export const useUserStore = create<UserState>()(
                 xp: state.xp,
                 attendanceStreak: state.attendanceStreak,
                 lastAttendanceDate: state.lastAttendanceDate,
-                lastExerciseDate: state.lastExerciseDate
+                lastExerciseDate: state.lastExerciseDate,
+                // Do not persist snackbar or running analysis across reloads purely (optional choice)
+                // but let's persist analysis to survive reload
+                analysisStatus: state.analysisStatus,
+                analysisTargetTime: state.analysisTargetTime
             }),
         }
     )

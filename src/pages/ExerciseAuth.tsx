@@ -67,7 +67,7 @@ const ExerciseAuth = () => {
   return (
     <div className="flex flex-col h-full bg-white px-5 pt-6 pb-20 overflow-y-auto min-h-screen">
       {/* Header */}
-      <h1 className="text-2xl font-bold text-left text-[#FAB12F] mb-14">
+      <h1 className="text-4xl font-bold text-left text-[#FAB12F] mb-8">
         운동 인증하기
       </h1>
 
@@ -75,8 +75,8 @@ const ExerciseAuth = () => {
       {step === "upload" && (
         <div className="flex flex-col flex-1 animate-fade-in">
           {/* Guide Banner */}
-          <div className="bg-[#FAB12F] text-white p-6 rounded-2xl mb-8 shadow-sm mt-2">
-            <p className="font-bold text-lg leading-relaxed whitespace-pre-line text-left">
+          <div className="bg-[#FAB12F] text-white px-4 py-3 rounded-2xl mb-2 shadow-sm mt-4">
+            <p className="font-bold text-xl leading-relaxed whitespace-pre-line text-left">
               땀 흘린 당신, 오늘의 운동을 인증하세요!
               <br />
               업로드하신 사진은 자동으로 분석됩니다.
@@ -86,7 +86,7 @@ const ExerciseAuth = () => {
           {/* Image Upload Area */}
           <div
             onClick={triggerFileUpload}
-            className="flex-1 bg-[#F3F4F6] rounded-xl flex flex-col items-center justify-center text-gray-400 mb-8 min-h-[400px] cursor-pointer hover:bg-gray-200 transition-colors overflow-hidden relative"
+            className="w-full bg-[#F3F4F6] rounded-xl flex flex-col items-center justify-center text-gray-400 mb-6 h-[500px] cursor-pointer hover:bg-gray-200 transition-colors overflow-hidden relative"
           >
             <input
               type="file"
@@ -103,7 +103,7 @@ const ExerciseAuth = () => {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex flex-col items-center gap-2 -mt-20">
                 {/* Red Badge for 2 if needed, but skipping for clean look as per text request first, or I can add a pseudo badge if user insists on exact match of the red bubbles. The user said 'screen like this', the red bubbles might be annotations. I will assume they are annotations. */}
                 <p className="text-gray-500 font-bold text-lg">등록된 사진이 없습니다.</p>
                 <p className="text-gray-400 text-sm">권장 크기 750x750 (px)</p>

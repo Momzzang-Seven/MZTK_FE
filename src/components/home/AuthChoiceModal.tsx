@@ -13,9 +13,7 @@ export const AuthChoiceModal = ({ isOpen, onClose }: AuthChoiceModalProps) => {
 
     // Handlers for each auth method
     const handleLocationAuth = () => {
-        // navigate("/location-auth"); 
-        // For now, alerting as per previous code comment or assume route exists
-        alert("위치 인증 페이지 준비 중입니다.");
+        navigate("/verify");
         onClose();
     };
 
@@ -25,8 +23,7 @@ export const AuthChoiceModal = ({ isOpen, onClose }: AuthChoiceModalProps) => {
     };
 
     const handleRecordAuth = () => {
-        // navigate("/record-auth");
-        alert("기록 인증 페이지 준비 중입니다.");
+        navigate("/record-auth");
         onClose();
     };
 

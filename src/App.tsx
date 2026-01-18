@@ -21,6 +21,7 @@ import {
 } from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
 import RecordAuth from "./pages/RecordAuth";
+import LocationRegister from "./pages/LocationRegister";
 import Onboarding from "./pages/Onboarding";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
@@ -79,6 +80,7 @@ function App() {
               {/* auth */}
               <Route path="/exercise-auth" element={<ExerciseAuth />} />
               <Route path="/record-auth" element={<RecordAuth />} />
+              <Route path="/location-register" element={<LocationRegister />} />
             </Route>
 
             {/* Error */}

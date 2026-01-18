@@ -15,6 +15,9 @@ interface UserState {
     isAuthenticated: boolean;
     accessToken: string | null;
 
+    // Gym Location
+    gymLocation: { lat: number, lng: number } | null;
+
     // Level & Attendance System
     level: number;
     xp: number;
@@ -34,6 +37,7 @@ interface UserState {
 
     setUser: (user: UserInfo) => void;
     setAccessToken: (token: string) => void;
+    setGymLocation: (location: { lat: number, lng: number } | null) => void;
     clearUser: () => void;
 
     // Actions
@@ -62,6 +66,7 @@ export const useUserStore = create<UserState>()(
             attendanceStreak: 0,
             lastAttendanceDate: null,
             lastExerciseDate: null,
+            gymLocation: null,
             snackbar: { isOpen: false, message: "" },
             analysisStatus: 'idle',
             analysisType: null,
@@ -69,6 +74,7 @@ export const useUserStore = create<UserState>()(
 
             setUser: (user) => set({ user, isAuthenticated: true }),
             setAccessToken: (token) => set({ accessToken: token }),
+            setGymLocation: (location) => set({ gymLocation: location }),
             clearUser: () =>
                 set({ user: null, isAuthenticated: false, accessToken: null, level: 1, xp: 0, attendanceStreak: 0, lastAttendanceDate: null, lastExerciseDate: null }),
 
@@ -181,6 +187,7 @@ export const useUserStore = create<UserState>()(
                 attendanceStreak: state.attendanceStreak,
                 lastAttendanceDate: state.lastAttendanceDate,
                 lastExerciseDate: state.lastExerciseDate,
+                gymLocation: state.gymLocation,
                 // Do not persist snackbar or running analysis across reloads purely (optional choice)
                 // but let's persist analysis to survive reload
                 analysisStatus: state.analysisStatus,

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "@store/userStore";
-import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
 
 const LocationRegister = () => {
     const navigate = useNavigate();

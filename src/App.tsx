@@ -18,6 +18,8 @@ import {
   MarketPurchase,
   Leaderboard,
   QuestionCreatePage,
+  CreateWallet,
+  RegisterWallet,
 } from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
 import RecordAuth from "./pages/RecordAuth";
@@ -42,14 +44,19 @@ function App() {
   return (
     <BrowserRouter>
       <Layout>
-        <div className="w-full max-w-[450px] mx-auto h-full bg-white shadow-xl flex flex-col relative overflow-hidden">
+        <div className="flex flex-1 w-full max-w-[450px] mx-auto h-full bg-white shadow-xl flex flex-col relative overflow-hidden">
           <GlobalSnackbar />
           <Routes>
             {/* Public Routes */}
             <Route path="/login" element={<Login />} />
             <Route path="/callback" element={<Callback />} />
-            <Route path="/login-success" element={<Navigate to="/" replace />} />
+            <Route
+              path="/login-success"
+              element={<Navigate to="/" replace />}
+            />
             <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/create-wallet" element={<CreateWallet />} />
+            <Route path="/register-wallet" element={<RegisterWallet />} />
 
             {/* Protected Routes (Temporarily Open) */}
             <Route element={<ProtectedRoute />}>
@@ -63,9 +70,15 @@ function App() {
               <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="/community" element={<FreeListPage />} />
               <Route path="/community/free" element={<FreeListPage />} />
-              <Route path="/community/free/postId" element={<FreeDetailPage />} />
+              <Route
+                path="/community/free/postId"
+                element={<FreeDetailPage />}
+              />
               <Route path="/community/free/new" element={<FreeCreatePage />} />
-              <Route path="/community/question" element={<QuestionListPage />} />
+              <Route
+                path="/community/question"
+                element={<QuestionListPage />}
+              />
               <Route
                 path="/community/question/:postId"
                 element={<QuestionDetailPage />}

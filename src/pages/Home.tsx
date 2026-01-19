@@ -1,4 +1,9 @@
-import { AttendanceBanner, LevelProgress, AuthActionButtons, AuthChoiceModal } from "@components/home";
+import {
+  AttendanceBanner,
+  LevelProgress,
+  AuthActionButtons,
+  AuthChoiceModal,
+} from "@components/home";
 import { useState } from "react";
 
 const Home = () => {

@@ -8,6 +8,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   const { unauthorized, setUnauthorized } = useAuthModalStore();
   const hideFooterPages = [
     "/login",
+    "/onboarding",
+    "/create-wallet",
+    "/register-wallet",
     "/community/free/postId",
     "/community/free/new",
   ];

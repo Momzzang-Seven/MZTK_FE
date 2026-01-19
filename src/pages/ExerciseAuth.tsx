@@ -16,7 +16,7 @@ const ExerciseAuth = () => {
   useEffect(() => {
     if (step === "analyzing") {
       // Start the analysis (mock)
-      startAnalysis('exercise');
+      startAnalysis("exercise");
 
       // Redirect to home after 2 seconds
       const timer = setTimeout(() => {
@@ -88,7 +88,9 @@ const ExerciseAuth = () => {
               />
             ) : (
               <div className="flex flex-col items-center gap-2 -mt-20">
-                <p className="text-gray-500 font-bold text-lg">등록된 사진이 없습니다.</p>
+                <p className="text-gray-500 font-bold text-lg">
+                  등록된 사진이 없습니다.
+                </p>
                 <p className="text-gray-400 text-sm">권장 크기 750x750 (px)</p>
               </div>
             )}
@@ -97,10 +99,11 @@ const ExerciseAuth = () => {
           {/* Upload Button */}
           <button
             onClick={handleUpload}
-            className={`w-full font-bold py-4 rounded-2xl border-2 text-xl transition-all ${selectedFile
-              ? "bg-white border-[#FAB12F] text-[#FAB12F] shadow-md active:scale-95"
-              : "bg-white border-gray-300 text-gray-300 cursor-not-allowed"
-              }`}
+            className={`w-full font-bold py-4 rounded-2xl border-2 text-xl transition-all ${
+              selectedFile
+                ? "bg-white border-[#FAB12F] text-[#FAB12F] shadow-md active:scale-95"
+                : "bg-white border-gray-300 text-gray-300 cursor-not-allowed"
+            }`}
             disabled={!selectedFile}
           >
             등록
@@ -111,12 +114,14 @@ const ExerciseAuth = () => {
       {/* Step 2: Analyzing (Async Wait Screen) */}
       {step === "analyzing" && (
         <div className="flex flex-col flex-1 items-center justify-center animate-fade-in h-[60vh]">
-          <div className="w-64 h-64 mb-8">
+          <div className="w-80 h-80 mb-6">
             <Lottie animationData={runnerAnimation} loop={true} />
           </div>
 
           <p className="text-[#FAB12F] font-bold text-3xl text-center leading-tight">
-            분석이 완료되면<br />알려드릴게요!
+            분석이 완료되면
+            <br />
+            알려드릴게요!
           </p>
         </div>
       )}

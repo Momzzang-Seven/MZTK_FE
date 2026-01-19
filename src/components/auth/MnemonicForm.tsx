@@ -26,7 +26,7 @@ export const MnemonicForm = ({ mnemonics, onChange, onSubmit }: Props) => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-y-2 mb-8">
+      <div className="flex flex-col gap-y-2 my-10">
         <span className="label-bold text-color-grey-deep">니모닉</span>
         <div className="grid grid-cols-3 gap-3">
           {mnemonics.map((word, idx) => (

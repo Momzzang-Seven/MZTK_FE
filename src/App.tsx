@@ -18,6 +18,8 @@ import {
   MarketPurchase,
   Leaderboard,
   QuestionCreatePage,
+  CreateWallet,
+  RegisterWallet,
 } from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
 import RecordAuth from "./pages/RecordAuth";
@@ -53,6 +55,8 @@ function App() {
               element={<Navigate to="/" replace />}
             />
             <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/create-wallet" element={<CreateWallet />} />
+            <Route path="/register-wallet" element={<RegisterWallet />} />
 
             {/* Protected Routes (Temporarily Open) */}
             <Route element={<ProtectedRoute />}>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import runnerAnimation from "@assets/runner.json";
 
-const ExerciseAuth = () => {
+const RecordAuth = () => {
   const navigate = useNavigate();
   const { startAnalysis } = useUserStore();
   const [step, setStep] = useState<"upload" | "analyzing">("upload");
@@ -16,7 +16,7 @@ const ExerciseAuth = () => {
   useEffect(() => {
     if (step === "analyzing") {
       // Start the analysis (mock)
-      startAnalysis("exercise");
+      startAnalysis("record");
 
       // Redirect to home after 2 seconds
       const timer = setTimeout(() => {
@@ -52,7 +52,7 @@ const ExerciseAuth = () => {
     <div className="flex flex-col h-full bg-white px-5 pt-6 pb-20 overflow-y-auto min-h-screen">
       {/* Header */}
       <h1 className="text-4xl font-bold text-left text-[#FAB12F] mb-8">
-        운동 인증하기
+        기록 인증하기
       </h1>
 
       {/* Step 1: Upload */}
@@ -61,7 +61,7 @@ const ExerciseAuth = () => {
           {/* Guide Banner */}
           <div className="bg-[#FAB12F] text-white px-4 py-3 rounded-2xl mb-2 shadow-sm mt-4">
             <p className="font-bold text-xl leading-relaxed whitespace-pre-line text-left">
-              땀 흘린 당신, 오늘의 운동을 인증하세요!
+              러닝 기록 사진이나 파일을 올려주세요.
               <br />
               업로드하신 사진은 자동으로 분석됩니다.
             </p>
@@ -114,7 +114,7 @@ const ExerciseAuth = () => {
       {/* Step 2: Analyzing (Async Wait Screen) */}
       {step === "analyzing" && (
         <div className="flex flex-col flex-1 items-center justify-center animate-fade-in h-[60vh]">
-          <div className="w-80 h-80 mb-6">
+          <div className="w-80 h-80">
             <Lottie animationData={runnerAnimation} loop={true} />
           </div>
 
@@ -129,4 +129,4 @@ const ExerciseAuth = () => {
   );
 };
 
-export default ExerciseAuth;
+export default RecordAuth;

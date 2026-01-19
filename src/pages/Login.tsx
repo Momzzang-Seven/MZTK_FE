@@ -1,5 +1,5 @@
 import { CommonButton } from "@components/common";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 
 const Login = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -11,7 +11,8 @@ const Login = () => {
     {
       id: 1,
       title: "매일 운동하고\n인증하세요",
-      description: "러닝, 헬스, 홈트레이닝...\n어떤 운동이든 사진 한 장이면 인증 완료!",
+      description:
+        "러닝, 헬스, 홈트레이닝...\n어떤 운동이든 사진 한 장이면 인증 완료!",
       icon: (
         <svg
           width="120"
@@ -59,7 +60,8 @@ const Login = () => {
     {
       id: 3,
       title: "모은 코인은\n마켓에서 쓰세요",
-      description: "PT,필라테스,요가 전부 가능합니다! \n땀 흘려 번 코인으로 마음껏 쇼핑하세요.",
+      description:
+        "PT,필라테스,요가 전부 가능합니다! \n땀 흘려 번 코인으로 마음껏 쇼핑하세요.",
       icon: (
         <svg
           width="120"
@@ -81,19 +83,19 @@ const Login = () => {
   ];
 
   // Auto-slide logic
-  const resetTimer = () => {
+  const resetTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 3000);
-  };
+  }, [slides.length]);
 
   useEffect(() => {
     resetTimer();
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, []);
+  }, [resetTimer]);
 
   // Swipe logic
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -128,10 +130,12 @@ const Login = () => {
     let url = "";
 
     if (type === "kakao") {
-      const clientId = import.meta.env.VITE_KAKAO_CLIENT_ID || "YOUR_KAKAO_CLIENT_ID";
+      const clientId =
+        import.meta.env.VITE_KAKAO_CLIENT_ID || "YOUR_KAKAO_CLIENT_ID";
       url = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&state=kakao`;
     } else if (type === "google") {
-      const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || "YOUR_GOOGLE_CLIENT_ID";
+      const clientId =
+        import.meta.env.VITE_GOOGLE_CLIENT_ID || "YOUR_GOOGLE_CLIENT_ID";
       url = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email profile&state=google`;
     }
 
@@ -159,8 +163,9 @@ const Login = () => {
           {slides.map((_, index) => (
             <div
               key={index}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentSlide ? "bg-[#FAB12F] w-6" : "bg-gray-200"
-                }`}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                index === currentSlide ? "bg-[#FAB12F] w-6" : "bg-gray-200"
+              }`}
             />
           ))}
         </div>

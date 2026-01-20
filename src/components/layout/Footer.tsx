@@ -12,9 +12,8 @@ export const Footer = () => {
         {footerItem.map((item) => {
           const path = location.pathname;
           // Home ('/') should be exact match, others can be prefix matches
-          const isActive = item.path === "/"
-            ? path === "/"
-            : path.startsWith(item.path);
+          const isActive =
+            item.path === "/" ? path === "/" : path.startsWith(item.path);
 
           return (
             <button

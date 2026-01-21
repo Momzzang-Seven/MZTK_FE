@@ -5,8 +5,12 @@ import {
   AuthChoiceModal,
 } from "@components/home";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUserStore } from "@store/userStore";
 
 const Home = () => {
+  const { gymLocation } = useUserStore();
+  const navigate = useNavigate();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const handleExerciseAuth = () => {
@@ -14,9 +18,11 @@ const Home = () => {
   };
 
   const handleLocationAuth = () => {
-    // Navigate to location auth page (future)
-    console.log("Navigate to Location Auth");
-    alert("위치 인증 페이지으로 이동합니다 (준비중)");
+    if (gymLocation) {
+      navigate("/verify");
+    } else {
+      navigate("/location-register");
+    }
   };
 
   return (

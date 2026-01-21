@@ -14,7 +14,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     "/community/free/postId",
     "/community/free/new",
   ];
-  const showHeaderPages = ["/verify"];
+  /* Global header disabled for custom page headers */
+  const showHeaderPages: string[] = [];
   const shouldShowHeader = showHeaderPages.includes(location.pathname);
   const shouldHideFooter = hideFooterPages.includes(location.pathname);
 

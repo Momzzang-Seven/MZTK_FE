@@ -16,7 +16,7 @@ interface UserState {
     accessToken: string | null;
 
     // Gym Location
-    gymLocation: { lat: number, lng: number } | null;
+    gymLocation: { lat: number, lng: number; address: string } | null;
 
     // Level & Attendance System
     level: number;
@@ -37,7 +37,8 @@ interface UserState {
 
     setUser: (user: UserInfo) => void;
     setAccessToken: (token: string) => void;
-    setGymLocation: (location: { lat: number, lng: number } | null) => void;
+    setGymLocation: (location: { lat: number, lng: number; address: string } | null) => void;
+    registerGymLocation: (location: { lat: number; lng: number; address: string }) => Promise<void>;
     clearUser: () => void;
 
     // Actions
@@ -67,6 +68,9 @@ export const useUserStore = create<UserState>()(
             lastAttendanceDate: null,
             lastExerciseDate: null,
             gymLocation: null,
+
+            // ... existing initial state ...
+
             snackbar: { isOpen: false, message: "" },
             analysisStatus: 'idle',
             analysisType: null,
@@ -75,6 +79,13 @@ export const useUserStore = create<UserState>()(
             setUser: (user) => set({ user, isAuthenticated: true }),
             setAccessToken: (token) => set({ accessToken: token }),
             setGymLocation: (location) => set({ gymLocation: location }),
+
+            registerGymLocation: async (location) => {
+                // Here we would call the API
+                // const result = await locationService.registerLocation(location);
+                // For now, just update store
+                set({ gymLocation: location });
+            },
             clearUser: () =>
                 set({ user: null, isAuthenticated: false, accessToken: null, level: 1, xp: 0, attendanceStreak: 0, lastAttendanceDate: null, lastExerciseDate: null }),
 
@@ -123,9 +134,14 @@ export const useUserStore = create<UserState>()(
                     return { success: false, message: "오늘의 운동을 이미 인증했습니다.", rewardedXp: 0 };
                 }
 
-                // Instead of immediate reward, we just start analysis flow UI side
-                // Actual reward happens in checkAnalysisCompletion
-                return { success: true, message: "분석 시작", rewardedXp: 0 };
+                // Immediate reward for location verification
+                const reward = 100;
+                set((state) => ({
+                    lastExerciseDate: today,
+                    xp: state.xp + reward
+                }));
+
+                return { success: true, message: "운동 인증 완료", rewardedXp: reward };
             },
 
             startAnalysis: (type) => {

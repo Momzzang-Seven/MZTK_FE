@@ -4,9 +4,7 @@ import { useUserStore } from "@store/userStore";
 import {
     APIProvider,
     Map,
-    useMap,
-    AdvancedMarker,
-    Pin
+    useMap
 } from "@vis.gl/react-google-maps";
 import Lottie from "lottie-react";
 import runnerAnimation from "@assets/runner.json";

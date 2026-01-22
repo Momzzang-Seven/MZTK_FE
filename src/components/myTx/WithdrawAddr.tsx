@@ -1,32 +1,32 @@
-import { useState } from "react";
+interface WithdrawAddrProps {
+  value: string;
+  onChange: (val: string) => void;
+}
 
-export const WithdrawAddr = () => {
-  const [address, setAddress] = useState("");
-
+export const WithdrawAddr = ({ value, onChange }: WithdrawAddrProps) => {
   const handlePaste = async () => {
     try {
       const text = await navigator.clipboard.readText();
-      setAddress(text);
+      onChange(text);
     } catch (err) {
       console.error("클립보드 읽기 실패:", err);
     }
   };
 
   return (
-    <div className="flex flex-col w-full gap-y-3">
-      {/* Label */}
+    <div className="flex flex-col w-full gap-y-3 animate-in fade-in duration-300">
       <div className="text-grey-deep label">출금 주소</div>
 
-      <div className="flex items-center w-full p-4 rounded-lg border border-grey-main bg-white h-[80px] overflow-hidden">
+      <div className="flex items-center w-full p-4 rounded-lg border border-grey-main bg-white h-[80px] overflow-hidden focus-within:border-main transition-colors">
         <input
-          className="flex-1 min-w-0 bg-transparent outline-none text-[18px] placeholder:text-grey-pale pr-4"
+          className="flex-1 min-w-0 bg-transparent outline-none text-[18px] placeholder:text-grey-pale pr-4 font-sans"
           type="text"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
           placeholder="지갑 주소를 입력하세요"
           spellCheck="false"
+          autoComplete="off"
         />
-
         <button
           type="button"
           onClick={handlePaste}

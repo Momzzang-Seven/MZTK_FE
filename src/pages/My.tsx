@@ -25,6 +25,10 @@ const My = () => {
       <TxTkn />
       <LevelProgress />
       <LevelReward />
+      <div className="caption text-center flex justify-center w-full text-grey-main">
+        지급 오류 또는 지연 관련 문의는
+        <span className="text-main"> 다음 링크 </span>를 이용해 주세요.
+      </div>
     </div>
   );
 };

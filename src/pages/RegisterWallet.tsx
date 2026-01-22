@@ -39,6 +39,7 @@ const RegisterWallet = () => {
     if (!wallet) return;
     const encryptedJson = await wallet.encrypt(pin);
     localStorage.setItem("encrypted_wallet", encryptedJson);
+    localStorage.setItem("wallet_address", wallet.address);
     setStep("SUCCESS");
   }, [wallet, pin]);
 

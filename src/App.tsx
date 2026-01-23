@@ -21,6 +21,8 @@ import {
   CreateWallet,
   RegisterWallet,
   Dashboard,
+  AdminLogin,
+  AdminDashboard,
 } from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
 import RecordAuth from "./pages/RecordAuth";
@@ -100,7 +102,8 @@ function App() {
               <Route path="/location-register" element={<LocationRegister />} />
 
               {/* admin */}
-              <Route path="/admin" element={<Dashboard />} />
+              <Route path="/admin" element={<AdminLogin />} />
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
             </Route>
 
             {/* Error */}

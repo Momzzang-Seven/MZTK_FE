@@ -23,4 +23,5 @@ export { default as QuestionDetailPage } from "./community/question/QuestionDeta
 export { default as QuestionCreatePage } from "./community/question/QuestionCreatePage";
 
 // admin page
-export { default as Dashboard } from "./admin/Dashboard";
+export { default as AdminDashboard } from "./admin/Dashboard";
+export { default as AdminLogin } from "./admin/Login";

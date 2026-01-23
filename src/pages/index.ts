@@ -25,3 +25,4 @@ export { default as QuestionCreatePage } from "./community/question/QuestionCrea
 // admin page
 export { default as AdminDashboard } from "./admin/Dashboard";
 export { default as AdminLogin } from "./admin/Login";
+export { default as TokenLog } from "./admin/TokenLog";

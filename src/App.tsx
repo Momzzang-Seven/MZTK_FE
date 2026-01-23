@@ -22,6 +22,7 @@ import {
   RegisterWallet,
   AdminLogin,
   AdminDashboard,
+  TokenLog,
 } from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
 import RecordAuth from "./pages/RecordAuth";
@@ -103,6 +104,7 @@ function App() {
               {/* admin */}
               <Route path="/admin" element={<AdminLogin />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/token-logs" element={<TokenLog />} />
             </Route>
 
             {/* Error */}

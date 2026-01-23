@@ -10,8 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    console.log("로그인 시도 확인~ 대시보드로 이동할게요:", { id, password });
-    navigate("/dashboard");
+    navigate("dashboard");
   };
 
   return (

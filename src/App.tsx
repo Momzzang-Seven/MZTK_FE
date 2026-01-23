@@ -20,7 +20,6 @@ import {
   QuestionCreatePage,
   CreateWallet,
   RegisterWallet,
-  Dashboard,
   AdminLogin,
   AdminDashboard,
 } from "@pages";
@@ -49,7 +48,7 @@ function App() {
     <BrowserRouter>
       <Layout>
         <div
-          className={`flex flex-1 w-full mx-auto h-full bg-white shadow-xl flex flex-col relative overflow-hidden ${isAdminPage ? "w-full" : "max-w-[450px]"}`}
+          className={`flex flex-1 w-full mx-auto h-full bg-white flex flex-col relative overflow-hidden ${isAdminPage ? "w-full" : "max-w-[450px]"}`}
         >
           <GlobalSnackbar />
           <Routes>

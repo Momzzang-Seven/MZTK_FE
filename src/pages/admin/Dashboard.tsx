@@ -1,54 +1,158 @@
-import { useState } from "react"; // 상태 관리 추가
-import Lottie from "lottie-react";
-import runnerAnimation from "@assets/runner.json";
+import SummaryCard from "@components/admin/Dashboard/SummaryCard";
 import { CommonButton } from "@components/common";
-import { useNavigate } from "react-router-dom";
+import { Pie } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  type TooltipItem,
+} from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
-const Dashboard = () => {
-  const navigate = useNavigate();
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
-  const handleLogin = () => {
-    console.log("로그인 시도 확인~ 대시보드로 이동할게요:", { id, password });
-    navigate("/dashboard");
+const AdminDashboard = () => {
+  const tokenLogs = [
+    { id: "사용자 #1234", desc: "레벨업 보상", amount: "+15 MZTK" },
+    { id: "사용자 #5678", desc: "레벨업 보상", amount: "+15 MZTK" },
+    { id: "사용자 #1234", desc: "레벨업 보상", amount: "+15 MZTK" },
+    { id: "사용자 #5678", desc: "레벨업 보상", amount: "+15 MZTK" },
+    { id: "사용자 #1234", desc: "레벨업 보상", amount: "+15 MZTK" },
+    { id: "사용자 #5678", desc: "레벨업 보상", amount: "+15 MZTK" },
+  ];
+
+  const chartData = {
+    labels: ["부적절한 내용", "스팸", "규정 위반", "괴롭힘", "기타"],
+    datasets: [
+      {
+        data: [30, 25, 20, 15, 10],
+        backgroundColor: [
+          "#FF6384",
+          "#FF9F40",
+          "#4BC0C0",
+          "#9966FF",
+          "#FFCD56",
+        ],
+        hoverOffset: 4,
+        borderWidth: 0,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      datalabels: {
+        color: "#fff",
+        font: {
+          weight: "bold" as const,
+          size: 18,
+        },
+        formatter: (value: number) => {
+          return value + "%";
+        },
+        anchor: "center" as const,
+        align: "center" as const,
+      },
+      legend: {
+        position: "right" as const,
+        labels: {
+          boxWidth: 20,
+          padding: 15,
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context: TooltipItem<"pie">) {
+            let label = context.label || "";
+            if (label) {
+              label += ": ";
+            }
+            if (context.parsed !== null) {
+              label += context.parsed + "%";
+            }
+            return label;
+          },
+        },
+      },
+    },
   };
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center p-8 bg-white min-h-screen">
-      <div className="w-full max-w-[400px] flex flex-col items-center">
-        <div className="flex flex-col text-[32px] font-bold mb-8 text-center leading-tight">
-          <span className="text-main">몸짱코인</span>
-          <span className="text-gray-800">ADMIN</span>
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <SummaryCard
+          title="서버 상태"
+          value="온라인"
+          subValue="● 정상 운영 중"
+          iconBg="bg-main"
+          icon="/icon/server.svg"
+        />
+        <SummaryCard
+          title="ETH 잔액"
+          value="24.5 ETH"
+          iconBg="bg-blue-100"
+          icon="/icon/ether.svg"
+        />
+        <SummaryCard
+          title="MZTK 잔액"
+          value="1,250,000"
+          iconBg="bg-main"
+          icon="/icon/token.svg"
+        />
+        <SummaryCard
+          title="활성 사용자"
+          value="1,847"
+          subValue="BAN 사용자: 23명"
+          iconBg="bg-blue-600"
+          icon="/icon/activeUser.svg"
+        />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white p-6 rounded-2xl border border-gray-100">
+          <div className="flex justify-between items-center mb-6">
+            <div className="flex font-bold text-gray-800">토큰 지급 기록</div>
+            <CommonButton
+              label="전체 보기"
+              img="/icon/eye.svg"
+              width="w-fit"
+              className="text-xs px-3 py-1 bg-main text-white rounded-full font-bold hover:bg-sub"
+            />
+          </div>
+          <div className="space-y-3 max-h-80 overflow-y-auto pr-2">
+            {" "}
+            {tokenLogs.map((log, i) => (
+              <div
+                key={i}
+                className="flex justify-between items-center p-4 bg-gray-50 rounded-xl"
+              >
+                <div>
+                  <p className="font-bold text-sm text-gray-800">{log.id}</p>
+                  <p className="text-xs text-gray-500">{log.desc}</p>
+                </div>
+                <span className="text-orange-500 font-bold text-sm">
+                  {log.amount}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div className="flex justify-center items-center w-64 h-64">
-          <Lottie animationData={runnerAnimation} loop={true} />
-        </div>
-
-        <div className="w-full mt-8 space-y-4">
-          <input
-            type="text"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-            placeholder="아이디를 입력하세요"
-            className="w-full bg-white border border-gray-300 rounded-[4px] p-4 focus:outline-none focus:ring-2 focus:ring-main transition-all"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="비밀번호를 입력하세요"
-            className="w-full bg-white border border-gray-300 rounded-[4px] p-4 focus:outline-none focus:ring-2 focus:ring-main transition-all"
-          />
-        </div>
-
-        <div className="w-full mt-8">
-          <CommonButton label="로그인하기" onClick={handleLogin} />
+        <div className="bg-white p-6 rounded-2xl border border-gray-100 flex flex-col">
+          <h4 className="font-bold text-gray-800 mb-6">게시물 삭제 통계</h4>
+          <div className="flex-1 w-full flex items-center justify-center">
+            <div className="relative w-full max-w-[400px] h-[300px]">
+              {" "}
+              <Pie data={chartData} options={chartOptions} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

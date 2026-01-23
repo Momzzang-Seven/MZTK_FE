@@ -20,6 +20,7 @@ import {
   QuestionCreatePage,
   CreateWallet,
   RegisterWallet,
+  Dashboard,
 } from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
 import RecordAuth from "./pages/RecordAuth";
@@ -33,6 +34,7 @@ import GlobalSnackbar from "@components/common/GlobalSnackbar";
 
 function App() {
   const { checkAnalysisCompletion } = useUserStore();
+  const isAdminPage = location.pathname.startsWith("/admin");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -44,7 +46,9 @@ function App() {
   return (
     <BrowserRouter>
       <Layout>
-        <div className="flex flex-1 w-full max-w-[450px] mx-auto h-full bg-white shadow-xl flex flex-col relative overflow-hidden">
+        <div
+          className={`flex flex-1 w-full mx-auto h-full bg-white shadow-xl flex flex-col relative overflow-hidden ${isAdminPage ? "w-full" : "max-w-[450px]"}`}
+        >
           <GlobalSnackbar />
           <Routes>
             {/* Public Routes */}
@@ -94,6 +98,9 @@ function App() {
               <Route path="/exercise-auth" element={<ExerciseAuth />} />
               <Route path="/record-auth" element={<RecordAuth />} />
               <Route path="/location-register" element={<LocationRegister />} />
+
+              {/* admin */}
+              <Route path="/admin" element={<Dashboard />} />
             </Route>
 
             {/* Error */}

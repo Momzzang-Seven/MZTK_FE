@@ -21,3 +21,6 @@ export { default as FreeCreatePage } from "./community/free/FreeCreatePage";
 export { default as QuestionListPage } from "./community/question/QuestionListPage";
 export { default as QuestionDetailPage } from "./community/question/QuestionDetailPage";
 export { default as QuestionCreatePage } from "./community/question/QuestionCreatePage";
+
+// admin page
+export { default as Dashboard } from "./admin/Dashboard";

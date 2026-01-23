@@ -31,7 +31,7 @@ interface TokenLogItem {
 
 const ETHERSCAN_API_KEY = import.meta.env.VITE_ETHERSCAN_API_KEY;
 const TOKEN_ADDRESS = import.meta.env.VITE_TOKEN_ADDRESS;
-const ADMIN_WALLET_ADDRESS = import.meta.env.VITE_ADMIN_WALLET_ADDRESS;
+const ADMIN_WALLET_ADDRESS = import.meta.env.VITE_ADMIN_ADDRESS;
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
@@ -60,6 +60,10 @@ const AdminDashboard = () => {
         const txData = await txRes.json();
         const ethData = await ethRes.json();
         const mztkData = await mztkRes.json();
+
+        console.log("TX Data:", txData);
+        console.log("ETH Data:", ethData);
+        console.log("MZTK Data:", mztkData);
 
         if (txData.status === "1" && Array.isArray(txData.result)) {
           const formattedLogs: TokenLogItem[] = txData.result.map(
@@ -145,8 +149,8 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
         <SummaryCard
           title="서버 상태"
           value="온라인"
@@ -175,7 +179,7 @@ const AdminDashboard = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-2xl border border-gray-100">
           <div className="flex justify-between items-center mb-6">
             <h4 className="font-bold text-gray-800">토큰 지급 기록</h4>

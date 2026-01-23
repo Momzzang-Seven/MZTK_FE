@@ -6,6 +6,9 @@ import { Header, Footer } from "@components/layout";
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const { unauthorized, setUnauthorized } = useAuthModalStore();
+
+  const isAdminPage = location.pathname.startsWith("/admin");
+
   const hideFooterPages = [
     "/login",
     "/onboarding",
@@ -13,6 +16,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     "/register-wallet",
     "/community/free/postId",
     "/community/free/new",
+    "/admin",
   ];
   /* Global header disabled for custom page headers */
   const showHeaderPages: string[] = [];
@@ -20,7 +24,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   const shouldHideFooter = hideFooterPages.includes(location.pathname);
 
   return (
-    <div className="bg-white w-full max-w-[420px] min-h-screen mx-auto flex flex-col items-center">
+    <div
+      className={`bg-white w-full min-h-screen mx-auto flex flex-col items-center ${isAdminPage ? "w-full" : "max-w-[420px]"}  `}
+    >
       {shouldShowHeader && <Header />}
       <div
         className={`w-full flex flex-col flex-1 overflow-y-auto

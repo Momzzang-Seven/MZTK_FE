@@ -21,3 +21,14 @@ export const headerByPath: HeaderByPathType[] = [
     path: "/community/free/new",
   },
 ];
+
+export const adminHeaderByPath: HeaderByPathType[] = [
+  {
+    label: "대시보드",
+    path: "/admin/dashboard",
+  },
+  {
+    label: "토큰 지급 기록",
+    path: "/admin/token-logs",
+  },
+];

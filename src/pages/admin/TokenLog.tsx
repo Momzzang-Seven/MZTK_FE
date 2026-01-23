@@ -35,7 +35,9 @@ const TokenLog = () => {
         >
           ←
         </button>
-        <h2 className="text-2xl font-bold text-gray-800">토큰 지급 기록</h2>
+        <h2 className="text-2xl font-bold text-gray-800">
+          대시보드로 돌아가기
+        </h2>
       </div>
       <div className="bg-white rounded-[40px] border border-gray-100 p-10 space-y-4">
         {logs.map((tx, i) => (

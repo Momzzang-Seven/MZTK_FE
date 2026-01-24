@@ -32,6 +32,7 @@ interface TokenLogItem {
 const ETHERSCAN_API_KEY = import.meta.env.VITE_ETHERSCAN_API_KEY;
 const TOKEN_ADDRESS = import.meta.env.VITE_TOKEN_ADDRESS;
 const ADMIN_WALLET_ADDRESS = import.meta.env.VITE_ADMIN_ADDRESS;
+const ETHERSCAN_API_URL = import.meta.env.VITE_ETHERSCAN_API_URL;
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
@@ -47,9 +48,9 @@ const AdminDashboard = () => {
       try {
         setLoading(true);
 
-        const tokenTxUrl = `https://api.etherscan.io/v2/api?chainid=11155111&module=account&action=tokentx&contractaddress=${TOKEN_ADDRESS}&page=1&offset=6&sort=desc&apikey=${ETHERSCAN_API_KEY}`;
-        const ethBalanceUrl = `https://api.etherscan.io/v2/api?chainid=11155111&module=account&action=balance&address=${ADMIN_WALLET_ADDRESS}&apikey=${ETHERSCAN_API_KEY}`;
-        const mztkBalanceUrl = `https://api.etherscan.io/v2/api?chainid=11155111&module=account&action=tokenbalance&contractaddress=${TOKEN_ADDRESS}&address=${ADMIN_WALLET_ADDRESS}&tag=latest&apikey=${ETHERSCAN_API_KEY}`;
+        const tokenTxUrl = `${ETHERSCAN_API_URL}?module=account&action=tokentx&contractaddress=${TOKEN_ADDRESS}&page=1&offset=6&sort=desc&apikey=${ETHERSCAN_API_KEY}`;
+        const ethBalanceUrl = `${ETHERSCAN_API_URL}?module=account&action=balance&address=${ADMIN_WALLET_ADDRESS}&apikey=${ETHERSCAN_API_KEY}`;
+        const mztkBalanceUrl = `${ETHERSCAN_API_URL}?module=account&action=tokenbalance&contractaddress=${TOKEN_ADDRESS}&address=${ADMIN_WALLET_ADDRESS}&tag=latest&apikey=${ETHERSCAN_API_KEY}`;
 
         const [txRes, ethRes, mztkRes] = await Promise.all([
           fetch(tokenTxUrl),

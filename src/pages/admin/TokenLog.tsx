@@ -11,6 +11,7 @@ interface TokenLogItem {
 
 const ETHERSCAN_API_KEY = import.meta.env.VITE_ETHERSCAN_API_KEY;
 const TOKEN_ADDRESS = import.meta.env.VITE_TOKEN_ADDRESS;
+const ETHERSCAN_API_URL = import.meta.env.VITE_ETHERSCAN_API_URL;
 
 const TokenLog = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const TokenLog = () => {
 
   useEffect(() => {
     fetch(
-      `https://api.etherscan.io/v2/api?chainid=11155111&module=account&action=tokentx&contractaddress=${TOKEN_ADDRESS}&page=1&offset=20&sort=desc&apikey=${ETHERSCAN_API_KEY}`
+      `${ETHERSCAN_API_URL}?module=account&action=tokentx&contractaddress=${TOKEN_ADDRESS}&page=1&offset=20&sort=desc&apikey=${ETHERSCAN_API_KEY}`
     )
       .then((res) => res.json())
       .then((data) => {

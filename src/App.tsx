@@ -7,10 +7,9 @@ import {
   My,
   MyTx,
   Verify,
-  FreeListPage,
+  Community,
   FreeDetailPage,
   FreeCreatePage,
-  QuestionListPage,
   QuestionDetailPage,
   QuestionCreatePage,
 } from "@pages";
@@ -35,19 +34,14 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/verify" element={<Verify />} />
             {/* Community */}
-            <Route path="/community" element={<FreeListPage />} />
-            <Route path="/community/free" element={<FreeListPage />} />
-            <Route path="/community/free/postId" element={<FreeDetailPage />} />
-            <Route path="/community/free/new" element={<FreeCreatePage />} />
-            <Route path="/community/question" element={<QuestionListPage />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/community/f/postId" element={<FreeDetailPage />} />
+            <Route path="/community/f/new" element={<FreeCreatePage />} />
             <Route
-              path="/community/question/:postId"
+              path="/community/q/postId"
               element={<QuestionDetailPage />}
             />
-            <Route
-              path="/community/question/new"
-              element={<QuestionCreatePage />}
-            />
+            <Route path="/community/q/new" element={<QuestionCreatePage />} />
             {/* my */}
             <Route path="/my" element={<My />} />
             <Route path="/myTknTx" element={<MyTx />} />

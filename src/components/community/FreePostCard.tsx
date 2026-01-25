@@ -18,8 +18,21 @@ const FreePostCard = ({ post }: Props) => {
   };
 
   const handleCommentClick = () => {
-    navigate("/community/free/postId");
-    // navigate('/community/free/' + post.id);
+    navigate("/community/f/postId");
+    // navigate('/community/f/' + post.id);
+  };
+
+  const handleShareClick = () => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "MZTK 공유하기",
+          url: "https://mztk.vercel.app/community/free/" + post.id,
+        })
+        .catch((error) => console.log("공유 실패:", error));
+    } else {
+      console.log("Web Share API를 지원하지 않는 환경입니다.");
+    }
   };
 
   return (
@@ -74,6 +87,14 @@ const FreePostCard = ({ post }: Props) => {
           <span className="text-sm font-medium text-gray-700">
             {post.comments}
           </span>
+        </button>
+
+        {/* 공유 */}
+        <button
+          onClick={handleShareClick}
+          className="flex items-center gap-1 active:scale-95 transition"
+        >
+          <img src="/icon/share.svg" alt="share" className="w-5 h-5" />
         </button>
       </div>
 

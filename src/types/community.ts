@@ -1,3 +1,5 @@
+export type BoardType = "free" | "question";
+
 export interface FreePost {
   id: number;
   author: {

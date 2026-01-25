@@ -1,2 +1,2 @@
-export { default as FreeDetailPage } from "./FreeDetail";
-export { default as FreeCreatePage } from "./FreeCreate";
+export { default as FreePostDetail } from "./FreePostDetail";
+export { default as FreePostCreate } from "./FreePostCreate";

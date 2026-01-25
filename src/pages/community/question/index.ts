@@ -1,2 +1,3 @@
-export { default as QuestionDetailPage } from "./QuestionDetail";
-export { default as QuestionCreatePage } from "./QuestionCreate";
+export { default as QuestionDetail } from "./QuestionDetail";
+export { default as QuestionCreate } from "./QuestionCreate";
+export { default as AnswerCreate } from "./AnswerCreate";

@@ -13,13 +13,13 @@ export const SimpleHeader = ({ button }: SimpleHeaderProps) => {
   const currentHeader = headerByPath.find((part) => part.path === path);
 
   return (
-    <header className="z-[998] w-full sticky max-w-[420px] flex items-center justify-between px-6 py-6 border-b border-gray-400">
+    <header className="z-[998] w-full sticky max-w-[420px] flex items-center justify-between px-6 py-6 border-b border-gray-300">
       <img
         src="/icon/backArrow.svg"
         className="cursor-pointer w-5 h-4"
         onClick={() => navigate(-1)}
       />
-      <h1 className="font-bold text-lg">{currentHeader?.label ?? ""}</h1>
+      <div className="font-bold text-lg">{currentHeader?.label ?? ""}</div>
       {button && <div>{button}</div>}
       {!button && <div className="w-5 h-4" />}
     </header>

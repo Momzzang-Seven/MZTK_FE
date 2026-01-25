@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { SimpleHeader } from "@components/layout";
 import { CommentItem, CommentInputBar } from "@components/community";
 
-import type { FreeComment } from "@types";
+import type { Comment } from "@types";
 
-const FreeDetailPage = () => {
-  const [comments, setComments] = useState<FreeComment[]>([]);
+const FreePostDetail = () => {
+  const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
     fetch("/data/freeComments.json")
@@ -39,4 +39,4 @@ const FreeDetailPage = () => {
   );
 };
 
-export default FreeDetailPage;
+export default FreePostDetail;

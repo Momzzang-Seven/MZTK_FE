@@ -11,7 +11,9 @@ export const Footer = () => {
       <div className="w-full grid grid-cols-4 col-span-4">
         {footerItem.map((item) => {
           const path = location.pathname;
-          const isActive = path === item.path;
+          // Home ('/') should be exact match, others can be prefix matches
+          const isActive =
+            item.path === "/" ? path === "/" : path.startsWith(item.path);
 
           return (
             <button
@@ -26,9 +28,8 @@ export const Footer = () => {
                 height="32px"
               />
               <div
-                className={`${
-                  isActive ? "text-main body-bold" : "text-grey-main body"
-                }`}
+                className={`${isActive ? "text-main body-bold" : "text-grey-main body"
+                  }`}
               >
                 {item.label}
               </div>

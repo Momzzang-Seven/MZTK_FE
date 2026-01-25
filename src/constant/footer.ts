@@ -1,3 +1,5 @@
+import CommunityIcon from "@assets/community.svg";
+
 type FooterItemType = {
   label: string;
   src: string;
@@ -13,17 +15,18 @@ export const footerItem: FooterItemType[] = [
     path: "/",
   },
   {
-    label: "인증",
-    src: "/icon/verify.svg",
-    activeSrc: "/icon/verifyActive.svg",
-    path: "/verify",
+    label: "리더보드",
+    src: "/icon/leaderboard.svg",
+    activeSrc: "/icon/leaderboardActive.svg",
+    path: "/leaderboard",
   },
   {
     label: "커뮤니티",
-    src: "/icon/community.svg",
+    src: CommunityIcon,
     activeSrc: "/icon/communityActive.svg",
     path: "/community",
   },
+
   {
     label: "마이페이지",
     src: "/icon/user.svg",

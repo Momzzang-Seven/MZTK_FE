@@ -22,11 +22,11 @@ export const MapView = ({ center, mapKey, mapId }: MapViewProps) => {
           mapId={mapId}
           style={{ width: "100vw", height: "100vh" }}
           defaultCenter={center}
-          defaultZoom={16}
+          defaultZoom={18}
           gestureHandling="greedy"
           disableDefaultUI
         >
-          <RangeCircle center={center} />
+          <RangeCircle center={center} radius={20} />
           <AdvancedMarker position={center}>
             <Pin background="#fab12f" glyphColor="#fff" borderColor="#fab12f" />
           </AdvancedMarker>

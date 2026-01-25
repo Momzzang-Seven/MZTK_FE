@@ -1,4 +1,4 @@
-const QuestionDetailPage = () => {
+const QuestionDetail = () => {
   return (
     <div className="flex flex-1 flex-col gap-y-5 items-center justify-center">
       <img src="/icon/error.svg" alt="errorIcon" width="60px" />
@@ -7,4 +7,4 @@ const QuestionDetailPage = () => {
   );
 };
 
-export default QuestionDetailPage;
+export default QuestionDetail;

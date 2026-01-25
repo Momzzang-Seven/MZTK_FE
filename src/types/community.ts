@@ -14,7 +14,24 @@ export interface FreePost {
   description: string;
 }
 
-export interface FreeComment {
+export interface QuestionPost {
+  id: number;
+  author: {
+    userId: number;
+    nickname: string;
+    profileImage?: string;
+  };
+  isSolved: boolean;
+  bountyToken: number;
+  createdAt: string;
+  postImage: string;
+  answers: number;
+  title: string;
+  description: string;
+  tags: string[];
+}
+
+export interface Comment {
   id: number;
   author: {
     userId: string;

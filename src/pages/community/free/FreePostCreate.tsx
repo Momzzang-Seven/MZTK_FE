@@ -5,11 +5,11 @@ import {
   NewPostContentInput,
 } from "@components/community";
 
-const FreeCreatePage = () => {
+const FreePostCreate = () => {
   const navigate = useNavigate();
 
   const handleSubmitClick = () => {
-    navigate("/community/free");
+    navigate("/community");
   };
 
   return (
@@ -44,4 +44,4 @@ const FreeCreatePage = () => {
   );
 };
 
-export default FreeCreatePage;
+export default FreePostCreate;

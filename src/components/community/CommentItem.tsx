@@ -1,9 +1,9 @@
 import { useState } from "react";
-import type { FreeComment } from "@types";
+import type { Comment } from "@types";
 import { formatTimeAgo } from "@utils";
 
 interface Props {
-  comment: FreeComment;
+  comment: Comment;
   isReply?: boolean;
 }
 

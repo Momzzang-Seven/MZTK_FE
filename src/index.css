@@ -21,6 +21,8 @@
   --color-grey-main: #a09cab;
   --color-grey-pale: #f9fafb;
   --color-grey-deep: #4b5563;
+
+  --default-ring-color: var(--color-main);
 }
 
 .font-gmarket {

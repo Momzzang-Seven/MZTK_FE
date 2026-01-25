@@ -6,17 +6,25 @@ import { Header, Footer } from "@components/layout";
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const { unauthorized, setUnauthorized } = useAuthModalStore();
+
   const hideFooterPages = [
     "/login",
-    "/community/free/postId",
-    "/community/free/new",
+    "/onboarding",
+    "/create-wallet",
+    "/register-wallet",
+    "/community/f/postId",
+    "/community/f/new",
+    "/community/q/postId",
+    "/community/q/new",
   ];
-  const showHeaderPages = ["/verify"];
+  const showHeaderPages: string[] = [];
   const shouldShowHeader = showHeaderPages.includes(location.pathname);
   const shouldHideFooter = hideFooterPages.includes(location.pathname);
 
   return (
-    <div className="bg-white w-full max-w-[420px] min-h-screen mx-auto flex flex-col items-center">
+    <div
+      className={`bg-white w-full min-h-screen mx-auto flex flex-col max-w-[420px] items-center`}
+    >
       {shouldShowHeader && <Header />}
       <div
         className={`w-full flex flex-col flex-1 overflow-y-auto

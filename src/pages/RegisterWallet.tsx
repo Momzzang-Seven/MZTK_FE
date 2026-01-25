@@ -65,6 +65,7 @@ const RegisterWallet = () => {
             next[idx] = val;
             setMnemonics(next);
           }}
+          onBulkChange={setMnemonics}
           onSubmit={validateMnemonic}
         />
       )}

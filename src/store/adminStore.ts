@@ -252,7 +252,7 @@ export const useAdminStore = create<AdminState>((set, get) => ({
 
     // Post Actions
     fetchPosts: async (reset = false) => {
-        const { page, posts, isFetchingPosts, hasMore } = get();
+        const { page, isFetchingPosts, hasMore } = get();
 
         if (isFetchingPosts || (!hasMore && !reset)) return;
 

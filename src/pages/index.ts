@@ -26,3 +26,4 @@ export { default as QuestionCreatePage } from "./community/question/QuestionCrea
 export { default as AdminDashboard } from "./admin/Dashboard";
 export { default as AdminLogin } from "./admin/Login";
 export { default as TokenLog } from "./admin/TokenLog";
+export { default as UserManagement } from "./admin/UserManagement";

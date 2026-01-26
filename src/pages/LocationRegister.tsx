@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useUserStore } from "@store/userStore";
 import {
     APIProvider,
@@ -28,6 +28,8 @@ const MapController = ({ panTo, onPanComplete }: { panTo: { lat: number; lng: nu
 
 const LocationRegister = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const fromSource = location.state?.from;
     const { registerGymLocation } = useUserStore();
 
     const MAP_KEY = import.meta.env.VITE_GOOGLE_MAP_API || "";
@@ -81,7 +83,11 @@ const LocationRegister = () => {
             address: address
         });
 
-        navigate("/verify");
+        if (fromSource === "my") {
+            navigate("/my");
+        } else {
+            navigate("/verify");
+        }
     };
 
     return (
@@ -93,7 +99,7 @@ const LocationRegister = () => {
                 </h1>
                 <div className="bg-[#FAB12F] text-white px-4 py-3 rounded-xl shadow-md">
                     <p className="font-bold text-xs leading-relaxed">
-                        Tip. 지도를 움직여 헬스장 위치를 맞춰주세요 (반경 5m)
+                        Tip. 지도를 움직여 헬스장 위치를 맞춰주세요 (반경 20m)
                     </p>
                 </div>
             </div>

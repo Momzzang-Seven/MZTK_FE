@@ -27,6 +27,7 @@ import {
   AdminDashboard,
   TokenLog,
   UserManagement,
+  PostManagement,
 } from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
 import RecordAuth from "./pages/RecordAuth";
@@ -56,6 +57,7 @@ function App() {
               <Routes>
                 <Route path="dashboard" element={<AdminDashboard />} />
                 <Route path="users" element={<UserManagement />} />
+                <Route path="posts" element={<PostManagement />} />
                 <Route path="token-logs" element={<TokenLog />} />
 
                 <Route path="/404" element={<Err404 />} />

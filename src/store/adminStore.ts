@@ -11,23 +11,64 @@ export interface AdminUser {
     profileColor: string; // Hex color for avatar background
 }
 
+export interface Comment {
+    id: number;
+    author: string;
+    content: string;
+    date: string; // YYYY-MM-DD HH:mm
+    profileColor: string;
+    isBanned: boolean;
+}
+
+export interface Post {
+    id: number;
+    author: string;
+    date: string; // YYYY-MM-DD HH:mm
+    category: string;
+    title: string;
+    content: string;
+    comments: Comment[];
+    profileColor: string;
+    isBanned: boolean;
+    likeCount: number;
+    commentCount: number;
+}
+
 interface AdminState {
+    // User Management State
     users: AdminUser[];
     filteredUsers: AdminUser[];
     searchQuery: string;
     statusFilter: 'ALL' | 'ACTIVE' | 'BANNED';
     isLoading: boolean;
 
-    // Stats
+    // User Management Stats
     totalUsers: number;
     bannedUsers: number;
 
-    // Actions
+    // Post Management State
+    posts: Post[];
+    filteredPosts: Post[];
+    searchPostQuery: string;
+    searchPostType: 'CONTENT' | 'COMMENT';
+
+    // Pagination
+    page: number;
+    hasMore: boolean;
+    isFetchingPosts: boolean;
+
+    // User Management Actions
     fetchUsers: () => Promise<void>;
     setStatusFilter: (status: 'ALL' | 'ACTIVE' | 'BANNED') => void;
     searchUsers: (query: string) => void;
     banUser: (userId: number) => Promise<void>;
     unbanUser: (userId: number) => Promise<void>;
+
+    // Post Management Actions
+    fetchPosts: (reset?: boolean) => Promise<void>;
+    searchPosts: (query: string, type: 'CONTENT' | 'COMMENT') => void;
+    banPost: (postId: number) => Promise<void>;
+    deleteComment: (postId: number, commentId: number) => Promise<void>;
 }
 
 // Mock Data Generator
@@ -43,7 +84,43 @@ const generateMockUsers = (): AdminUser[] => {
     ];
 };
 
+const generateMockPosts = (page: number): Post[] => {
+    const startId = (page - 1) * 10 + 1;
+    const comments: Comment[] = [
+        { id: 1, author: '박지영', content: 'ㄴㅇㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹ', date: '2024-01-18 15:20', profileColor: '#FFD700', isBanned: false },
+        { id: 2, author: '이민호', content: 'ㄴㅇㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹ', date: '2024-01-18 16:45', profileColor: '#FFA500', isBanned: false },
+        { id: 3, author: '최수진', content: 'ㄴㅇㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹ', date: '2024-01-18 17:10', profileColor: '#FF4500', isBanned: false },
+        { id: 4, author: '강태양', content: '1점', date: '2024-01-18 13:00', profileColor: '#32CD32', isBanned: false },
+        { id: 5, author: '윤성호', content: '010000010101000점', date: '2024-01-18 13:45', profileColor: '#1E90FF', isBanned: false },
+    ];
+
+    const posts: Post[] = [];
+
+    // Generate 5 posts per page
+    for (let i = 0; i < 5; i++) {
+        const id = startId + i;
+        posts.push({
+            id: id,
+            author: id % 2 === 0 ? '로지텍스' : '김기기기기길호',
+            date: '2024-01-18 14:30',
+            category: id % 2 === 0 ? '자유게시판' : '질문게시판',
+            title: id % 2 === 0 ? `내 몸은 짱멋지고 잘생겼어 ${id}` : `내 근육은 100점 ${id}`,
+            content: id % 2 === 0
+                ? '하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하하'
+                : '10점 만점에?',
+            comments: [comments[0], comments[1], comments[2], comments[3], comments[4]],
+            profileColor: id % 2 === 0 ? '#DAA520' : '#CD853F',
+            isBanned: false,
+            likeCount: 80 + i,
+            commentCount: 20 + i
+        });
+    }
+
+    return posts;
+};
+
 export const useAdminStore = create<AdminState>((set, get) => ({
+    // User State
     users: [],
     filteredUsers: [],
     searchQuery: '',
@@ -52,6 +129,16 @@ export const useAdminStore = create<AdminState>((set, get) => ({
     totalUsers: 0,
     bannedUsers: 0,
 
+    // Post State
+    posts: [],
+    filteredPosts: [],
+    searchPostQuery: '',
+    searchPostType: 'CONTENT',
+    page: 1,
+    hasMore: true,
+    isFetchingPosts: false,
+
+    // User Actions
     fetchUsers: async () => {
         set({ isLoading: true });
         // Simulate API delay
@@ -73,12 +160,10 @@ export const useAdminStore = create<AdminState>((set, get) => ({
 
         let filtered = users;
 
-        // Apply Status Filter
         if (status !== 'ALL') {
             filtered = filtered.filter(user => user.status === status);
         }
 
-        // Apply Search Filter
         if (searchQuery.trim()) {
             const lowerQuery = searchQuery.toLowerCase();
             filtered = filtered.filter(user =>
@@ -96,12 +181,10 @@ export const useAdminStore = create<AdminState>((set, get) => ({
 
         let filtered = users;
 
-        // Apply Status Filter
         if (statusFilter !== 'ALL') {
             filtered = filtered.filter(user => user.status === statusFilter);
         }
 
-        // Apply Search Filter
         if (query.trim()) {
             const lowerQuery = query.toLowerCase();
             filtered = filtered.filter(user =>
@@ -115,12 +198,10 @@ export const useAdminStore = create<AdminState>((set, get) => ({
 
     banUser: async (userId: number) => {
         const { users, searchQuery, statusFilter } = get();
-        // Simulate API Update
         const updatedUsers = users.map(user =>
             user.id === userId ? { ...user, status: 'BANNED' as const } : user
         );
 
-        // Re-apply filters
         let filtered = updatedUsers;
 
         if (statusFilter !== 'ALL') {
@@ -144,12 +225,10 @@ export const useAdminStore = create<AdminState>((set, get) => ({
 
     unbanUser: async (userId: number) => {
         const { users, searchQuery, statusFilter } = get();
-        // Simulate API Update
         const updatedUsers = users.map(user =>
             user.id === userId ? { ...user, status: 'ACTIVE' as const } : user
         );
 
-        // Re-apply filters
         let filtered = updatedUsers;
 
         if (statusFilter !== 'ALL') {
@@ -169,5 +248,121 @@ export const useAdminStore = create<AdminState>((set, get) => ({
             filteredUsers: filtered,
             bannedUsers: updatedUsers.filter(u => u.status === 'BANNED').length
         });
+    },
+
+    // Post Actions
+    fetchPosts: async (reset = false) => {
+        const { page, isFetchingPosts, hasMore } = get();
+
+        if (isFetchingPosts || (!hasMore && !reset)) return;
+
+        set({ isFetchingPosts: true });
+
+        // Simulate API delay
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        const nextPage = reset ? 1 : page;
+        const newPosts = generateMockPosts(nextPage);
+
+        // Simulate end of list
+        const isLastPage = nextPage >= 5;
+
+        set((state) => ({
+            posts: reset ? newPosts : [...state.posts, ...newPosts],
+            filteredPosts: reset ? newPosts : [...state.posts, ...newPosts], // Note: Filtering + Infinite Scroll is tricky, simplified here
+            page: nextPage + 1,
+            hasMore: !isLastPage,
+            isFetchingPosts: false
+        }));
+    },
+
+    searchPosts: (query: string, type: 'CONTENT' | 'COMMENT') => {
+        const trimmedQuery = query.trim();
+        set({ searchPostQuery: trimmedQuery, searchPostType: type });
+        // NOTE: Real search with pagination typically requires backend API.
+        // For client-side mock search, we search within the loaded posts or need to load all.
+        // Here we just filter currently loaded posts for simplicity.
+
+        const { posts } = get();
+
+        if (!trimmedQuery) {
+            set({ filteredPosts: posts });
+            return;
+        }
+
+        const lowerQuery = trimmedQuery.toLowerCase();
+        let filtered = posts;
+
+        if (type === 'CONTENT') {
+            filtered = posts.filter(post =>
+                post.content.toLowerCase().includes(lowerQuery) ||
+                post.title.toLowerCase().includes(lowerQuery)
+            );
+        } else {
+            // Check if any comment in the post matches
+            filtered = posts.filter(post =>
+                post.comments.some(comment => comment.content.toLowerCase().includes(lowerQuery))
+            );
+        }
+
+        set({ filteredPosts: filtered });
+    },
+
+    banPost: async (postId: number) => {
+        const { posts, searchPostQuery, searchPostType } = get();
+        const updatedPosts = posts.map(post =>
+            post.id === postId ? { ...post, isBanned: true } : post
+        );
+
+        // Re-apply search
+        let filtered = updatedPosts;
+        if (searchPostQuery) {
+            const lowerQuery = searchPostQuery.toLowerCase();
+            if (searchPostType === 'CONTENT') {
+                filtered = updatedPosts.filter(post =>
+                    post.content.toLowerCase().includes(lowerQuery) ||
+                    post.title.toLowerCase().includes(lowerQuery)
+                );
+            } else {
+                filtered = updatedPosts.filter(post =>
+                    post.comments.some(comment => comment.content.toLowerCase().includes(lowerQuery))
+                );
+            }
+        }
+
+        set({ posts: updatedPosts, filteredPosts: filtered });
+    },
+
+    deleteComment: async (postId: number, commentId: number) => {
+        const { posts, searchPostQuery, searchPostType } = get();
+        const updatedPosts = posts.map(post => {
+            if (post.id === postId) {
+                return {
+                    ...post,
+                    comments: post.comments.map(c =>
+                        c.id === commentId ? { ...c, isBanned: true } : c
+                    )
+                };
+            }
+            return post;
+        });
+
+        // Re-apply search
+        let filtered = updatedPosts;
+        if (searchPostQuery) {
+            const lowerQuery = searchPostQuery.toLowerCase();
+            if (searchPostType === 'CONTENT') {
+                filtered = updatedPosts.filter(post =>
+                    post.content.toLowerCase().includes(lowerQuery) ||
+                    post.title.toLowerCase().includes(lowerQuery)
+                );
+            } else {
+                filtered = updatedPosts.filter(post =>
+                    post.comments.some(comment => comment.content.toLowerCase().includes(lowerQuery))
+                );
+            }
+        }
+
+        set({ posts: updatedPosts, filteredPosts: filtered });
     }
 }));

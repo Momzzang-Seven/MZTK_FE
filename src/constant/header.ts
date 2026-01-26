@@ -28,7 +28,15 @@ export const adminHeaderByPath: HeaderByPathType[] = [
     path: "/admin/dashboard",
   },
   {
+    label: "사용자 관리",
+    path: "/admin/users",
+  },
+  {
     label: "토큰 지급 기록",
     path: "/admin/token-logs",
+  },
+  {
+    label: "게시판 관리",
+    path: "/admin/posts",
   },
 ];

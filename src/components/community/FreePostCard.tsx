@@ -18,15 +18,14 @@ const FreePostCard = ({ post }: Props) => {
   };
 
   const handleCommentClick = () => {
-    navigate("/community/f/postId");
-    // navigate('/community/f/' + post.id);
+    navigate("/community/free/" + post.id);
   };
 
   const handleShareClick = () => {
     if (navigator.share) {
       navigator
         .share({
-          title: "MZTK 공유하기",
+          title: "몸짱코인 공유하기",
           url: "https://mztk.vercel.app/community/free/" + post.id,
         })
         .catch((error) => console.log("공유 실패:", error));

@@ -20,7 +20,7 @@ const SearchBar = ({ initialKeyword }: SearchBarProps) => {
       navigate("/community");
       return;
     }
-    navigate(`/community/s/${encodeURIComponent(trimmed)}`);
+    navigate(`/community/search/${encodeURIComponent(trimmed)}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

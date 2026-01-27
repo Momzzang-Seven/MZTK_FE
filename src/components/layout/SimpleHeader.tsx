@@ -10,7 +10,7 @@ export const SimpleHeader = ({ button }: SimpleHeaderProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
-  const currentHeader = headerByPath.find((part) => part.path === path);
+  const currentHeader = headerByPath.find((part) => path.startsWith(part.path));
 
   return (
     <header className="z-[998] w-full sticky max-w-[420px] flex items-center justify-between px-6 py-6 border-b border-gray-300">

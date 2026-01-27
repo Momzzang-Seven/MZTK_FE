@@ -1,14 +1,15 @@
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { SimpleHeader } from "@components/layout";
-import { CommentItem, CommentInputBar } from "@components/community";
-
+import { CommentItem, CommentInput } from "@components/community";
 import type { Comment } from "@types";
 
 const FreePostDetail = () => {
+  const { postId } = useParams<{ postId: string }>();
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
-    fetch("/data/freeComments.json")
+    fetch("/data/comments.json")
       .then((res) => res.json())
       .then(setComments)
       .catch(console.error);
@@ -20,20 +21,12 @@ const FreePostDetail = () => {
 
       <section>
         {comments.map((comment) => (
-          <CommentItem
-            key={comment.id}
-            comment={comment}
-            isReply={Boolean(comment.parentId)}
-          />
+          <CommentItem key={comment.id} comment={comment} />
         ))}
       </section>
 
       <div>
-        <CommentInputBar
-          onSend={(content) => {
-            console.log("보낸 댓글:", content);
-          }}
-        />
+        <CommentInput postId={Number(postId)} />
       </div>
     </div>
   );

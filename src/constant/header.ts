@@ -14,15 +14,19 @@ export const headerByPath: HeaderByPathType[] = [
   },
   {
     label: "댓글",
-    path: "/community/f/postId",
+    path: "/community/free",
   },
   {
     label: "새 게시물",
-    path: "/community/f/new",
+    path: "/community/new/free",
   },
   {
     label: "새 질문",
-    path: "/community/q/new",
+    path: "/community/new/question",
+  },
+  {
+    label: "답변 쓰기",
+    path: "/community/new/answer",
   },
 ];
 

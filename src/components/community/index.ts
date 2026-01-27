@@ -1,7 +1,12 @@
+export { default as SearchBar } from "./SearchBar";
 export { default as FreePostCard } from "./FreePostCard";
+export { default as CommentItem } from "./Comment";
+export { default as CommentInput } from "./CommentInput";
 export { default as QuestionPostCard } from "./QuestionPostCard";
-export { default as CommentItem } from "./CommentItem";
-export { default as CommentInputBar } from "./CommentInputBar";
+export { default as QuestionHeader } from "./QuestionHeader";
+export { default as Question } from "./Question";
+export { default as Answer } from "./Answer";
 export { default as NewPostImageUploader } from "./NewPostImageUploader";
 export { default as NewPostContentInput } from "./NewPostContentInput";
-export { default as SearchBar } from "./SearchBar";
+export { default as RewardToken } from "./RewardToken";
+export { default as TokenSelect } from "./TokenSelect";

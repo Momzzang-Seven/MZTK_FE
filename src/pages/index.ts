@@ -16,10 +16,9 @@ export { default as Leaderboard } from "./Leaderboard";
 export { default as MarketDetail } from "./MarketDetail";
 export { default as MarketPurchase } from "./MarketPurchase";
 export { default as Community } from "./community/Community";
-export { default as FreePostDetail } from "./community/free/FreePostDetail";
-export { default as FreePostCreate } from "./community/free/FreePostCreate";
-export { default as QuestionDetail } from "./community/question/QuestionDetail";
-export { default as QuestionCreate } from "./community/question/QuestionCreate";
+export { default as FreePostDetail } from "./community/FreePostDetail";
+export { default as QuestionDetail } from "./community/QuestionDetail";
+export { default as NewPost } from "./community/NewPost";
 
 // admin page
 export { default as AdminDashboard } from "./admin/Dashboard";

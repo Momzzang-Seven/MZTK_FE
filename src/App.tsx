@@ -12,11 +12,9 @@ import {
   MyTx,
   Verify,
   Community,
-  FreePostCreate,
+  NewPost,
   FreePostDetail,
-  QuestionCreate,
   QuestionDetail,
-  AnswerCreate,
   Market,
   MarketDetail,
   MarketPurchase,
@@ -93,26 +91,22 @@ function App() {
                     />
                     <Route path="/leaderboard" element={<Leaderboard />} />
                     <Route path="/community" element={<Community />} />
-                    <Route path="/community/s/:tag" element={<Community />} />
                     <Route
-                      path="/community/f/postId"
+                      path="/community/search/:tag"
+                      element={<Community />}
+                    />
+                    <Route
+                      path="/community/free/:postId"
                       element={<FreePostDetail />}
                     />
                     <Route
-                      path="/community/f/new"
-                      element={<FreePostCreate />}
-                    />
-                    <Route
-                      path="/community/q/postId"
+                      path="/community/question/:postId"
                       element={<QuestionDetail />}
                     />
+                    <Route path="/community/new/:type" element={<NewPost />} />
                     <Route
-                      path="/community/q/new"
-                      element={<QuestionCreate />}
-                    />
-                    <Route
-                      path="/community/q/postId/a/new"
-                      element={<AnswerCreate />}
+                      path="/community/new/answer/:postId"
+                      element={<NewPost />}
                     />
                     <Route path="/my" element={<My />} />
                     <Route path="/myTknTx" element={<MyTx />} />

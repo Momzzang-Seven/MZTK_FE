@@ -8,6 +8,7 @@ interface CommonModalProps {
   onConfirmClick?: () => void;
   cancelLabel?: string;
   onCancelClick?: () => void;
+  children?: React.ReactNode;
 }
 
 export const CommonModal = ({
@@ -17,6 +18,7 @@ export const CommonModal = ({
   onConfirmClick,
   cancelLabel,
   onCancelClick,
+  children,
 }: CommonModalProps) => {
   return (
     <div className="z-[999] fixed inset-0 bg-black/38 flex flex-col justify-center items-center">
@@ -29,6 +31,11 @@ export const CommonModal = ({
             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(desc ?? "") }}
           />
         </div>
+        {children ?? (
+          <div
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(desc ?? "") }}
+          />
+        )}
         <div className="w-full flex flex-row gap-x-4">
           {/* cancel btn */}
           {cancelLabel && (

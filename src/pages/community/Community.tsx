@@ -22,9 +22,9 @@ const Community = () => {
       if (activeBoard === "free") {
         setFreePosts([]);
       } else if (activeBoard === "question") {
-        fetch("/data/questionPosts.json")
+        fetch("/data/questions.json")
           .then((res) => res.json())
-          .then((data) => setQuestionPosts(data.posts))
+          .then(setQuestionPosts)
           .catch(console.error);
       }
       return;
@@ -33,21 +33,21 @@ const Community = () => {
     if (activeBoard === "free") {
       fetch("/data/freePosts.json")
         .then((res) => res.json())
-        .then((data) => setFreePosts(data.posts))
+        .then(setFreePosts)
         .catch(console.error);
     } else if (activeBoard === "question") {
-      fetch("/data/questionPosts.json")
+      fetch("/data/questions.json")
         .then((res) => res.json())
-        .then((data) => setQuestionPosts(data.posts))
+        .then(setQuestionPosts)
         .catch(console.error);
     }
   }, [isSearchMode, activeBoard]);
 
   const handleCreatePost = () => {
     if (activeBoard === "free") {
-      navigate("/community/f/new");
+      navigate("/community/new/free");
     } else {
-      navigate("/community/q/new");
+      navigate("/community/new/question");
     }
   };
 
@@ -87,7 +87,7 @@ const Community = () => {
       </div>
 
       {/* 게시글 리스트 */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-3">
         {/* free 게시판 */}
         {activeBoard === "free" && (
           <>

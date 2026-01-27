@@ -14,31 +14,11 @@ export const headerByPath: HeaderByPathType[] = [
   },
   {
     label: "댓글",
-    path: "/community/free",
+    path: "/community/free/postId",
   },
   {
     label: "새 게시물",
-    path: "/community/new/free",
-  },
-  {
-    label: "새 질문",
-    path: "/community/new/question",
-  },
-  {
-    label: "답변 쓰기",
-    path: "/community/new/answer",
-  },
-  {
-    label: "게시물 수정",
-    path: "/community/edit/free",
-  },
-  {
-    label: "질문 수정",
-    path: "/community/edit/question",
-  },
-  {
-    label: "답변 수정",
-    path: "/community/edit/answer",
+    path: "/community/free/new",
   },
 ];
 
@@ -48,15 +28,7 @@ export const adminHeaderByPath: HeaderByPathType[] = [
     path: "/admin/dashboard",
   },
   {
-    label: "사용자 관리",
-    path: "/admin/users",
-  },
-  {
     label: "토큰 지급 기록",
     path: "/admin/token-logs",
-  },
-  {
-    label: "게시판 관리",
-    path: "/admin/posts",
   },
 ];

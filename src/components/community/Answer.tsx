@@ -1,6 +1,10 @@
 import { useState } from "react";
 import type { AnswerPost, Comment } from "@types";
-import { CommentItem, CommentInput } from "@components/community";
+import {
+  CommentItem,
+  CommentInput,
+  PostActionList,
+} from "@components/community";
 import { formatTimeAgo } from "@utils";
 
 interface AnswerProps {
@@ -60,11 +64,16 @@ const Answer = ({ answer }: AnswerProps) => {
             </span>
           </div>
         </div>
-        <div>
-          <div className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer">
-            <img src="/icon/more.svg" alt="더보기" className="w-4 h-4" />
-          </div>
-        </div>
+        <PostActionList
+          type="answer"
+          postId={answer.id}
+          authorId={answer.author.userId}
+          icon={
+            <div className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer">
+              <img src="/icon/more.svg" alt="더보기" className="w-4 h-4" />
+            </div>
+          }
+        />
       </div>
 
       {/* 본문 */}

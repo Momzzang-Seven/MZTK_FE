@@ -111,6 +111,10 @@ function App() {
                       path="/community/new/answer/:postId"
                       element={<CreatePost />}
                     />
+                    <Route
+                      path="/community/edit/:type/:postId"
+                      element={<CreatePost />}
+                    />
                     <Route path="/my" element={<My />} />
                     <Route path="/myTknTx" element={<MyTx />} />
                     <Route path="/exercise-auth" element={<ExerciseAuth />} />

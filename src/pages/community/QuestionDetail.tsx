@@ -27,6 +27,7 @@ const QuestionDetail = () => {
   return (
     <div className="h-full bg-gray-100">
       <QuestionHeader
+        type="question"
         postId={Number(params.postId)}
         author={question.author}
         createdAt={question.createdAt}
@@ -49,7 +50,7 @@ const QuestionDetail = () => {
 
       <div className="fixed flex bottom-10 w-full max-w-[420px] justify-center bg-none">
         <div
-          className="z-[999] px-13 py-3 bg-yellow-400 rounded-full text-white font-semibold cursor-pointer"
+          className="z-[999] px-13 py-3 bg-main rounded-full text-white font-semibold cursor-pointer"
           onClick={() =>
             navigate(
               `/community/new/answer/${encodeURIComponent(Number(params.postId))}`

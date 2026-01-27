@@ -12,21 +12,22 @@ import {
 const CreatePost = () => {
   const navigate = useNavigate();
   const { type, postId } = useParams();
-  const isAnswer = Boolean(postId);
+  const isAnswer = type === "answer";
   const isQuestionPost = type === "question";
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [content, setContent] = useState("");
   const [rewardToken, setRewardToken] = useState(0);
   const [rewardTokenModalOpen, setRewardTokenModalOpen] = useState(false);
-  const isActive =
+
+  const isSubmitActive =
     content.trim() !== "" && (isQuestionPost ? rewardToken >= 1 : true);
 
   const handleBackClick = () => {
     setImageFile(null);
     setContent("");
 
-    if (isAnswer) navigate(-1);
+    if (isAnswer) navigate("/community/question/" + postId);
     else navigate("/community");
   };
 
@@ -49,7 +50,7 @@ const CreatePost = () => {
       <SimpleHeader
         onBackClick={handleBackClick}
         button={
-          isActive ? (
+          isSubmitActive ? (
             <div
               className="font-semibold font-xs text-yellow-400 items-center cursor-pointer"
               onClick={handleSubmitClick}
@@ -66,7 +67,6 @@ const CreatePost = () => {
 
       <div className="flex flex-col gap-4">
         <NewPostImageUploader onChange={setImageFile} />
-
         <NewPostContentInput onChange={setContent} />
       </div>
 

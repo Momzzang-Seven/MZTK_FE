@@ -1,14 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import type { Author } from "@types";
 import { formatTimeAgo } from "@utils";
+import { PostActionList } from "@components/community";
 
 interface QuestionHeaderProps {
+  type: string;
   postId: number;
   author: Author;
   createdAt: string;
 }
 
-const QuestionHeader = ({ postId, author, createdAt }: QuestionHeaderProps) => {
+const QuestionHeader = ({
+  type,
+  postId,
+  author,
+  createdAt,
+}: QuestionHeaderProps) => {
   const navigate = useNavigate();
 
   const handleShareClick = () => {
@@ -48,9 +55,16 @@ const QuestionHeader = ({ postId, author, createdAt }: QuestionHeaderProps) => {
         </div>
       </div>
       <div className="flex items-center space-x-2">
-        <div className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer">
-          <img src="/icon/more.svg" alt="더보기" className="w-5 h-5" />
-        </div>
+        <PostActionList
+          type={type}
+          postId={postId}
+          authorId={author.userId}
+          icon={
+            <div className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer">
+              <img src="/icon/more.svg" alt="더보기" className="w-5 h-5" />
+            </div>
+          }
+        />
         <div
           className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
           onClick={handleShareClick}

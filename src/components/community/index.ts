@@ -10,3 +10,4 @@ export { default as NewPostImageUploader } from "./NewPostImageUploader";
 export { default as NewPostContentInput } from "./NewPostContentInput";
 export { default as RewardToken } from "./RewardToken";
 export { default as TokenSelect } from "./TokenSelect";
+export { default as PostActionList } from "./PostActionList";

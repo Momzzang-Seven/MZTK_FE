@@ -28,6 +28,18 @@ export const headerByPath: HeaderByPathType[] = [
     label: "답변 쓰기",
     path: "/community/new/answer",
   },
+  {
+    label: "게시물 수정",
+    path: "/community/edit/free",
+  },
+  {
+    label: "질문 수정",
+    path: "/community/edit/question",
+  },
+  {
+    label: "답변 수정",
+    path: "/community/edit/answer",
+  },
 ];
 
 export const adminHeaderByPath: HeaderByPathType[] = [

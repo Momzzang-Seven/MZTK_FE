@@ -20,7 +20,6 @@ export interface FreePost extends Post {
 }
 
 export interface Comment extends Post {
-  postId: number;
   replyCount: number;
 }
 

@@ -5,7 +5,8 @@ import { CommentItem, CommentInput } from "@components/community";
 import type { Comment } from "@types";
 
 const FreePostDetail = () => {
-  const { postId } = useParams<{ postId: string }>();
+  const { params } = useParams();
+  const postId = Number(params);
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const FreePostDetail = () => {
       </section>
 
       <div>
-        <CommentInput postId={Number(postId)} />
+        <CommentInput postId={postId} />
       </div>
     </div>
   );

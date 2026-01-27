@@ -18,7 +18,7 @@ export { default as MarketPurchase } from "./MarketPurchase";
 export { default as Community } from "./community/Community";
 export { default as FreePostDetail } from "./community/FreePostDetail";
 export { default as QuestionDetail } from "./community/QuestionDetail";
-export { default as NewPost } from "./community/NewPost";
+export { default as CreatePost } from "./community/CreatePost";
 
 // admin page
 export { default as AdminDashboard } from "./admin/Dashboard";

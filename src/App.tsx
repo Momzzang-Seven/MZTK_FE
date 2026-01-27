@@ -12,7 +12,7 @@ import {
   MyTx,
   Verify,
   Community,
-  NewPost,
+  CreatePost,
   FreePostDetail,
   QuestionDetail,
   Market,
@@ -103,10 +103,13 @@ function App() {
                       path="/community/question/:postId"
                       element={<QuestionDetail />}
                     />
-                    <Route path="/community/new/:type" element={<NewPost />} />
+                    <Route
+                      path="/community/new/:type"
+                      element={<CreatePost />}
+                    />
                     <Route
                       path="/community/new/answer/:postId"
-                      element={<NewPost />}
+                      element={<CreatePost />}
                     />
                     <Route path="/my" element={<My />} />
                     <Route path="/myTknTx" element={<MyTx />} />

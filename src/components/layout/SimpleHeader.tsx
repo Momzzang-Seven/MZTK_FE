@@ -3,10 +3,11 @@ import { useLocation } from "react-router-dom";
 import { headerByPath } from "@constant";
 
 interface SimpleHeaderProps {
+  onBackClick?: () => void;
   button?: React.ReactNode;
 }
 
-export const SimpleHeader = ({ button }: SimpleHeaderProps) => {
+export const SimpleHeader = ({ onBackClick, button }: SimpleHeaderProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
@@ -17,7 +18,7 @@ export const SimpleHeader = ({ button }: SimpleHeaderProps) => {
       <img
         src="/icon/backArrow.svg"
         className="cursor-pointer w-5 h-4"
-        onClick={() => navigate(-1)}
+        onClick={onBackClick ? onBackClick : () => navigate(-1)}
       />
       <div className="font-bold text-lg">{currentHeader?.label ?? ""}</div>
       {button && <div>{button}</div>}

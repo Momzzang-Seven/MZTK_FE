@@ -15,7 +15,7 @@ const My = () => {
 
       {/* Location Change Button */}
       <button
-        onClick={() => navigate("/location-register")}
+        onClick={() => navigate("/location-register", { state: { from: "my" } })}
         className="w-full bg-gray-100 text-gray-600 font-bold py-3 rounded-xl hover:bg-gray-200 transition-colors"
       >
         운동 인증 위치 변경하기

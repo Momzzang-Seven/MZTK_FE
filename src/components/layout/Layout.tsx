@@ -12,12 +12,18 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     "/onboarding",
     "/create-wallet",
     "/register-wallet",
-    "/community/free/postId",
-    "/community/free/new",
+    "/community/free",
+    "/community/question",
+    "/community/new/free",
+    "/community/new/question",
+    "/community/new/answer",
+    "/community/edit",
   ];
   const showHeaderPages: string[] = [];
   const shouldShowHeader = showHeaderPages.includes(location.pathname);
-  const shouldHideFooter = hideFooterPages.includes(location.pathname);
+  const shouldHideFooter = hideFooterPages.some((path) =>
+    location.pathname.startsWith(path)
+  );
 
   return (
     <div

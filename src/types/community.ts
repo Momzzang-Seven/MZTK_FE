@@ -1,27 +1,37 @@
-export interface FreePost {
+export type BoardType = "free" | "question";
+
+export interface Author {
+  userId: number;
+  nickname: string;
+  profileImage?: string;
+}
+
+export interface Post {
   id: number;
-  author: {
-    userId: number;
-    nickname: string;
-    profileImage?: string;
-  };
+  author: Author;
   createdAt: string;
-  postImage: string;
-  likes: number;
-  comments: number;
+  postImage?: string;
   description: string;
 }
 
-export interface FreeComment {
-  id: number;
-  author: {
-    userId: string;
-    nickname: string;
-    profileImage?: string;
-  };
-  content: string;
-  createdAt: string;
-  replyCount: number;
+export interface FreePost extends Post {
   likes: number;
-  parentId?: number; // 대댓글용 (없으면 일반 댓글)
+  comments: number;
+}
+
+export interface Comment extends Post {
+  replyCount: number;
+}
+
+export interface QuestionPost extends Post {
+  isSolved: boolean;
+  rewardToken: number;
+  title: string;
+  tags: string[];
+  answers: number;
+}
+
+export interface AnswerPost extends Post {
+  comments: number;
+  isSelected: boolean;
 }

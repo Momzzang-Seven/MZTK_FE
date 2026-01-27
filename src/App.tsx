@@ -11,21 +11,21 @@ import {
   My,
   MyTx,
   Verify,
-  Community,
-  CreatePost,
-  FreePostDetail,
-  QuestionDetail,
+  FreeListPage,
+  FreeDetailPage,
+  FreeCreatePage,
+  QuestionListPage,
+  QuestionDetailPage,
   Market,
   MarketDetail,
   MarketPurchase,
   Leaderboard,
+  QuestionCreatePage,
   CreateWallet,
   RegisterWallet,
   AdminLogin,
   AdminDashboard,
   TokenLog,
-  UserManagement,
-  PostManagement,
 } from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
 import RecordAuth from "./pages/RecordAuth";
@@ -54,8 +54,6 @@ function App() {
             <AdminLayout>
               <Routes>
                 <Route path="dashboard" element={<AdminDashboard />} />
-                <Route path="users" element={<UserManagement />} />
-                <Route path="posts" element={<PostManagement />} />
                 <Route path="token-logs" element={<TokenLog />} />
 
                 <Route path="/404" element={<Err404 />} />
@@ -94,30 +92,26 @@ function App() {
                       element={<MarketPurchase />}
                     />
                     <Route path="/leaderboard" element={<Leaderboard />} />
-                    <Route path="/community" element={<Community />} />
+                    <Route path="/community/free" element={<FreeListPage />} />
                     <Route
-                      path="/community/search/:tag"
-                      element={<Community />}
+                      path="/community/free/postId"
+                      element={<FreeDetailPage />}
                     />
                     <Route
-                      path="/community/free/:postId"
-                      element={<FreePostDetail />}
+                      path="/community/free/new"
+                      element={<FreeCreatePage />}
+                    />
+                    <Route
+                      path="/community/question"
+                      element={<QuestionListPage />}
                     />
                     <Route
                       path="/community/question/:postId"
-                      element={<QuestionDetail />}
+                      element={<QuestionDetailPage />}
                     />
                     <Route
-                      path="/community/new/:type"
-                      element={<CreatePost />}
-                    />
-                    <Route
-                      path="/community/new/answer/:postId"
-                      element={<CreatePost />}
-                    />
-                    <Route
-                      path="/community/edit/:type/:postId"
-                      element={<CreatePost />}
+                      path="/community/question/new"
+                      element={<QuestionCreatePage />}
                     />
                     <Route path="/my" element={<My />} />
                     <Route path="/myTknTx" element={<MyTx />} />

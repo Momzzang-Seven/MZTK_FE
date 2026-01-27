@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 
 interface NewPostImageUploaderProps {
-  onChange: (file: File | null) => void;
+  onChange?: (file: File | null) => void;
 }
 
 const NewPostImageUploader = ({ onChange }: NewPostImageUploaderProps) => {
@@ -18,7 +18,7 @@ const NewPostImageUploader = ({ onChange }: NewPostImageUploaderProps) => {
       return url;
     });
 
-    onChange(file);
+    onChange?.(file);
   };
 
   return (

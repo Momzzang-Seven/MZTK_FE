@@ -15,14 +15,14 @@ export { default as Market } from "./Market";
 export { default as Leaderboard } from "./Leaderboard";
 export { default as MarketDetail } from "./MarketDetail";
 export { default as MarketPurchase } from "./MarketPurchase";
-export { default as Community } from "./community/Community";
-export { default as FreePostDetail } from "./community/FreePostDetail";
-export { default as QuestionDetail } from "./community/QuestionDetail";
-export { default as CreatePost } from "./community/CreatePost";
+export { default as FreeListPage } from "./community/free/FreeListPage";
+export { default as FreeDetailPage } from "./community/free/FreeDetailPage";
+export { default as FreeCreatePage } from "./community/free/FreeCreatePage";
+export { default as QuestionListPage } from "./community/question/QuestionListPage";
+export { default as QuestionDetailPage } from "./community/question/QuestionDetailPage";
+export { default as QuestionCreatePage } from "./community/question/QuestionCreatePage";
 
 // admin page
 export { default as AdminDashboard } from "./admin/Dashboard";
 export { default as AdminLogin } from "./admin/Login";
 export { default as TokenLog } from "./admin/TokenLog";
-export { default as UserManagement } from "./admin/UserManagement";
-export { default as PostManagement } from "./admin/PostManagement";

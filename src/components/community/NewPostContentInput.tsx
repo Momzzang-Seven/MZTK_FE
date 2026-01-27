@@ -7,7 +7,7 @@ interface NewPostContentInputProps {
 }
 
 const NewPostContentInput = ({
-  maxLength = 1000,
+  maxLength = 500,
   onChange,
 }: NewPostContentInputProps) => {
   const [value, setValue] = useState("");
@@ -39,7 +39,7 @@ const NewPostContentInput = ({
         ref={textareaRef}
         value={value}
         onChange={handleChange}
-        placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포 시 모니터링 후 삭제될 수 있습니다."
+        placeholder="문구를 입력하세요..."
         className="
           w-full bg-transparent
           text-sm leading-relaxed text-gray-900

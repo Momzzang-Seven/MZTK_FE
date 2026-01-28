@@ -6,11 +6,11 @@ import {
   QuestionPostCard,
 } from "@components/community";
 import { CommonButton } from "@components/common";
-import type { BoardType, FreePost, QuestionPost } from "@types";
+import type { PostType, FreePost, QuestionPost } from "@types";
 
 const Community = () => {
   const navigate = useNavigate();
-  const [activeBoard, setActiveBoard] = useState<BoardType>("free");
+  const [activeBoard, setActiveBoard] = useState<PostType>("free");
   const [freePosts, setFreePosts] = useState<FreePost[]>([]);
   const [questionPosts, setQuestionPosts] = useState<QuestionPost[]>([]);
 
@@ -87,7 +87,7 @@ const Community = () => {
       </div>
 
       {/* 게시글 리스트 */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2 mt-3">
         {/* free 게시판 */}
         {activeBoard === "free" && (
           <>

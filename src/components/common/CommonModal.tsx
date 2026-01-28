@@ -22,7 +22,7 @@ export const CommonModal = ({
 }: CommonModalProps) => {
   return (
     <div className="z-[999] fixed inset-0 bg-black/38 flex flex-col justify-center items-center">
-      <div className="rounded-[12px] flex flex-col justify-center items-center text-center gap-y-5 p-5 bg-white h-fit w-[350px]">
+      <div className="rounded-[12px] flex flex-col justify-center items-center text-center gap-y-5 p-4 bg-white h-fit w-[350px]">
         {/* title & desc */}
         <div className="flex flex-col gap-y-2">
           <div className="title">{title}</div>

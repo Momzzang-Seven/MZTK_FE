@@ -3,7 +3,7 @@
     "id": 1,
     "author": {
       "nickname": "운동하는너구리",
-      "profileImage": "/icon/user.svg"
+      "profileImage": null
     },
     "createdAt": "2026-01-01T10:15:00",
     "postImage": "https://picsum.photos/600/400?random=1",
@@ -15,7 +15,7 @@
     "id": 2,
     "author": {
       "nickname": "헬린이",
-      "profileImage": "/icon/user.svg"
+      "profileImage": null
     },
     "createdAt": "2026-01-02T18:42:00",
     "postImage": "https://picsum.photos/600/400?random=2",
@@ -27,7 +27,7 @@
     "id": 3,
     "author": {
       "nickname": "올라잇",
-      "profileImage": "/icon/user.svg"
+      "profileImage": null
     },
     "createdAt": "2026-01-03T21:05:00",
     "postImage": "https://picsum.photos/600/400?random=3",
@@ -39,7 +39,7 @@
     "id": 4,
     "author": {
       "nickname": "오운완",
-      "profileImage": "/icon/user.svg"
+      "profileImage": null
     },
     "createdAt": "2026-01-04T23:48:00",
     "postImage": "https://picsum.photos/600/400?random=4",
@@ -51,7 +51,7 @@
     "id": 5,
     "author": {
       "nickname": "헬스보단MMA",
-      "profileImage": "/icon/user.svg"
+      "profileImage": null
     },
     "createdAt": "2026-01-06T09:30:00",
     "postImage": "https://picsum.photos/600/400?random=5",

@@ -55,11 +55,15 @@ const QuestionPostCard = ({ post }: Props) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <img
-              src={post.author.profileImage ?? "/icon/user.svg"}
-              alt={post.author.nickname}
-              className="h-6 w-6 rounded-full bg-yellow-400"
-            />
+            {post.author.profileImage ? (
+              <img
+                src={post.author.profileImage}
+                alt={post.author.nickname}
+                className="h-6 w-6 rounded-full object-cover"
+              />
+            ) : (
+              <div className="h-6 w-6 rounded-full bg-yellow-400" />
+            )}
             <span className="text-sm text-gray-500 font-medium">
               {post.author.nickname}
             </span>

@@ -1,10 +1,6 @@
 import { useState } from "react";
 import type { AnswerPost, Comment } from "@types";
-import {
-  CommentItem,
-  CommentInput,
-  PostActionList,
-} from "@components/community";
+import { CommentItem, CommentInput, ActionList } from "@components/community";
 import { formatTimeAgo } from "@utils";
 
 interface AnswerProps {
@@ -50,11 +46,15 @@ const Answer = ({ answer }: AnswerProps) => {
       {/* 작성자 */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <img
-            src={answer.author.profileImage ?? "/icon/user.svg"}
-            alt={answer.author.nickname}
-            className="h-10 w-10 rounded-full bg-yellow-400"
-          />
+          {answer.author.profileImage ? (
+            <img
+              src={answer.author.profileImage}
+              alt={answer.author.nickname}
+              className="h-10 w-10 rounded-full object-cover"
+            />
+          ) : (
+            <div className="h-10 w-10 rounded-full bg-yellow-400" />
+          )}
           <div className="flex flex-col gap-1">
             <span className="text-sm font-medium">
               {answer.author.nickname}
@@ -64,15 +64,11 @@ const Answer = ({ answer }: AnswerProps) => {
             </span>
           </div>
         </div>
-        <PostActionList
+        <ActionList
+          size="sm"
           type="answer"
-          postId={answer.id}
+          id={answer.id}
           authorId={answer.author.userId}
-          icon={
-            <div className="p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer">
-              <img src="/icon/more.svg" alt="더보기" className="w-4 h-4" />
-            </div>
-          }
         />
       </div>
 

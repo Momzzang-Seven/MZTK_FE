@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuthModalStore } from "@store";
 import { CommonModal } from "@components/common";
 import { Header, Footer } from "@components/layout";
-import { Leaderboard } from "@pages";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();

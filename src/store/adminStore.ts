@@ -282,7 +282,7 @@ export const useAdminStore = create<AdminState>((set, get) => ({
             );
         }
 
-        set((state) => ({
+        set(() => ({
             posts: allPosts,
             filteredPosts: filtered,
             page: nextPage + 1,

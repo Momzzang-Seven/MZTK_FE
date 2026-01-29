@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { FreePost } from "@types";
 import { formatTimeAgo } from "@utils";
+import { SharePost, ActionList } from "@components/community";
 
 interface Props {
   post: FreePost;
@@ -21,36 +22,35 @@ const FreePostCard = ({ post }: Props) => {
     navigate("/community/free/" + post.id);
   };
 
-  const handleShareClick = () => {
-    if (navigator.share) {
-      navigator
-        .share({
-          title: "몸짱코인 공유하기",
-          url: "https://mztk.vercel.app/community/free/" + post.id,
-        })
-        .catch((error) => console.log("공유 실패:", error));
-    } else {
-      console.log("Web Share API를 지원하지 않는 환경입니다.");
-    }
-  };
-
   return (
-    <article className="bg-white">
+    <div className="flex flex-col">
       {/* 헤더 */}
-      <div className="flex items-center gap-3 px-4 pt-4">
-        <img
-          src={post.author.profileImage ?? "icon/user.svg"}
-          alt="profile"
-          className="w-10 h-10 rounded-full bg-yellow-400"
-        />
-        <div className="flex flex-col">
-          <span className="text-sm font-semibold fontSize-16">
-            {post.author.nickname}
-          </span>
-          <span className="text-xs text-gray-500 fontSize-14">
-            {formatTimeAgo(post.createdAt)}
-          </span>
+      <div className="flex items-center justify-between px-4">
+        <div className="flex items-center gap-3">
+          {post.author.profileImage ? (
+            <img
+              src={post.author.profileImage}
+              alt={post.author.nickname}
+              className="h-10 w-10 rounded-full object-cover"
+            />
+          ) : (
+            <div className="h-10 w-10 rounded-full bg-main" />
+          )}
+          <div className="flex flex-col">
+            <span className="text-sm font-semibold fontSize-16">
+              {post.author.nickname}
+            </span>
+            <span className="text-xs text-gray-500 fontSize-14">
+              {formatTimeAgo(post.createdAt)}
+            </span>
+          </div>
         </div>
+        <ActionList
+          id={post.id}
+          type="free"
+          authorId={post.author.userId}
+          size="sm"
+        />
       </div>
 
       {/* 게시물 이미지 */}
@@ -63,11 +63,11 @@ const FreePostCard = ({ post }: Props) => {
       </div>
 
       {/* 액션 영역 */}
-      <div className="flex items-center gap-4 px-4 py-3">
+      <div className="flex items-center gap-4 px-4 py-1">
         {/* 좋아요 */}
-        <button
+        <div
           onClick={handleLikeClick}
-          className="flex items-center gap-1 active:scale-95 transition"
+          className="flex items-center gap-1 active:scale-95 transition cursor-pointer"
         >
           <img
             src={liked ? "/icon/likeActive.svg" : "/icon/like.svg"}
@@ -75,31 +75,26 @@ const FreePostCard = ({ post }: Props) => {
             className="w-5 h-5"
           />
           <span className="text-sm font-medium text-gray-700">{likeCount}</span>
-        </button>
+        </div>
 
         {/* 댓글 */}
-        <button
+        <div
           onClick={handleCommentClick}
-          className="flex items-center gap-1 active:scale-95 transition"
+          className="flex items-center gap-1 active:scale-95 transition cursor-pointer"
         >
           <img src="/icon/comment.svg" alt="comment" className="w-5 h-5" />
           <span className="text-sm font-medium text-gray-700">
             {post.comments}
           </span>
-        </button>
+        </div>
 
         {/* 공유 */}
-        <button
-          onClick={handleShareClick}
-          className="flex items-center gap-1 active:scale-95 transition"
-        >
-          <img src="/icon/share.svg" alt="share" className="w-5 h-5" />
-        </button>
+        <SharePost type="free" postId={post.id} />
       </div>
 
       {/* 설명 */}
-      <p className="px-4 pb-4 text-sm">{post.description}</p>
-    </article>
+      <p className="px-4 pb-7 text-sm">{post.description}</p>
+    </div>
   );
 };
 

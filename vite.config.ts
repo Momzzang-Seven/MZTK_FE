@@ -21,6 +21,7 @@ export default defineConfig({
       "@utils": path.resolve(__dirname, "src/utils"),
       "@context": path.resolve(__dirname, "src/context"),
       "@abi": path.resolve(__dirname, "src/abi"),
+      "@mocks": path.resolve(__dirname, "src/mocks"),
     },
   },
   server: {

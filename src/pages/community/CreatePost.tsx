@@ -11,7 +11,7 @@ import {
 
 const CreatePost = () => {
   const navigate = useNavigate();
-  const { type, postId } = useParams();
+  const { type } = useParams();
   const isAnswer = type === "answer";
   const isQuestionPost = type === "question";
 
@@ -24,11 +24,7 @@ const CreatePost = () => {
     content.trim() !== "" && (isQuestionPost ? rewardToken >= 1 : true);
 
   const handleBackClick = () => {
-    setImageFile(null);
-    setContent("");
-
-    if (isAnswer) navigate("/community/question/" + postId);
-    else navigate("/community");
+    navigate(-1);
   };
 
   const handleSubmitClick = () => {
@@ -37,8 +33,7 @@ const CreatePost = () => {
     formData.append("content", content);
 
     // api 로직 추가
-    if (isAnswer) navigate(-1);
-    else navigate("/community");
+    navigate(-1);
   };
 
   const handleRewardTokenConfirm = () => {
@@ -52,7 +47,7 @@ const CreatePost = () => {
         button={
           isSubmitActive ? (
             <div
-              className="font-semibold font-xs text-yellow-400 items-center cursor-pointer"
+              className="font-semibold font-xs text-main items-center cursor-pointer"
               onClick={handleSubmitClick}
             >
               등록하기

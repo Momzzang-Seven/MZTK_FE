@@ -19,7 +19,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     "/community/new/answer",
     "/community/edit",
   ];
-  const showHeaderPages: string[] = [];
+  const showHeaderPages: string[] = ["/leaderboard"];
   const shouldShowHeader = showHeaderPages.includes(location.pathname);
   const shouldHideFooter = hideFooterPages.some((path) =>
     location.pathname.startsWith(path)

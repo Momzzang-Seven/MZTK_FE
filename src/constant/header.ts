@@ -12,6 +12,7 @@ export const headerByPath: HeaderByPathType[] = [
     label: "운동 인증하기",
     path: "/verify/health",
   },
+  { label: "리더보드", path: "/leaderboard" },
   {
     label: "댓글",
     path: "/community/free",

@@ -1,4 +1,12 @@
-export type BoardType = "free" | "question";
+export type PostType = "free" | "question";
+
+export type ActionModalType =
+  | "MY"
+  | "OTHERS"
+  | "DELETE_CONFIRM"
+  | "REPORT"
+  | "EDIT_COMMENT"
+  | null;
 
 export interface Author {
   userId: number;

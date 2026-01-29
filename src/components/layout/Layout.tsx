@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthModalStore } from "@store";
 import { CommonModal } from "@components/common";
 import { Header, Footer } from "@components/layout";
+import { Leaderboard } from "@pages";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     "/community/new/answer",
     "/community/edit",
   ];
-  const showHeaderPages: string[] = [];
+  const showHeaderPages: string[] = ["/leaderboard"];
   const shouldShowHeader = showHeaderPages.includes(location.pathname);
   const shouldHideFooter = hideFooterPages.some((path) =>
     location.pathname.startsWith(path)

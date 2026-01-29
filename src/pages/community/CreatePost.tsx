@@ -47,7 +47,7 @@ const CreatePost = () => {
         button={
           isSubmitActive ? (
             <div
-              className="font-semibold font-xs text-yellow-400 items-center cursor-pointer"
+              className="font-semibold font-xs text-main items-center cursor-pointer"
               onClick={handleSubmitClick}
             >
               등록하기

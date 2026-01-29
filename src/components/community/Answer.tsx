@@ -53,7 +53,7 @@ const Answer = ({ answer }: AnswerProps) => {
               className="h-10 w-10 rounded-full object-cover"
             />
           ) : (
-            <div className="h-10 w-10 rounded-full bg-yellow-400" />
+            <div className="h-10 w-10 rounded-full bg-main" />
           )}
           <div className="flex flex-col gap-1">
             <span className="text-sm font-medium">

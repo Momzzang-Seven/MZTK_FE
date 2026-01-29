@@ -62,7 +62,7 @@ const QuestionPostCard = ({ post }: Props) => {
                 className="h-6 w-6 rounded-full object-cover"
               />
             ) : (
-              <div className="h-6 w-6 rounded-full bg-yellow-400" />
+              <div className="h-6 w-6 rounded-full bg-main" />
             )}
             <span className="text-sm text-gray-500 font-medium">
               {post.author.nickname}

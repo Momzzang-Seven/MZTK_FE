@@ -54,6 +54,8 @@
       "@abi/*": ["src/abi/*"],
       "@types": ["src/types"],
       "@types/*": ["src/types/*"],
+      "@mocks": ["src/mocks"],
+      "@mocks/*": ["src/mocks/*"]
     }
   },
   "resolveJsonModule": true,

@@ -1,10 +1,23 @@
+import { LeaderboardItem } from "@components/leaderboard";
+import { leaderboardData } from "@mocks/leaderboard";
+
 const Leaderboard = () => {
-    return (
-        <div className="flex flex-col h-full items-center justify-center pt-20">
-            <h1 className="title text-xl font-bold">리더보드</h1>
-            <p className="body text-gray-500 mt-4">준비중인 기능입니다.</p>
-        </div>
-    );
+  const [me, ...others] = leaderboardData;
+
+  const topTen = others.filter((user) => user.rank <= 10);
+  return (
+    <div className="flex flex-col">
+      <ul className="flex flex-col">
+        {/* 내 랭킹 (항상 최상단) */}
+        <LeaderboardItem user={me} isMe />
+
+        {/* 1~10위 */}
+        {topTen.map((user) => (
+          <LeaderboardItem key={user.rank} user={user} isMe={false} />
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default Leaderboard;

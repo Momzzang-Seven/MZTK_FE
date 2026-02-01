@@ -1,14 +1,15 @@
 import { useAdminStore, type AdminUser } from "@store/adminStore";
+import { ADMIN_TEXT } from "@constant/admin";
 
 const UserTable = () => {
     const { filteredUsers, isLoading, banUser, unbanUser } = useAdminStore();
 
     if (isLoading) {
-        return <div className="p-10 text-center text-gray-500">데이터를 불러오는 중입니다...</div>;
+        return <div className="p-10 text-center text-gray-500">{ADMIN_TEXT.COMMON.LOADING}</div>;
     }
 
     if (!filteredUsers || filteredUsers.length === 0) {
-        return <div className="p-10 text-center text-gray-500">검색 결과가 없습니다.</div>;
+        return <div className="p-10 text-center text-gray-500">{ADMIN_TEXT.COMMON.NO_RESULT}</div>;
     }
 
     return (
@@ -16,12 +17,12 @@ const UserTable = () => {
             <table className="w-full text-left border-collapse">
                 <thead>
                     <tr className="border-b border-gray-100 text-gray-400 text-sm">
-                        <th className="py-5 px-6 font-medium">사용자</th>
-                        <th className="py-5 px-6 font-medium">이메일</th>
-                        <th className="py-5 px-6 font-medium">가입일</th>
-                        <th className="py-5 px-6 font-medium">상태</th>
-                        <th className="py-5 px-6 font-medium">활동</th>
-                        <th className="py-5 px-6 font-medium">관리</th>
+                        <th className="py-5 px-6 font-medium">{ADMIN_TEXT.USER.TABLE.USER}</th>
+                        <th className="py-5 px-6 font-medium">{ADMIN_TEXT.USER.TABLE.EMAIL}</th>
+                        <th className="py-5 px-6 font-medium">{ADMIN_TEXT.USER.TABLE.JOIN_DATE}</th>
+                        <th className="py-5 px-6 font-medium">{ADMIN_TEXT.USER.TABLE.STATUS}</th>
+                        <th className="py-5 px-6 font-medium">{ADMIN_TEXT.USER.TABLE.ACTIVITY}</th>
+                        <th className="py-5 px-6 font-medium">{ADMIN_TEXT.USER.TABLE.MANAGE}</th>
                     </tr>
                 </thead>
                 <tbody className="text-gray-700">
@@ -45,7 +46,8 @@ const UserTable = () => {
                                         user.status === 'BANNED' ? 'text-gray-500 bg-gray-100' : 'text-red-500 bg-red-50'
                                     }`}
                                 >
-                                    {user.status}
+                                    {user.status === 'ACTIVE' ? ADMIN_TEXT.COMMON.FILTER.ACTIVE :
+                                        user.status === 'BANNED' ? ADMIN_TEXT.COMMON.FILTER.BANNED : user.status}
                                 </span>
                             </td>
                             <td className="py-4 px-6 text-sm text-gray-500">
@@ -58,7 +60,7 @@ const UserTable = () => {
                                         className="bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-1.5 px-3 rounded-lg transition-colors flex items-center justify-center gap-1 w-24"
                                     >
                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
-                                        정지
+                                        {ADMIN_TEXT.USER.BTN_BAN}
                                     </button>
                                 )}
 
@@ -67,7 +69,7 @@ const UserTable = () => {
                                         onClick={() => unbanUser(user.id)}
                                         className="bg-gray-400 hover:bg-gray-500 text-white text-sm font-bold py-1.5 px-3 rounded-lg transition-colors flex items-center justify-center w-24"
                                     >
-                                        해제
+                                        {ADMIN_TEXT.USER.BTN_UNBAN}
                                     </button>
                                 )}
                             </td>

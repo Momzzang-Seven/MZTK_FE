@@ -5,3 +5,4 @@ export * from "./exercise";
 export * from "./record";
 export * from "./onboarding";
 export * from "./home";
+export * from "./admin";

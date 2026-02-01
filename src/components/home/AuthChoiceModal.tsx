@@ -1,5 +1,6 @@
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
+import { HOME_TEXT } from "@constant/home";
 
 interface AuthChoiceModalProps {
     isOpen: boolean;
@@ -38,7 +39,7 @@ export const AuthChoiceModal = ({ isOpen, onClose }: AuthChoiceModalProps) => {
             {/* Modal Content */}
             <div className="relative bg-white rounded-[32px] w-full max-w-sm p-8 shadow-2xl animate-fade-in-up z-10">
                 <h2 className="text-center font-bold text-lg mb-8 tracking-tight">
-                    어떤 방법으로 인증하시겠어요?
+                    {HOME_TEXT.MODAL.TITLE}
                 </h2>
 
                 <div className="flex justify-between items-center">
@@ -52,7 +53,7 @@ export const AuthChoiceModal = ({ isOpen, onClose }: AuthChoiceModalProps) => {
                                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
                             </svg>
                         </div>
-                        <span className="text-base font-bold text-[#FAB12F]">위치인증</span>
+                        <span className="text-base font-bold text-[#FAB12F]">{HOME_TEXT.MODAL.LOCATION}</span>
                     </button>
 
                     {/* Divider */}
@@ -80,7 +81,7 @@ export const AuthChoiceModal = ({ isOpen, onClose }: AuthChoiceModalProps) => {
                                 }}
                             />
                         </div>
-                        <span className="text-base font-bold text-[#FAB12F]">운동인증</span>
+                        <span className="text-base font-bold text-[#FAB12F]">{HOME_TEXT.MODAL.EXERCISE}</span>
                     </button>
 
                     {/* Divider */}
@@ -108,7 +109,7 @@ export const AuthChoiceModal = ({ isOpen, onClose }: AuthChoiceModalProps) => {
                                 }}
                             />
                         </div>
-                        <span className="text-base font-bold text-[#FAB12F]">기록인증</span>
+                        <span className="text-base font-bold text-[#FAB12F]">{HOME_TEXT.MODAL.RECORD}</span>
                     </button>
                 </div>
             </div>

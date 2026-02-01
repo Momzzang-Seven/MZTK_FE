@@ -1,5 +1,6 @@
 import { useUserStore } from "@store";
 import { useEffect, useState } from "react";
+import { HOME_TEXT } from "@constant/home";
 
 interface AuthActionButtonsProps {
     onExerciseClick: () => void;
@@ -47,10 +48,10 @@ export const AuthActionButtons = ({ onExerciseClick }: AuthActionButtonsProps) =
 
                 <div className="flex flex-col items-start gap-1">
                     <div className="font-bold text-xl">
-                        {isAttended ? "오늘의 출석 완료!" : "출석 인증하고 10XP 받기"}
+                        {isAttended ? HOME_TEXT.ATTENDANCE.DONE_TITLE : HOME_TEXT.ATTENDANCE.YET_TITLE}
                     </div>
                     <div className={`text-sm font-medium ${isAttended ? "opacity-70" : "opacity-90"}`}>
-                        {isAttended ? "수고하셨어요! 우리 내일 봐요 +_+" : "7일 연속 출석 시 +100XP 추가 보상"}
+                        {isAttended ? HOME_TEXT.ATTENDANCE.DONE_DESC : HOME_TEXT.ATTENDANCE.YET_DESC}
                     </div>
                 </div>
             </button>
@@ -71,10 +72,10 @@ export const AuthActionButtons = ({ onExerciseClick }: AuthActionButtonsProps) =
 
                 <div className="flex flex-col items-start gap-1">
                     <div className="font-bold text-xl">
-                        {isExerciseDone ? "오늘의 운동 완료!" : "오늘의 운동 인증하기"}
+                        {isExerciseDone ? HOME_TEXT.EXERCISE.DONE_TITLE : HOME_TEXT.EXERCISE.YET_TITLE}
                     </div>
                     <div className={`text-sm font-medium ${isExerciseDone ? "opacity-70" : "text-white/90"}`}>
-                        {isExerciseDone ? "고생하셨어요! ( •̀ ω •́ )✧" : "하루에 1번 100XP 획득 가능!"}
+                        {isExerciseDone ? HOME_TEXT.EXERCISE.DONE_DESC : HOME_TEXT.EXERCISE.YET_DESC}
                     </div>
                 </div>
             </button>

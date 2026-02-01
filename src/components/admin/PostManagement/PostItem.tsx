@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AdminPost, AdminComment } from "@store/adminStore";
+import type { AdminPost, AdminComment } from "@store/adminStore";
 import { ADMIN_TEXT } from "@constant/admin";
 
 interface PostItemProps {

@@ -11,7 +11,7 @@ export interface AdminUser {
     profileColor: string; // Hex color for avatar background
 }
 
-export interface Comment {
+export interface AdminComment {
     id: number;
     author: string;
     content: string;
@@ -20,14 +20,14 @@ export interface Comment {
     isBanned: boolean;
 }
 
-export interface Post {
+export interface AdminPost {
     id: number;
     author: string;
     date: string; // YYYY-MM-DD HH:mm
     category: string;
     title: string;
     content: string;
-    comments: Comment[];
+    comments: AdminComment[];
     profileColor: string;
     isBanned: boolean;
     likeCount: number;
@@ -47,8 +47,8 @@ interface AdminState {
     bannedUsers: number;
 
     // Post Management State
-    posts: Post[];
-    filteredPosts: Post[];
+    posts: AdminPost[];
+    filteredPosts: AdminPost[];
     searchPostQuery: string;
     postStatusFilter: 'ALL' | 'ACTIVE' | 'BANNED';
 
@@ -88,9 +88,9 @@ const generateMockUsers = (): AdminUser[] => {
     ];
 };
 
-const generateMockPosts = (page: number): Post[] => {
+const generateMockPosts = (page: number): AdminPost[] => {
     const startId = (page - 1) * 10 + 1;
-    const comments: Comment[] = [
+    const comments: AdminComment[] = [
         { id: 1, author: '박지영', content: 'ㄴㅇㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹ', date: '2024-01-18 15:20', profileColor: '#FFD700', isBanned: false },
         { id: 2, author: '이민호', content: 'ㄴㅇㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹㅇㄴㄹ', date: '2024-01-18 16:45', profileColor: '#FFA500', isBanned: false },
         { id: 3, author: '최수진', content: 'ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ', date: '2024-01-18 17:10', profileColor: '#FF4500', isBanned: false },
@@ -98,7 +98,7 @@ const generateMockPosts = (page: number): Post[] => {
         { id: 5, author: '윤성호', content: '010000010101000점', date: '2024-01-18 13:45', profileColor: '#1E90FF', isBanned: false },
     ];
 
-    const posts: Post[] = [];
+    const posts: AdminPost[] = [];
 
     // Generate 5 posts per page
     for (let i = 0; i < 5; i++) {

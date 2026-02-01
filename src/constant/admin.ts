@@ -28,6 +28,27 @@ export const ADMIN_TEXT = {
     },
     POST: {
         SEARCH_PLACEHOLDER: "포스트 혹은 댓글 내용을 검색하세요",
-        // Add more post-related constants later
+        BTN_DELETE_POST: "게시글 삭제",
+        BTN_RESTORE_POST: "게시글 복구",
+        BTN_DELETE_COMMENT: "삭제",
+        BTN_RESTORE_COMMENT: "복구",
+        LABEL_COMMENT: "댓글",
+        LABEL_DELETED_COMMENT: "삭제된 댓글",
+        BTN_COMMENT_FOLD: "댓글 접기",
+        BTN_COMMENT_MORE: "댓글 더보기",
+        MSG_NO_MORE_POSTS: "더 이상 표시할 게시글이 없습니다.",
+        REASONS: [
+            "부적절한 내용",
+            "저작권 위반",
+            "스팸/광고",
+            "어뷰징/무의미한 도배",
+            "기타",
+        ],
+        MODAL: {
+            TITLE: "정말로 %TYPE%을 삭제하시겠어요?", // Placeholder for formatted string
+            SELECT_REASON: "이유를 선택해주세요",
+            BTN_CANCEL: "취소",
+            BTN_DELETE: "삭제",
+        },
     },
 };

@@ -7,14 +7,17 @@ const PostManagement = () => {
         fetchPosts,
         searchPosts,
         banPost,
+        unbanPost,
         deleteComment,
+        restoreComment,
         hasMore,
-        isFetchingPosts
+        isFetchingPosts,
+        postStatusFilter,
+        setPostStatusFilter
     } = useAdminStore();
 
     // Search State
     const [inputValue, setInputValue] = useState("");
-    const [searchType, setSearchType] = useState<'CONTENT' | 'COMMENT'>('CONTENT');
 
     // Expanded Comments State (postId -> boolean)
     const [expandedComments, setExpandedComments] = useState<{ [key: number]: boolean }>({});
@@ -45,11 +48,11 @@ const PostManagement = () => {
     // Debounce Search
     useEffect(() => {
         const timer = setTimeout(() => {
-            searchPosts(inputValue, searchType);
+            searchPosts(inputValue);
         }, 2000);
 
         return () => clearTimeout(timer);
-    }, [inputValue, searchType, searchPosts]);
+    }, [inputValue, searchPosts]);
 
     // Infinite Scroll Observer
     useEffect(() => {
@@ -75,7 +78,7 @@ const PostManagement = () => {
 
     // Handlers
     const handleSearchClick = () => {
-        searchPosts(inputValue, searchType);
+        searchPosts(inputValue);
     };
 
     const toggleComments = (postId: number) => {
@@ -127,7 +130,7 @@ const PostManagement = () => {
 
     return (
         <div className="space-y-6 pb-20">
-            <h1 className="text-2xl font-bold text-gray-800">게시판 관리</h1>
+
 
             {/* Search Bar */}
             <div className="bg-white p-3 rounded-2xl shadow-sm border border-gray-100 flex gap-4">
@@ -149,11 +152,12 @@ const PostManagement = () => {
                 <div className="relative">
                     <select
                         className="appearance-none bg-white border border-gray-200 text-gray-700 py-4 pl-4 pr-10 rounded-xl leading-Tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm font-bold min-w-[120px] cursor-pointer h-full"
-                        value={searchType}
-                        onChange={(e) => setSearchType(e.target.value as 'CONTENT' | 'COMMENT')}
+                        value={postStatusFilter}
+                        onChange={(e) => setPostStatusFilter(e.target.value as 'ALL' | 'ACTIVE' | 'BANNED')}
                     >
-                        <option value="CONTENT">게시글</option>
-                        <option value="COMMENT">댓글</option>
+                        <option value="ALL">전체 상태</option>
+                        <option value="ACTIVE">게시 중</option>
+                        <option value="BANNED">삭제됨</option>
                     </select>
                     <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700">
                         <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
@@ -184,7 +188,7 @@ const PostManagement = () => {
                                     <div className="text-xs text-gray-500">{post.date}</div>
                                 </div>
                             </div>
-                            <span className="text-main font-semibold text-sm">{post.category}</span>
+                            <span className={`font-semibold text-sm ${post.category === '자유게시판' ? 'text-orange-400' : 'text-blue-500'}`}>{post.category}</span>
                         </div>
 
                         {/* Post Content */}
@@ -205,17 +209,22 @@ const PostManagement = () => {
                                     {post.likeCount}
                                 </span>
                             </div>
-                            {!post.isBanned && (
+                            {!post.isBanned ? (
                                 <button
                                     onClick={() => openDeleteModal('POST', post.id)}
                                     className="px-4 py-2 bg-red-50 text-red-500 border border-red-200 rounded-lg text-sm font-semibold hover:bg-red-100 flex items-center gap-2"
                                 >
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
-                                    게시글 밴
+                                    게시글 삭제
                                 </button>
-                            )}
-                            {post.isBanned && (
-                                <span className="px-4 py-2 bg-red-100 text-red-600 rounded-lg text-sm font-bold">밴 처리됨</span>
+                            ) : (
+                                <button
+                                    onClick={() => unbanPost(post.id)}
+                                    className="px-4 py-2 bg-green-50 text-green-600 border border-green-200 rounded-lg text-sm font-semibold hover:bg-green-100 flex items-center gap-2"
+                                >
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                                    게시글 복구
+                                </button>
                             )}
                         </div>
 
@@ -243,12 +252,21 @@ const PostManagement = () => {
                                                     {comment.isBanned && <span className="text-xs text-red-500 font-bold">삭제된 댓글</span>}
                                                 </div>
                                             </div>
-                                            {!comment.isBanned && (
+                                            {!comment.isBanned ? (
                                                 <button
                                                     onClick={() => openDeleteModal('COMMENT', post.id, comment.id)}
-                                                    className="w-6 h-6 rounded-full border border-red-200 text-red-400 flex items-center justify-center hover:bg-red-50"
+                                                    className="w-8 h-8 rounded-full border border-red-200 text-red-400 flex items-center justify-center hover:bg-red-50"
+                                                    title="삭제"
                                                 >
-                                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
+                                                </button>
+                                            ) : (
+                                                <button
+                                                    onClick={() => restoreComment(post.id, comment.id)}
+                                                    className="w-8 h-8 rounded-full border border-green-200 text-green-500 flex items-center justify-center hover:bg-green-50"
+                                                    title="복구"
+                                                >
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
                                                 </button>
                                             )}
                                         </div>
@@ -296,9 +314,7 @@ const PostManagement = () => {
                             <h3 className="text-xl font-bold text-gray-900 mb-2">
                                 정말로 {modalConfig.type === 'POST' ? '게시글' : '댓글'}을 삭제하시겠어요?
                             </h3>
-                            <p className="text-sm text-gray-500">
-                                복구는 불가능합니다.
-                            </p>
+
                         </div>
 
                         <div className="mb-6">

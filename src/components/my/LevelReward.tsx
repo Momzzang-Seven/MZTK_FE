@@ -1,9 +1,11 @@
+import { MySectionCard } from "./MySectionCard";
+
 export const LevelReward = () => {
   const level = 4;
   const reward = 5;
 
   return (
-    <div className="flex flex-col gap-x-3 rounded-lg p-4 gap-y-3 w-full h-fit items-center justify-center bg-white border border-main border-2">
+    <MySectionCard>
       {/* gift reward */}
       <div className="flex flex-row justify-start w-full gap-x-3">
         <img src="/icon/gift.svg" alt="giftIcon" />
@@ -25,6 +27,6 @@ export const LevelReward = () => {
           <div className="label-bold">+{reward} 토큰</div>
         </div>
       </div>
-    </div>
+    </MySectionCard>
   );
 };

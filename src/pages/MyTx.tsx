@@ -60,13 +60,9 @@ const MyToken = () => {
           pin
         );
 
-        const formattedAddress = wallet.address.startsWith("0x")
-          ? wallet.address
-          : `0x${wallet.address}`;
-
-        console.log("송금 지갑 주소:", formattedAddress);
-
         if (!RPC_URL) throw new Error("RPC URL이 설정되지 않았습니다.");
+        if (!MZT_ADDR) throw new Error("토큰 주소가 설정되지 않았습니다.");
+
         const provider = new ethers.JsonRpcProvider(RPC_URL);
         const signer = wallet.connect(provider);
 
@@ -75,8 +71,12 @@ const MyToken = () => {
         ];
         const contract = new ethers.Contract(MZT_ADDR, ABI, signer);
 
+        const toAddress = address.startsWith("0x") ? address : `0x${address}`;
+
+        console.log("송금 지갑 주소:", toAddress);
+
         const tx = await contract.transfer(
-          formattedAddress,
+          toAddress,
           ethers.parseUnits(amount, 18)
         );
         setTxHash(tx.hash);
@@ -90,7 +90,7 @@ const MyToken = () => {
         setInputPin("");
       }
     },
-    [amount, RPC_URL, MZT_ADDR]
+    [address, amount, RPC_URL, MZT_ADDR]
   );
 
   useEffect(() => {

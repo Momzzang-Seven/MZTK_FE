@@ -1,11 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { ethers } from "ethers";
-import { CommonButton } from "@components/common";
-import { RestTkn, WithdrawAddr, WithdrawAmt } from "@components/myTx";
-import PinPad from "@components/auth/PinPad";
 import { CommonModal } from "@components/common";
-import Lottie from "lottie-react";
-import runnerAnimation from "@assets/runner.json";
+import {
+  MyTxMainSection,
+  MyTxPinSection,
+  MyTxStatusSection,
+} from "@components/myTx";
 
 type MyStep = "MAIN" | "PIN_CHECK" | "SENDING" | "SUCCESS";
 
@@ -20,6 +20,25 @@ const MyToken = () => {
 
   const RPC_URL = import.meta.env.VITE_RPC_URL;
   const MZT_ADDR = import.meta.env.VITE_TOKEN_ADDRESS;
+
+  const isAmountValid = useMemo(() => {
+    const numericAmount = Number(amount);
+    if (!amount || Number.isNaN(numericAmount)) return false;
+    if (numericAmount <= 0) return false;
+    if (numericAmount > balance) return false;
+    return true;
+  }, [amount, balance]);
+
+  const isAddressValid = useMemo(() => {
+    if (!address) return false;
+    try {
+      return ethers.isAddress(
+        address.startsWith("0x") ? address : `0x${address}`
+      );
+    } catch {
+      return false;
+    }
+  }, [address]);
 
   useEffect(() => {
     const fetchBalance = async () => {
@@ -86,7 +105,9 @@ const MyToken = () => {
       } catch (e) {
         console.error(e);
         setStep("MAIN");
-        setErrorModal("PIN 번호가 틀렸거나 잔액이 부족합니다.");
+        setErrorModal(
+          "PIN 번호가 틀렸거나 잔액이 부족하거나 주소가 유효하지 않습니다."
+        );
         setInputPin("");
       }
     },
@@ -103,66 +124,36 @@ const MyToken = () => {
   return (
     <div className="flex flex-1 flex-col bg-white">
       {step === "MAIN" && (
-        <div className="flex flex-1 flex-col pt-[38px] px-[22px] gap-y-5 animate-in fade-in">
-          <RestTkn amt={balance} />
-          <WithdrawAmt amt={balance} value={amount} onChange={setAmount} />
-          <WithdrawAddr value={address} onChange={setAddress} />
-
-          <div className="mt-auto pb-10">
-            <CommonButton
-              label="송금 요청"
-              padding="p-4"
-              onClick={() => setStep("PIN_CHECK")}
-              disabled={
-                !address ||
-                !amount ||
-                Number(amount) > balance ||
-                Number(amount) <= 0
-              }
-            />
-          </div>
-        </div>
+        <MyTxMainSection
+          balance={balance}
+          amount={amount}
+          address={address}
+          isAmountValid={isAmountValid}
+          isAddressValid={isAddressValid}
+          onChangeAmount={setAmount}
+          onChangeAddress={setAddress}
+          onNext={() => setStep("PIN_CHECK")}
+        />
       )}
 
       {step === "PIN_CHECK" && (
-        <div className="flex flex-col h-screen bg-white px-6 overflow-hidden">
-          <PinPad
-            title="PIN 번호를 입력해주세요"
-            pin={inputPin}
-            onInput={(n) => setInputPin((p) => p + n)}
-            onDelete={() => setInputPin((p) => p.slice(0, -1))}
-          />
-        </div>
+        <MyTxPinSection
+          inputPin={inputPin}
+          onInput={(n) => setInputPin((p) => p + n)}
+          onDelete={() => setInputPin((p) => p.slice(0, -1))}
+        />
       )}
 
       {(step === "SENDING" || step === "SUCCESS") && (
-        <div className="flex flex-col h-full px-6 pt-20 pb-10 items-center animate-in zoom-in">
-          <h1 className="font-gmarket text-[28px] leading-tight mb-4 text-center">
-            {step === "SENDING"
-              ? "송금이 진행 중입니다"
-              : "송금이 완료되었습니다!"}
-          </h1>
-          <p className="body text-color-grey-deep text-center mb-10">
-            {step === "SENDING"
-              ? "블록체인 네트워크에 기록 중입니다..."
-              : `성공적으로 전송되었습니다.\nTX: ${txHash.slice(0, 10)}...`}
-          </p>
-          <div className="flex-1 flex justify-center items-center">
-            <Lottie animationData={runnerAnimation} className="w-64" />
-          </div>
-          {step === "SUCCESS" && (
-            <button
-              onClick={() => {
-                setStep("MAIN");
-                setAmount("");
-                setAddress("");
-              }}
-              className="w-full h-[60px] bg-main text-black rounded-xl font-gmarket text-lg active:scale-95 transition-all"
-            >
-              확의
-            </button>
-          )}
-        </div>
+        <MyTxStatusSection
+          step={step === "SENDING" ? "SENDING" : "SUCCESS"}
+          txHash={txHash}
+          onReset={() => {
+            setStep("MAIN");
+            setAmount("");
+            setAddress("");
+          }}
+        />
       )}
 
       {errorModal && (

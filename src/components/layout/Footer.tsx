@@ -13,7 +13,7 @@ export const Footer = () => {
           const path = location.pathname;
           // Home ('/') should be exact match, others can be prefix matches
           const isActive =
-            item.path === "/" ? path === "/" : path.startsWith(item.path);
+            item.path === "/" ? path === "/" : path.includes(item.path);
 
           return (
             <button
@@ -28,8 +28,9 @@ export const Footer = () => {
                 height="32px"
               />
               <div
-                className={`${isActive ? "text-main body-bold" : "text-grey-main body"
-                  }`}
+                className={`${
+                  isActive ? "text-main body-bold" : "text-grey-main body"
+                }`}
               >
                 {item.label}
               </div>

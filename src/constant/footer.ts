@@ -26,7 +26,6 @@ export const footerItem: FooterItemType[] = [
     activeSrc: "/icon/communityActive.svg",
     path: "/community",
   },
-
   {
     label: "마이페이지",
     src: "/icon/user.svg",

@@ -1,26 +1,35 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 
-interface SearchBarProps {
-  initialKeyword?: string;
-}
-
-const SearchBar = ({ initialKeyword }: SearchBarProps) => {
+const SearchBar = () => {
   const navigate = useNavigate();
+
+  const { pathname } = useLocation();
+  const isQuestion = pathname.startsWith("/community/question");
+  const isFree = pathname.startsWith("/community/free");
+
+  const [searchParams] = useSearchParams();
+  const initialKeyword = searchParams.get("tag");
+
   const [keyword, setKeyword] = useState(initialKeyword || "");
 
   useEffect(() => {
     setKeyword(initialKeyword || "");
-  }, [initialKeyword]);
+  }, [pathname, initialKeyword]);
 
   const handleSearch = (searchKeyword: string) => {
     const trimmed = searchKeyword.trim();
 
     if (!trimmed) {
-      navigate("/community");
+      if (isFree) navigate("/community/free", { replace: true });
+      else if (isQuestion) navigate("/community/question", { replace: true });
       return;
     }
-    navigate(`/community/search/${encodeURIComponent(trimmed)}`);
+
+    const encoded = encodeURIComponent(trimmed);
+
+    if (isFree) navigate(`/community/free?tag=${encoded}`);
+    else if (isQuestion) navigate(`/community/question?tag=${encoded}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

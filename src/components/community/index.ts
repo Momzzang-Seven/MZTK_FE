@@ -1,4 +1,7 @@
+export { default as BoardToggle } from "./BoardToggle";
 export { default as SearchBar } from "./SearchBar";
+export { default as CommunityHeader } from "./CommunityHeader";
+export { default as CreatePostButton } from "./CreatePostButton";
 export { default as FreePostCard } from "./FreePostCard";
 export { default as CommentItem } from "./Comment";
 export { default as CommentInput } from "./CommentInput";

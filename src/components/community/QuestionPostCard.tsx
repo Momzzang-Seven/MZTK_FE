@@ -44,7 +44,7 @@ const QuestionPostCard = ({ post }: Props) => {
           <span
             key={tag}
             className="text-sm text-[#4C6FFF]"
-            onClick={() => navigate("/community/search/" + tag)}
+            onClick={() => navigate(`/community/question?tag=${tag}`)}
           >
             #{tag}
           </span>

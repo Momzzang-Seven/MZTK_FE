@@ -6,7 +6,7 @@ import { MnemonicVerify } from "../components/auth/MnemonicVerify";
 import { PinPad } from "../components/auth/PinPad";
 import { CommonModal } from "../components/common";
 import { FullScreenPage } from "@components/layout";
-import { WalletSuccessSection } from "../components/wallet/WalletSuccessSection";
+import { WalletSuccessSection } from "@components/wallet/WalletSuccessSection";
 
 type Step = "SHOW" | "VERIFY" | "PIN_SET" | "PIN_CONFIRM" | "SUCCESS";
 

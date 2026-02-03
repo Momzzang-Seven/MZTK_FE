@@ -12,6 +12,8 @@ import {
   MyTx,
   Verify,
   Community,
+  FreeBoard,
+  QuestionBoard,
   CreatePost,
   FreePostDetail,
   QuestionDetail,
@@ -94,11 +96,11 @@ function App() {
                       element={<MarketPurchase />}
                     />
                     <Route path="/leaderboard" element={<Leaderboard />} />
-                    <Route path="/community" element={<Community />} />
-                    <Route
-                      path="/community/search/:tag"
-                      element={<Community />}
-                    />
+                    <Route path="/community" element={<Community />}>
+                      <Route index element={<Navigate to="free" replace />} />
+                      <Route path="free" element={<FreeBoard />} />
+                      <Route path="question" element={<QuestionBoard />} />
+                    </Route>
                     <Route
                       path="/community/free/:postId"
                       element={<FreePostDetail />}

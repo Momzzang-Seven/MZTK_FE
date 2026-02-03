@@ -11,9 +11,10 @@ import {
 
 const CreatePost = () => {
   const navigate = useNavigate();
+
   const { type } = useParams();
+  const isQuestion = type === "question";
   const isAnswer = type === "answer";
-  const isQuestionPost = type === "question";
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [content, setContent] = useState("");
@@ -21,7 +22,7 @@ const CreatePost = () => {
   const [rewardTokenModalOpen, setRewardTokenModalOpen] = useState(false);
 
   const isSubmitActive =
-    content.trim() !== "" && (isQuestionPost ? rewardToken >= 1 : true);
+    content.trim() !== "" && (isQuestion ? rewardToken >= 1 : true);
 
   const handleBackClick = () => {
     navigate(-1);
@@ -32,7 +33,6 @@ const CreatePost = () => {
     if (imageFile) formData.append("image", imageFile);
     formData.append("content", content);
 
-    // api 로직 추가
     navigate(-1);
   };
 
@@ -45,18 +45,14 @@ const CreatePost = () => {
       <SimpleHeader
         onBackClick={handleBackClick}
         button={
-          isSubmitActive ? (
-            <div
-              className="font-semibold font-xs text-main items-center cursor-pointer"
-              onClick={handleSubmitClick}
-            >
-              등록하기
-            </div>
-          ) : (
-            <div className="font-semibold font-xs text-gray-400 items-center cursor-pointer">
-              등록하기
-            </div>
-          )
+          <div
+            className={`font-semibold text-xs items-center cursor-pointer ${
+              !isSubmitActive ? "text-gray-400" : "text-main"
+            }`}
+            onClick={isSubmitActive ? handleSubmitClick : undefined}
+          >
+            등록하기
+          </div>
         }
       />
 
@@ -65,7 +61,7 @@ const CreatePost = () => {
         <NewPostContentInput onChange={setContent} />
       </div>
 
-      {isQuestionPost && !isAnswer && (
+      {isQuestion && !isAnswer && (
         <div className="fixed bottom-10 w-full max-w-[420px] px-6">
           <RewardToken
             rewardToken={rewardToken}
@@ -74,7 +70,7 @@ const CreatePost = () => {
         </div>
       )}
 
-      {isQuestionPost && !isAnswer && rewardTokenModalOpen && (
+      {isQuestion && !isAnswer && rewardTokenModalOpen && (
         <CommonModal
           title="보상 토큰 지급"
           desc={`채택된 답변의 사용자에게 <b>${rewardToken} MZTK</b>을 지급합니다.`}

@@ -51,7 +51,7 @@ const Question = ({ question }: QuestionProps) => {
           <span
             key={tag}
             className="text-sm text-blue-600 bg-blue-50 px-2 py-1 rounded cursor-pointer"
-            onClick={() => navigate("/community/search/" + tag)}
+            onClick={() => navigate(`/community/question?tag=${tag}`)}
           >
             #{tag}
           </span>

@@ -16,6 +16,8 @@ export { default as Leaderboard } from "./Leaderboard";
 export { default as MarketDetail } from "./MarketDetail";
 export { default as MarketPurchase } from "./MarketPurchase";
 export { default as Community } from "./community/Community";
+export { default as FreeBoard } from "./community/FreeBoard";
+export { default as QuestionBoard } from "./community/QuestionBoard";
 export { default as FreePostDetail } from "./community/FreePostDetail";
 export { default as QuestionDetail } from "./community/QuestionDetail";
 export { default as CreatePost } from "./community/CreatePost";

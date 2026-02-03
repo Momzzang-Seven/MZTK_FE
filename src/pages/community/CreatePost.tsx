@@ -33,7 +33,6 @@ const CreatePost = () => {
     if (imageFile) formData.append("image", imageFile);
     formData.append("content", content);
 
-    // api 로직 추가
     navigate(-1);
   };
 
@@ -46,18 +45,14 @@ const CreatePost = () => {
       <SimpleHeader
         onBackClick={handleBackClick}
         button={
-          isSubmitActive ? (
-            <div
-              className="font-semibold font-xs text-main items-center cursor-pointer"
-              onClick={handleSubmitClick}
-            >
-              등록하기
-            </div>
-          ) : (
-            <div className="font-semibold font-xs text-gray-400 items-center cursor-pointer">
-              등록하기
-            </div>
-          )
+          <div
+            className={`font-semibold text-xs items-center cursor-pointer ${
+              !isSubmitActive ? "text-gray-400" : "text-main"
+            }`}
+            onClick={isSubmitActive ? handleSubmitClick : undefined}
+          >
+            등록하기
+          </div>
         }
       />
 

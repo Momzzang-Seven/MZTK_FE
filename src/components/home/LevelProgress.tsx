@@ -55,8 +55,7 @@ export const LevelProgress = () => {
                 {isLevelUpAvailable ? (
                     <button
                         onClick={handleLevelUp}
-                        className="animate-bounce bg-[#FAB12F] text-white font-bold leading-none px-8 py-5 rounded-full shadow-xl hover:bg-[#E59E20] transition-colors"
-                        style={{ fontSize: "2rem" }}
+                        className="animate-bounce bg-[#FAB12F] text-white font-bold leading-none px-8 py-5 rounded-full shadow-xl hover:bg-[#E59E20] transition-colors text-4xl"
                     >
                         레벨업!
                     </button>

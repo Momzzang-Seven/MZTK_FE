@@ -18,6 +18,9 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     "/community/new/question",
     "/community/new/answer",
     "/community/edit",
+    "/exercise-auth",
+    "/record-auth",
+    "/location-register",
   ];
   const showHeaderPages: string[] = ["/leaderboard"];
   const shouldShowHeader = showHeaderPages.includes(location.pathname);

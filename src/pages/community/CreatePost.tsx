@@ -46,18 +46,12 @@ const CreatePost = () => {
       <SimpleHeader
         onBackClick={handleBackClick}
         button={
-          isSubmitActive ? (
-            <div
-              className="font-semibold font-xs text-main items-center cursor-pointer"
-              onClick={handleSubmitClick}
-            >
-              등록하기
-            </div>
-          ) : (
-            <div className="font-semibold font-xs text-gray-400 items-center cursor-pointer">
-              등록하기
-            </div>
-          )
+          <div
+            className="font-semibold font-xs text-main items-center cursor-pointer"
+            onClick={isSubmitActive ? handleSubmitClick : undefined}
+          >
+            등록하기
+          </div>
         }
       />
 

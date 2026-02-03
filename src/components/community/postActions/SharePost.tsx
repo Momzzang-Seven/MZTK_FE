@@ -12,9 +12,11 @@ const SharePost = ({ type, postId }: SharePostProps) => {
       return;
     }
 
+    const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
     const basePathByType: Record<PostType, string> = {
-      free: "https://mztk.vercel.app/community/free/",
-      question: "https://mztk.vercel.app/community/question/",
+      free: `${BASE_URL}/community/free/`,
+      question: `${BASE_URL}/community/question/`,
     };
 
     const url = basePathByType[type] + postId;

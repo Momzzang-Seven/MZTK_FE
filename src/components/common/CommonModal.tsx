@@ -31,11 +31,7 @@ export const CommonModal = ({
             dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(desc ?? "") }}
           />
         </div>
-        {children ?? (
-          <div
-            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(desc ?? "") }}
-          />
-        )}
+        {children}
         <div className="w-full flex flex-row gap-x-4">
           {/* cancel btn */}
           {cancelLabel && (

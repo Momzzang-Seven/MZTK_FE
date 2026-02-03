@@ -1,5 +1,5 @@
 import { CommonButton } from "@components/common";
-import { RestTkn, WithdrawAddr, WithdrawAmt } from "@components/myTx";
+import { RestTkn, WithdrawAddr, WithdrawAmt } from "@components/token";
 
 type MyTxMainSectionProps = {
   balance: number;

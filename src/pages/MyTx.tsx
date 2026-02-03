@@ -5,7 +5,7 @@ import {
   MyTxMainSection,
   MyTxPinSection,
   MyTxStatusSection,
-} from "@components/myTx";
+} from "@components/token";
 
 type MyStep = "MAIN" | "PIN_CHECK" | "SENDING" | "SUCCESS";
 

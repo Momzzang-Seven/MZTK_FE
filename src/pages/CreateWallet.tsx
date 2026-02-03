@@ -1,12 +1,12 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers, HDNodeWallet } from "ethers";
-import Lottie from "lottie-react";
-import runnerAnimation from "@assets/runner.json";
 import { MnemonicDisplay } from "../components/auth/MnemonicDisplay";
 import { MnemonicVerify } from "../components/auth/MnemonicVerify";
 import { PinPad } from "../components/auth/PinPad";
-import { CommonModal } from "../components/common/CommonModal";
+import { CommonModal } from "../components/common";
+import { FullScreenPage } from "@components/layout";
+import { WalletSuccessSection } from "@components/wallet/WalletSuccessSection";
 
 type Step = "SHOW" | "VERIFY" | "PIN_SET" | "PIN_CONFIRM" | "SUCCESS";
 
@@ -72,7 +72,7 @@ const CreateWallet = () => {
   }, [pin, confirmPin, step, finalize]);
 
   return (
-    <div className="flex flex-col h-screen bg-white px-6 overflow-hidden">
+    <FullScreenPage className="overflow-hidden">
       {step === "SHOW" && (
         <MnemonicDisplay
           mnemonics={mnemonics}
@@ -115,18 +115,15 @@ const CreateWallet = () => {
       )}
 
       {step === "SUCCESS" && (
-        <div className="flex flex-col h-full animate-in zoom-in duration-500 pt-16 pb-6 text-left">
-          <h1 className="font-gmarket text-[28px] mb-4">
-            모든 설정이 <br /> 완료되었습니다!
-          </h1>
-          <p className="body text-color-grey-deep mb-10">
-            비밀 복구 구문을 안전하게 보관할 책임은 <br /> 본인에게 있습니다.
-          </p>
-          <div className="flex-1 flex justify-center items-center">
-            <Lottie animationData={runnerAnimation} className="w-56" />
-          </div>
-
-          <div className="bg-gray-50 p-6 rounded-2xl mb-8">
+        <WalletSuccessSection
+          description={
+            <>
+              비밀 복구 구문을 안전하게 보관할 책임은 <br /> 본인에게 있습니다.
+            </>
+          }
+          onConfirm={() => navigate("/home")}
+        >
+          <div className="bg-gray-50 p-6 rounded-2xl mb-2">
             <p className="body-bold text-black mb-3">안전한 보관 관련 팁</p>
             <ul className="text-[12.5px] text-color-grey-deep space-y-1.5 list-disc pl-4">
               <li>백업을 여러 장소에 보관하세요.</li>
@@ -135,13 +132,7 @@ const CreateWallet = () => {
               <li>저희 서비스에선 비밀 복구 구문을 복구할 수 없습니다.</li>
             </ul>
           </div>
-          <button
-            onClick={() => navigate("/home")}
-            className="w-full h-[60px] bg-main rounded-xl font-gmarket text-lg active:scale-95 transition-all"
-          >
-            모두 이해했어요
-          </button>
-        </div>
+        </WalletSuccessSection>
       )}
 
       {modal && (
@@ -155,7 +146,7 @@ const CreateWallet = () => {
           }}
         />
       )}
-    </div>
+    </FullScreenPage>
   );
 };
 

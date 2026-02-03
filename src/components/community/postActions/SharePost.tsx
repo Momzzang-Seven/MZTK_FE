@@ -13,18 +13,11 @@ const SharePost = ({ type, postId }: SharePostProps) => {
     }
 
     const BASE_URL = import.meta.env.VITE_API_BASE_URL;
-<<<<<<< HEAD
     const COMMUNITY_BASE = `${BASE_URL}/community`;
 
     const basePathByType: Record<PostType, string> = {
       free: `${COMMUNITY_BASE}/free/`,
       question: `${COMMUNITY_BASE}/question/`,
-=======
-
-    const basePathByType: Record<PostType, string> = {
-      free: `${BASE_URL}/community/free/`,
-      question: `${BASE_URL}/community/question/`,
->>>>>>> 660367a5750716ede3c95c3ed6e70cb26dc1fd66
     };
 
     const url = basePathByType[type] + postId;

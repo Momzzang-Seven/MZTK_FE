@@ -48,11 +48,11 @@ export const PostItem = ({
             <div className="flex justify-between items-center border-b border-gray-200 pb-4 mb-4">
                 <div className="flex gap-4 text-gray-500 text-sm">
                     <span className="flex items-center gap-1">
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" /></svg>
+                        <img src="/icon/comment.svg" alt="comments" className="w-4 h-4" />
                         {post.comments.length}
                     </span>
                     <span className="flex items-center gap-1">
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" /></svg>
+                        <img src="/icon/like.svg" alt="likes" className="w-4 h-4" />
                         {post.likeCount}
                     </span>
                 </div>
@@ -63,7 +63,7 @@ export const PostItem = ({
                         className="px-4 py-2 border border-red-200 text-sm font-semibold flex items-center gap-2"
                         bgColor="bg-red-50 hover:bg-red-100"
                         textColor="text-red-500"
-                        icon={<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>}
+                        icon={<img src="/icon/trash.svg" alt="delete" className="w-4 h-4" />}
                     />
                 ) : (
                     <CommonButton
@@ -72,7 +72,7 @@ export const PostItem = ({
                         className="px-4 py-2 border border-green-200 text-sm font-semibold flex items-center gap-2"
                         bgColor="bg-green-50 hover:bg-green-100"
                         textColor="text-green-600"
-                        icon={<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>}
+                        icon={<img src="/icon/refresh.svg" alt="restore" className="w-4 h-4" />}
                     />
                 )}
             </div>
@@ -81,7 +81,7 @@ export const PostItem = ({
             {post.comments.length > 0 && (
                 <div className="bg-white rounded-xl p-4 space-y-4">
                     <div className="text-sm font-bold text-gray-700 flex items-center gap-2">
-                        <svg className="w-4 h-4 text-main" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" /></svg>
+                        <img src="/icon/comment.svg" alt="comments" className="w-4 h-4" />
                         {ADMIN_TEXT.POST.LABEL_COMMENT} ({post.comments.length})
                     </div>
 
@@ -107,7 +107,7 @@ export const PostItem = ({
                                         className="w-8 h-8 rounded-full border border-red-200 text-red-400 flex items-center justify-center hover:bg-red-50"
                                         title={ADMIN_TEXT.POST.BTN_DELETE_COMMENT}
                                     >
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>
+                                        <img src="/icon/trash.svg" alt="delete" className="w-4 h-4" />
                                     </button>
                                 ) : (
                                     <button
@@ -115,7 +115,7 @@ export const PostItem = ({
                                         className="w-8 h-8 rounded-full border border-green-200 text-green-500 flex items-center justify-center hover:bg-green-50"
                                         title={ADMIN_TEXT.POST.BTN_RESTORE_COMMENT}
                                     >
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                                        <img src="/icon/refresh.svg" alt="restore" className="w-4 h-4" />
                                     </button>
                                 )}
                             </div>

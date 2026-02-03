@@ -49,9 +49,7 @@ export const AuthChoiceModal = ({ isOpen, onClose }: AuthChoiceModalProps) => {
                         className="flex-1 flex flex-col items-center gap-3 group active:scale-95 transition-transform"
                     >
                         <div className="w-12 h-12 flex items-center justify-center text-[#FAB12F] mb-1">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                            </svg>
+                            <img src="/icon/location_auth.svg" alt="location" width={40} height={40} className="text-current" />
                         </div>
                         <span className="text-base font-bold text-[#FAB12F]">{HOME_TEXT.MODAL.LOCATION}</span>
                     </button>

@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
-import Lottie from "lottie-react";
-import runnerAnimation from "@assets/runner.json";
 import { MnemonicForm } from "@components/auth/MnemonicForm";
 import { PinPad } from "@components/auth/PinPad";
-import { CommonModal } from "@components/common/CommonModal";
+import { CommonModal } from "@components/common";
+import { FullScreenPage } from "@components/layout";
+import { WalletSuccessSection } from "@components/wallet/WalletSuccessSection";
 
 const RegisterWallet = () => {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ const RegisterWallet = () => {
   }, [pin, step, confirmPin, handleFinalize]);
 
   return (
-    <div className="flex flex-col h-screen bg-white px-6 overflow-hidden">
+    <FullScreenPage className="overflow-hidden">
       {step === "MNEMONIC" && (
         <MnemonicForm
           mnemonics={mnemonics}
@@ -89,20 +89,7 @@ const RegisterWallet = () => {
       )}
 
       {step === "SUCCESS" && (
-        <div className="flex flex-col h-full animate-in zoom-in duration-500 pt-16 pb-6">
-          <h1 className="font-gmarket text-[28px] mb-4">
-            모든 설정이 <br /> 완료되었습니다!
-          </h1>
-          <div className="flex-1 flex justify-center items-center">
-            <Lottie animationData={runnerAnimation} className="w-80" />
-          </div>
-          <button
-            onClick={() => navigate("/home")}
-            className="w-full h-[60px] bg-main rounded-xl font-gmarket"
-          >
-            모두 이해했어요
-          </button>
-        </div>
+        <WalletSuccessSection onConfirm={() => navigate("/home")} />
       )}
 
       {modal && (
@@ -116,7 +103,7 @@ const RegisterWallet = () => {
           }}
         />
       )}
-    </div>
+    </FullScreenPage>
   );
 };
 

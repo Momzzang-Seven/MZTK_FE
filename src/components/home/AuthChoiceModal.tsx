@@ -66,19 +66,7 @@ export const AuthChoiceModal = ({ isOpen, onClose }: AuthChoiceModalProps) => {
                     >
                         <div className="w-12 h-12 flex items-center justify-center mb-1">
                             <div
-                                style={{
-                                    width: 40,
-                                    height: 40,
-                                    backgroundColor: "#FAB12F",
-                                    maskImage: "url(/icon/dumbell.svg)",
-                                    WebkitMaskImage: "url(/icon/dumbell.svg)",
-                                    maskSize: "contain",
-                                    WebkitMaskSize: "contain",
-                                    maskRepeat: "no-repeat",
-                                    WebkitMaskRepeat: "no-repeat",
-                                    maskPosition: "center",
-                                    WebkitMaskPosition: "center"
-                                }}
+                                className="w-10 h-10 bg-[#FAB12F] [mask-image:url(/icon/dumbell.svg)] [webkit-mask-image:url(/icon/dumbell.svg)] [mask-size:contain] [mask-repeat:no-repeat] [mask-position:center]"
                             />
                         </div>
                         <span className="text-base font-bold text-[#FAB12F]">{HOME_TEXT.MODAL.EXERCISE}</span>
@@ -94,19 +82,7 @@ export const AuthChoiceModal = ({ isOpen, onClose }: AuthChoiceModalProps) => {
                     >
                         <div className="w-12 h-12 flex items-center justify-center mb-1">
                             <div
-                                style={{
-                                    width: 40,
-                                    height: 40,
-                                    backgroundColor: "#FAB12F",
-                                    maskImage: "url(/icon/record.svg)",
-                                    WebkitMaskImage: "url(/icon/record.svg)",
-                                    maskSize: "contain",
-                                    WebkitMaskSize: "contain",
-                                    maskRepeat: "no-repeat",
-                                    WebkitMaskRepeat: "no-repeat",
-                                    maskPosition: "center",
-                                    WebkitMaskPosition: "center"
-                                }}
+                                className="w-10 h-10 bg-[#FAB12F] [mask-image:url(/icon/record.svg)] [webkit-mask-image:url(/icon/record.svg)] [mask-size:contain] [mask-repeat:no-repeat] [mask-position:center]"
                             />
                         </div>
                         <span className="text-base font-bold text-[#FAB12F]">{HOME_TEXT.MODAL.RECORD}</span>

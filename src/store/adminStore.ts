@@ -123,6 +123,41 @@ const generateMockPosts = (page: number): AdminPost[] => {
     return posts;
 };
 
+// Helper to filter users
+const getFilteredUsers = (users: AdminUser[], status: string, query: string) => {
+    let filtered = users;
+    if (status !== 'ALL') {
+        filtered = filtered.filter(user => user.status === status);
+    }
+    const trimmedQuery = query.trim().toLowerCase();
+    if (trimmedQuery) {
+        filtered = filtered.filter(user =>
+            user.nickname.toLowerCase().includes(trimmedQuery) ||
+            user.email.toLowerCase().includes(trimmedQuery)
+        );
+    }
+    return filtered;
+};
+
+// Helper to filter posts
+const getFilteredPosts = (posts: AdminPost[], status: string, query: string) => {
+    let filtered = posts;
+    if (status !== 'ALL') {
+        filtered = filtered.filter(post =>
+            status === 'ACTIVE' ? !post.isBanned : post.isBanned
+        );
+    }
+    const trimmedQuery = query.trim().toLowerCase();
+    if (trimmedQuery) {
+        filtered = filtered.filter(post =>
+            post.content.toLowerCase().includes(trimmedQuery) ||
+            post.title.toLowerCase().includes(trimmedQuery) ||
+            post.comments.some(comment => comment.content.toLowerCase().includes(trimmedQuery))
+        );
+    }
+    return filtered;
+};
+
 export const useAdminStore = create<AdminState>((set, get) => ({
     // User State
     users: [],
@@ -161,43 +196,13 @@ export const useAdminStore = create<AdminState>((set, get) => ({
     setStatusFilter: (status: 'ALL' | 'ACTIVE' | 'BANNED') => {
         set({ statusFilter: status });
         const { users, searchQuery } = get();
-
-        let filtered = users;
-
-        if (status !== 'ALL') {
-            filtered = filtered.filter(user => user.status === status);
-        }
-
-        if (searchQuery.trim()) {
-            const lowerQuery = searchQuery.toLowerCase();
-            filtered = filtered.filter(user =>
-                user.nickname.toLowerCase().includes(lowerQuery) ||
-                user.email.toLowerCase().includes(lowerQuery)
-            );
-        }
-
-        set({ filteredUsers: filtered });
+        set({ filteredUsers: getFilteredUsers(users, status, searchQuery) });
     },
 
     searchUsers: (query: string) => {
         set({ searchQuery: query });
         const { users, statusFilter } = get();
-
-        let filtered = users;
-
-        if (statusFilter !== 'ALL') {
-            filtered = filtered.filter(user => user.status === statusFilter);
-        }
-
-        if (query.trim()) {
-            const lowerQuery = query.toLowerCase();
-            filtered = filtered.filter(user =>
-                user.nickname.toLowerCase().includes(lowerQuery) ||
-                user.email.toLowerCase().includes(lowerQuery)
-            );
-        }
-
-        set({ filteredUsers: filtered });
+        set({ filteredUsers: getFilteredUsers(users, statusFilter, query) });
     },
 
     banUser: async (userId: number) => {
@@ -206,23 +211,9 @@ export const useAdminStore = create<AdminState>((set, get) => ({
             user.id === userId ? { ...user, status: 'BANNED' as const } : user
         );
 
-        let filtered = updatedUsers;
-
-        if (statusFilter !== 'ALL') {
-            filtered = filtered.filter(user => user.status === statusFilter);
-        }
-
-        if (searchQuery.trim()) {
-            const lowerQuery = searchQuery.toLowerCase();
-            filtered = filtered.filter(user =>
-                user.nickname.toLowerCase().includes(lowerQuery) ||
-                user.email.toLowerCase().includes(lowerQuery)
-            );
-        }
-
         set({
             users: updatedUsers,
-            filteredUsers: filtered,
+            filteredUsers: getFilteredUsers(updatedUsers, statusFilter, searchQuery),
             bannedUsers: updatedUsers.filter(u => u.status === 'BANNED').length
         });
     },
@@ -233,30 +224,16 @@ export const useAdminStore = create<AdminState>((set, get) => ({
             user.id === userId ? { ...user, status: 'ACTIVE' as const } : user
         );
 
-        let filtered = updatedUsers;
-
-        if (statusFilter !== 'ALL') {
-            filtered = filtered.filter(user => user.status === statusFilter);
-        }
-
-        if (searchQuery.trim()) {
-            const lowerQuery = searchQuery.toLowerCase();
-            filtered = filtered.filter(user =>
-                user.nickname.toLowerCase().includes(lowerQuery) ||
-                user.email.toLowerCase().includes(lowerQuery)
-            );
-        }
-
         set({
             users: updatedUsers,
-            filteredUsers: filtered,
+            filteredUsers: getFilteredUsers(updatedUsers, statusFilter, searchQuery),
             bannedUsers: updatedUsers.filter(u => u.status === 'BANNED').length
         });
     },
 
     // Post Actions
     fetchPosts: async (reset = false) => {
-        const { page, isFetchingPosts, hasMore, postStatusFilter } = get();
+        const { page, isFetchingPosts, hasMore, postStatusFilter, searchPostQuery } = get();
 
         if (isFetchingPosts || (!hasMore && !reset)) return;
 
@@ -267,24 +244,12 @@ export const useAdminStore = create<AdminState>((set, get) => ({
 
         const nextPage = reset ? 1 : page;
         const newPosts = generateMockPosts(nextPage);
-
-        // Simulate end of list
         const isLastPage = nextPage >= 5;
-
-        // Merge new posts
         const allPosts = reset ? newPosts : [...get().posts, ...newPosts];
-
-        // Apply Filter
-        let filtered = allPosts;
-        if (postStatusFilter !== 'ALL') {
-            filtered = filtered.filter(post =>
-                postStatusFilter === 'ACTIVE' ? !post.isBanned : post.isBanned
-            );
-        }
 
         set(() => ({
             posts: allPosts,
-            filteredPosts: filtered,
+            filteredPosts: getFilteredPosts(allPosts, postStatusFilter, searchPostQuery),
             page: nextPage + 1,
             hasMore: !isLastPage,
             isFetchingPosts: false
@@ -294,53 +259,13 @@ export const useAdminStore = create<AdminState>((set, get) => ({
     setPostStatusFilter: (status: 'ALL' | 'ACTIVE' | 'BANNED') => {
         set({ postStatusFilter: status });
         const { posts, searchPostQuery } = get();
-
-        // 1. Filter by Status
-        let filtered = posts;
-        if (status !== 'ALL') {
-            filtered = filtered.filter(post =>
-                status === 'ACTIVE' ? !post.isBanned : post.isBanned
-            );
-        }
-
-        // 2. Filter by Search
-        if (searchPostQuery.trim()) {
-            const lowerQuery = searchPostQuery.toLowerCase();
-            filtered = filtered.filter(post =>
-                post.content.toLowerCase().includes(lowerQuery) ||
-                post.title.toLowerCase().includes(lowerQuery) ||
-                post.comments.some(comment => comment.content.toLowerCase().includes(lowerQuery))
-            );
-        }
-
-        set({ filteredPosts: filtered });
+        set({ filteredPosts: getFilteredPosts(posts, status, searchPostQuery) });
     },
 
     searchPosts: (query: string) => {
-        const trimmedQuery = query.trim();
-        set({ searchPostQuery: trimmedQuery });
-
+        set({ searchPostQuery: query });
         const { posts, postStatusFilter } = get();
-
-        // 1. Filter by Status first
-        let filtered = posts;
-        if (postStatusFilter !== 'ALL') {
-            filtered = filtered.filter(post =>
-                postStatusFilter === 'ACTIVE' ? !post.isBanned : post.isBanned
-            );
-        }
-
-        // 2. Filter by Search
-        if (trimmedQuery) {
-            const lowerQuery = trimmedQuery.toLowerCase();
-            filtered = filtered.filter(post =>
-                post.content.toLowerCase().includes(lowerQuery) ||
-                post.title.toLowerCase().includes(lowerQuery) ||
-                post.comments.some(comment => comment.content.toLowerCase().includes(lowerQuery))
-            );
-        }
-
-        set({ filteredPosts: filtered });
+        set({ filteredPosts: getFilteredPosts(posts, postStatusFilter, query) });
     },
 
     banPost: async (postId: number) => {
@@ -348,28 +273,10 @@ export const useAdminStore = create<AdminState>((set, get) => ({
         const updatedPosts = posts.map(post =>
             post.id === postId ? { ...post, isBanned: true } : post
         );
-
-        // Re-apply filters
-        let filtered = updatedPosts;
-
-        // 1. Status Filter
-        if (postStatusFilter !== 'ALL') {
-            filtered = filtered.filter(post =>
-                postStatusFilter === 'ACTIVE' ? !post.isBanned : post.isBanned
-            );
-        }
-
-        // 2. Search Filter
-        if (searchPostQuery) {
-            const lowerQuery = searchPostQuery.toLowerCase();
-            filtered = filtered.filter(post =>
-                post.content.toLowerCase().includes(lowerQuery) ||
-                post.title.toLowerCase().includes(lowerQuery) ||
-                post.comments.some(comment => comment.content.toLowerCase().includes(lowerQuery))
-            );
-        }
-
-        set({ posts: updatedPosts, filteredPosts: filtered });
+        set({
+            posts: updatedPosts,
+            filteredPosts: getFilteredPosts(updatedPosts, postStatusFilter, searchPostQuery)
+        });
     },
 
     unbanPost: async (postId: number) => {
@@ -377,27 +284,10 @@ export const useAdminStore = create<AdminState>((set, get) => ({
         const updatedPosts = posts.map(post =>
             post.id === postId ? { ...post, isBanned: false } : post
         );
-
-        // Re-apply filters
-        let filtered = updatedPosts;
-        // 1. Status Filter
-        if (postStatusFilter !== 'ALL') {
-            filtered = filtered.filter(post =>
-                postStatusFilter === 'ACTIVE' ? !post.isBanned : post.isBanned
-            );
-        }
-
-        // 2. Search Filter
-        if (searchPostQuery) {
-            const lowerQuery = searchPostQuery.toLowerCase();
-            filtered = filtered.filter(post =>
-                post.content.toLowerCase().includes(lowerQuery) ||
-                post.title.toLowerCase().includes(lowerQuery) ||
-                post.comments.some(comment => comment.content.toLowerCase().includes(lowerQuery))
-            );
-        }
-
-        set({ posts: updatedPosts, filteredPosts: filtered });
+        set({
+            posts: updatedPosts,
+            filteredPosts: getFilteredPosts(updatedPosts, postStatusFilter, searchPostQuery)
+        });
     },
 
     deleteComment: async (postId: number, commentId: number) => {
@@ -413,25 +303,10 @@ export const useAdminStore = create<AdminState>((set, get) => ({
             }
             return post;
         });
-
-        // Re-apply filters
-        let filtered = updatedPosts;
-        if (postStatusFilter !== 'ALL') {
-            filtered = filtered.filter(post =>
-                postStatusFilter === 'ACTIVE' ? !post.isBanned : post.isBanned
-            );
-        }
-
-        if (searchPostQuery) {
-            const lowerQuery = searchPostQuery.toLowerCase();
-            filtered = filtered.filter(post =>
-                post.content.toLowerCase().includes(lowerQuery) ||
-                post.title.toLowerCase().includes(lowerQuery) ||
-                post.comments.some(comment => comment.content.toLowerCase().includes(lowerQuery))
-            );
-        }
-
-        set({ posts: updatedPosts, filteredPosts: filtered });
+        set({
+            posts: updatedPosts,
+            filteredPosts: getFilteredPosts(updatedPosts, postStatusFilter, searchPostQuery)
+        });
     },
 
     restoreComment: async (postId: number, commentId: number) => {
@@ -447,23 +322,10 @@ export const useAdminStore = create<AdminState>((set, get) => ({
             }
             return post;
         });
-
-        let filtered = updatedPosts;
-        if (postStatusFilter !== 'ALL') {
-            filtered = filtered.filter(post =>
-                postStatusFilter === 'ACTIVE' ? !post.isBanned : post.isBanned
-            );
-        }
-
-        if (searchPostQuery) {
-            const lowerQuery = searchPostQuery.toLowerCase();
-            filtered = filtered.filter(post =>
-                post.content.toLowerCase().includes(lowerQuery) ||
-                post.title.toLowerCase().includes(lowerQuery) ||
-                post.comments.some(comment => comment.content.toLowerCase().includes(lowerQuery))
-            );
-        }
-
-        set({ posts: updatedPosts, filteredPosts: filtered });
+        set({
+            posts: updatedPosts,
+            filteredPosts: getFilteredPosts(updatedPosts, postStatusFilter, searchPostQuery)
+        });
     }
 }));
+

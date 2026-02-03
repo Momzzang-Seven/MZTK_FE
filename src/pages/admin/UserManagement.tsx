@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAdminStore } from "@store/adminStore";
 import { AdminSearchBar } from "@components/admin/common/AdminSearchBar";
-import UserTable from "@components/admin/UserManagement/UserTable";
+import UserTable from "@components/admin/user/UserTable";
 import { ADMIN_TEXT } from "@constant/admin";
 
 const UserManagement = () => {

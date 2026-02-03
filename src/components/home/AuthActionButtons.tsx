@@ -1,6 +1,7 @@
 import { useUserStore } from "@store";
 import { useEffect, useState } from "react";
 import { HOME_TEXT } from "@constant/home";
+import { CommonButton } from "@components/common";
 
 interface AuthActionButtonsProps {
     onExerciseClick: () => void;
@@ -33,52 +34,60 @@ export const AuthActionButtons = ({ onExerciseClick }: AuthActionButtonsProps) =
     return (
         <div className="w-full flex flex-col gap-4">
             {/* Attendance Button */}
-            <button
+            <CommonButton
                 onClick={isAttended ? undefined : handleAttendance}
-                className={`w-full flex items-center gap-5 p-6 rounded-3xl transition-all text-left ${isAttended ? inactiveStyle : activeStyle}`}
-            >
-                {/* Icon Circle */}
-                <div className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 ${isAttended ? "bg-transparent" : "bg-white/25"}`}>
-                    <img
-                        src="/icon/clock.svg"
-                        alt="clock"
-                        className={`w-8 h-8 ${isAttended ? "brightness-0 opacity-40" : "brightness-0 invert"}`}
-                    />
-                </div>
-
-                <div className="flex flex-col items-start gap-1">
-                    <div className="font-bold text-xl">
-                        {isAttended ? HOME_TEXT.ATTENDANCE.DONE_TITLE : HOME_TEXT.ATTENDANCE.YET_TITLE}
+                className={`w-full !justify-start gap-5 p-6 rounded-3xl transition-all text-left ${isAttended ? inactiveStyle : activeStyle}`}
+                bgColor=" " // Override default
+                textColor=" " // Override default
+                padding="p-6"
+                label={
+                    <div className="flex flex-col items-start gap-1">
+                        <div className="font-bold text-xl">
+                            {isAttended ? HOME_TEXT.ATTENDANCE.DONE_TITLE : HOME_TEXT.ATTENDANCE.YET_TITLE}
+                        </div>
+                        <div className={`text-sm font-medium ${isAttended ? "opacity-70" : "opacity-90"}`}>
+                            {isAttended ? HOME_TEXT.ATTENDANCE.DONE_DESC : HOME_TEXT.ATTENDANCE.YET_DESC}
+                        </div>
                     </div>
-                    <div className={`text-sm font-medium ${isAttended ? "opacity-70" : "opacity-90"}`}>
-                        {isAttended ? HOME_TEXT.ATTENDANCE.DONE_DESC : HOME_TEXT.ATTENDANCE.YET_DESC}
+                }
+                icon={
+                    <div className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 ${isAttended ? "bg-transparent" : "bg-white/25"}`}>
+                        <img
+                            src="/icon/clock.svg"
+                            alt="clock"
+                            className={`w-8 h-8 ${isAttended ? "brightness-0 opacity-40" : "brightness-0 invert"}`}
+                        />
                     </div>
-                </div>
-            </button>
+                }
+            />
 
             {/* Exercise Button */}
-            <button
+            <CommonButton
                 onClick={isExerciseDone ? undefined : onExerciseClick}
-                className={`w-full flex items-center gap-5 p-6 rounded-3xl transition-all text-left ${isExerciseDone ? inactiveStyle : activeStyle}`}
-            >
-                {/* Icon Circle */}
-                <div className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 ${isExerciseDone ? "bg-transparent" : "bg-white/25"}`}>
-                    <img
-                        src="/icon/dumbell.svg"
-                        alt="dumbell"
-                        className={`w-8 h-8 ${isExerciseDone ? "brightness-0 opacity-40" : "brightness-0 invert"}`}
-                    />
-                </div>
-
-                <div className="flex flex-col items-start gap-1">
-                    <div className="font-bold text-xl">
-                        {isExerciseDone ? HOME_TEXT.EXERCISE.DONE_TITLE : HOME_TEXT.EXERCISE.YET_TITLE}
+                className={`w-full !justify-start gap-5 p-6 rounded-3xl transition-all text-left ${isExerciseDone ? inactiveStyle : activeStyle}`}
+                bgColor=" " // Override default
+                textColor=" " // Override default
+                padding="p-6"
+                label={
+                    <div className="flex flex-col items-start gap-1">
+                        <div className="font-bold text-xl">
+                            {isExerciseDone ? HOME_TEXT.EXERCISE.DONE_TITLE : HOME_TEXT.EXERCISE.YET_TITLE}
+                        </div>
+                        <div className={`text-sm font-medium ${isExerciseDone ? "opacity-70" : "text-white/90"}`}>
+                            {isExerciseDone ? HOME_TEXT.EXERCISE.DONE_DESC : HOME_TEXT.EXERCISE.YET_DESC}
+                        </div>
                     </div>
-                    <div className={`text-sm font-medium ${isExerciseDone ? "opacity-70" : "text-white/90"}`}>
-                        {isExerciseDone ? HOME_TEXT.EXERCISE.DONE_DESC : HOME_TEXT.EXERCISE.YET_DESC}
+                }
+                icon={
+                    <div className={`w-14 h-14 rounded-full flex items-center justify-center shrink-0 ${isExerciseDone ? "bg-transparent" : "bg-white/25"}`}>
+                        <img
+                            src="/icon/dumbell.svg"
+                            alt="dumbell"
+                            className={`w-8 h-8 ${isExerciseDone ? "brightness-0 opacity-40" : "brightness-0 invert"}`}
+                        />
                     </div>
-                </div>
-            </button>
+                }
+            />
         </div>
     );
 };

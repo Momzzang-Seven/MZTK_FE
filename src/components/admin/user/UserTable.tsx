@@ -17,12 +17,16 @@ const UserTable = () => {
             <table className="w-full text-left border-collapse">
                 <thead>
                     <tr className="border-b border-gray-100 text-gray-400 text-sm">
-                        <th className="py-5 px-6 font-medium">{ADMIN_TEXT.USER.TABLE.USER}</th>
-                        <th className="py-5 px-6 font-medium">{ADMIN_TEXT.USER.TABLE.EMAIL}</th>
-                        <th className="py-5 px-6 font-medium">{ADMIN_TEXT.USER.TABLE.JOIN_DATE}</th>
-                        <th className="py-5 px-6 font-medium">{ADMIN_TEXT.USER.TABLE.STATUS}</th>
-                        <th className="py-5 px-6 font-medium">{ADMIN_TEXT.USER.TABLE.ACTIVITY}</th>
-                        <th className="py-5 px-6 font-medium">{ADMIN_TEXT.USER.TABLE.MANAGE}</th>
+                        {[
+                            ADMIN_TEXT.USER.TABLE.USER,
+                            ADMIN_TEXT.USER.TABLE.EMAIL,
+                            ADMIN_TEXT.USER.TABLE.JOIN_DATE,
+                            ADMIN_TEXT.USER.TABLE.STATUS,
+                            ADMIN_TEXT.USER.TABLE.ACTIVITY,
+                            ADMIN_TEXT.USER.TABLE.MANAGE
+                        ].map((header, index) => (
+                            <th key={index} className="py-5 px-6 font-medium">{header}</th>
+                        ))}
                     </tr>
                 </thead>
                 <tbody className="text-gray-700">

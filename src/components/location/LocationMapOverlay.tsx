@@ -1,4 +1,5 @@
 import { UI_TEXT } from "@constant/index";
+import { CommonButton } from "@components/common";
 
 interface LocationMapOverlayProps {
     address: string;
@@ -29,18 +30,14 @@ export const LocationMapOverlay = ({ address, onCurrentLocationClick }: Location
                 </div>
 
                 {/* Button */}
-                <button
+                {/* Button */}
+                <CommonButton
+                    label=""
                     onClick={onCurrentLocationClick}
-                    className="bg-white p-3 rounded-xl shadow-lg active:bg-gray-50 transition-all active:scale-95"
-                    aria-label="현 위치로 이동"
-                >
-                    <img src="/icon/aim.svg" alt="My Location" className="w-6 h-6"
-                        onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                            e.currentTarget.parentElement!.innerHTML = '📍';
-                        }}
-                    />
-                </button>
+                    className="p-3 rounded-xl shadow-lg active:bg-gray-50 transition-all active:scale-95 w-auto" // w-auto override
+                    bgColor="bg-white"
+                    img="/icon/aim.svg"
+                />
             </div>
 
             {/* Address Info Card (Floating) */}

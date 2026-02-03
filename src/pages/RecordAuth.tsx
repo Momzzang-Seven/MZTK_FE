@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useUserStore } from "@store/userStore";
 import { useNavigate } from "react-router-dom";
 import { RecordHeader } from "@components/record/RecordHeader";
-import { RecordPhotoUploader } from "@components/record/RecordPhotoUploader";
+import { PhotoUploader } from "@components/common/PhotoUploader";
 import { RecordAnalyzing } from "@components/record/RecordAnalyzing";
 import { CommonButton } from "@components/common";
 import { RECORD_TEXT } from "@constant/record";
@@ -53,9 +53,13 @@ const RecordAuth = () => {
       {/* Step 1: Upload */}
       {step === "upload" && (
         <>
-          <RecordPhotoUploader
+          <PhotoUploader
             previewUrl={previewUrl}
             onFileChange={handleFileChange}
+            guideTitle={RECORD_TEXT.GUIDE_TITLE}
+            guideDesc={RECORD_TEXT.GUIDE_DESC}
+            uploadNoImageText={RECORD_TEXT.UPLOAD_NO_IMAGE}
+            uploadSizeHintText={RECORD_TEXT.UPLOAD_SIZE_HINT}
           />
 
           <CommonButton

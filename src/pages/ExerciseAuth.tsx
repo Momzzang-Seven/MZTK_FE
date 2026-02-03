@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useUserStore } from "@store/userStore";
 import { useNavigate } from "react-router-dom";
 import { ExerciseHeader } from "@components/exercise/ExerciseHeader";
-import { ExercisePhotoUploader } from "@components/exercise/ExercisePhotoUploader";
+import { PhotoUploader } from "@components/common/PhotoUploader";
 import { ExerciseAnalyzing } from "@components/exercise/ExerciseAnalyzing";
 import { CommonButton } from "@components/common";
 import { EXERCISE_TEXT } from "@constant/exercise";
@@ -53,9 +53,13 @@ const ExerciseAuth = () => {
       {/* Step 1: Upload */}
       {step === "upload" && (
         <>
-          <ExercisePhotoUploader
+          <PhotoUploader
             previewUrl={previewUrl}
             onFileChange={handleFileChange}
+            guideTitle={EXERCISE_TEXT.GUIDE_TITLE}
+            guideDesc={EXERCISE_TEXT.GUIDE_DESC}
+            uploadNoImageText={EXERCISE_TEXT.UPLOAD_NO_IMAGE}
+            uploadSizeHintText={EXERCISE_TEXT.UPLOAD_SIZE_HINT}
           />
 
           <CommonButton

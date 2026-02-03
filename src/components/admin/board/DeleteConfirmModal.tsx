@@ -1,4 +1,5 @@
 import { ADMIN_TEXT } from "@constant/admin";
+import { CommonButton } from "@components/common/CommonButton";
 
 interface DeleteConfirmModalProps {
     isOpen: boolean;
@@ -51,22 +52,23 @@ export const DeleteConfirmModal = ({
                 </div>
 
                 <div className="flex gap-3">
-                    <button
+                    <CommonButton
+                        label={ADMIN_TEXT.POST.MODAL.BTN_CANCEL}
                         onClick={onClose}
-                        className="flex-1 py-4 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-colors"
-                    >
-                        {ADMIN_TEXT.POST.MODAL.BTN_CANCEL}
-                    </button>
-                    <button
+                        className="flex-1 py-4 text-gray-700 font-bold rounded-xl"
+                        bgColor="bg-gray-100 hover:bg-gray-200"
+                        textColor="text-gray-700"
+                        shadow={false}
+                    />
+                    <CommonButton
+                        label={ADMIN_TEXT.POST.MODAL.BTN_DELETE}
                         onClick={onConfirm}
                         disabled={!deleteReason}
-                        className={`flex-1 py-4 text-white font-bold rounded-xl transition-colors ${deleteReason
-                            ? 'bg-[#FF4500] hover:bg-[#FF6347]'
-                            : 'bg-gray-300 cursor-not-allowed'
-                            }`}
-                    >
-                        {ADMIN_TEXT.POST.MODAL.BTN_DELETE}
-                    </button>
+                        className="flex-1 py-4 font-bold rounded-xl"
+                        bgColor={deleteReason ? "bg-[#FF4500] hover:bg-[#FF6347]" : "bg-gray-300"}
+                        textColor="text-white"
+                        shadow={false}
+                    />
                 </div>
             </div>
         </div>

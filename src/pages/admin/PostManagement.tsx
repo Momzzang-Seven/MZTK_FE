@@ -1,8 +1,10 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useAdminStore } from "../../store/adminStore";
 import { AdminSearchBar } from "@components/admin/common/AdminSearchBar";
-import { PostItem } from "@components/admin/PostManagement/PostItem";
-import { DeleteConfirmModal } from "@components/admin/PostManagement/DeleteConfirmModal";
+import { PostItem } from "@components/admin/board/PostItem";
+import { DeleteConfirmModal } from "@components/admin/board/DeleteConfirmModal";
+import { useInfiniteScroll } from "@hooks/useInfiniteScroll";
+import { useModal } from "@hooks/useModal";
 import { ADMIN_TEXT } from "@constant/admin";
 
 const PostManagement = () => {
@@ -21,81 +23,48 @@ const PostManagement = () => {
     } = useAdminStore();
 
     // Modal State
-    const [modalConfig, setModalConfig] = useState<{
-        isOpen: boolean;
-        type: 'POST' | 'COMMENT' | null;
-        targetId: number | null; // postId
-        subTargetId: number | null; // commentId (for comments)
-    }>({
-        isOpen: false,
-        type: null,
-        targetId: null,
-        subTargetId: null
-    });
+    const {
+        isOpen: isModalOpen,
+        modalData,
+        openModal,
+        closeModal
+    } = useModal<'POST' | 'COMMENT', any>();
 
     const [deleteReason, setDeleteReason] = useState("");
 
-    // Infinite Scroll Ref
-    const observerRef = useRef<HTMLDivElement | null>(null);
+    // Infinite Scroll Observer
+    const observerRef = useInfiniteScroll({
+        onLoadMore: () => fetchPosts(false),
+        hasMore,
+        isLoading: isFetchingPosts
+    });
 
     // Initial Fetch
     useEffect(() => {
         fetchPosts(true);
     }, [fetchPosts]);
 
-    // Infinite Scroll Observer
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && hasMore && !isFetchingPosts) {
-                    fetchPosts(false);
-                }
-            },
-            { threshold: 1.0 }
-        );
-
-        if (observerRef.current) {
-            observer.observe(observerRef.current);
-        }
-
-        return () => {
-            if (observerRef.current) {
-                observer.unobserve(observerRef.current);
-            }
-        };
-    }, [hasMore, isFetchingPosts, fetchPosts]);
-
     // Handlers
-    const openDeleteModal = (type: 'POST' | 'COMMENT', postId: number, commentId?: number) => {
-        setModalConfig({
-            isOpen: true,
-            type,
-            targetId: postId,
-            subTargetId: commentId || null
-        });
+    const handleOpenDeleteModal = (type: 'POST' | 'COMMENT', postId: number, commentId?: number) => {
+        openModal(type, postId, commentId);
         setDeleteReason("");
     };
 
-    const closeModal = () => {
-        setModalConfig({
-            isOpen: false,
-            type: null,
-            targetId: null,
-            subTargetId: null
-        });
+    const handleCloseModal = () => {
+        closeModal();
         setDeleteReason("");
     };
 
     const confirmDelete = async () => {
-        if (!modalConfig.targetId) return;
+        if (!modalData.targetId) return;
 
-        if (modalConfig.type === 'POST') {
-            await banPost(modalConfig.targetId);
-        } else if (modalConfig.type === 'COMMENT' && modalConfig.subTargetId) {
-            await deleteComment(modalConfig.targetId, modalConfig.subTargetId);
+        if (modalData.type === 'POST') {
+            await banPost(modalData.targetId);
+        } else if (modalData.type === 'COMMENT' && modalData.subTargetId) {
+            await deleteComment(modalData.targetId, modalData.subTargetId);
         }
 
-        closeModal();
+        handleCloseModal();
     };
 
     return (
@@ -121,7 +90,7 @@ const PostManagement = () => {
                     <PostItem
                         key={post.id}
                         post={post}
-                        onOpenDeleteModal={openDeleteModal}
+                        onOpenDeleteModal={handleOpenDeleteModal}
                         onRestorePost={unbanPost}
                         onRestoreComment={restoreComment}
                     />
@@ -145,11 +114,11 @@ const PostManagement = () => {
 
             {/* Modal */}
             <DeleteConfirmModal
-                isOpen={modalConfig.isOpen}
-                type={modalConfig.type}
+                isOpen={isModalOpen}
+                type={modalData.type}
                 deleteReason={deleteReason}
                 onReasonChange={setDeleteReason}
-                onClose={closeModal}
+                onClose={handleCloseModal}
                 onConfirm={confirmDelete}
             />
         </div>

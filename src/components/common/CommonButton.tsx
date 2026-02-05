@@ -3,9 +3,10 @@ interface CommonButtonProps {
   bgColor?: string;
   border?: string;
   shadow?: boolean;
-  label: string;
+  label: string | React.ReactNode;
   img?: string;
   className?: string;
+  icon?: React.ReactNode;
   width?: string;
   padding?: string;
   onClick?: () => void;
@@ -20,6 +21,7 @@ export const CommonButton = ({
   className,
   width,
   img,
+  icon,
   padding,
   onClick,
   disabled = false,
@@ -41,6 +43,7 @@ export const CommonButton = ({
         `}
     >
       {img && <img src={img} alt="buttonImage" width="20px" className="mr-3" />}
+      {icon && <span className="mr-2 flex items-center">{icon}</span>}
       {label}
     </button>
   );

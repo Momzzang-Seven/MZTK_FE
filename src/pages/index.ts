@@ -11,10 +11,7 @@ export { default as ExerciseAuth } from "./ExerciseAuth";
 export { default as RecordAuth } from "./RecordAuth";
 export { default as LocationRegister } from "./LocationRegister";
 export { default as Err404 } from "./Err404";
-export { default as Market } from "./Market";
 export { default as Leaderboard } from "./Leaderboard";
-export { default as MarketDetail } from "./MarketDetail";
-export { default as MarketPurchase } from "./MarketPurchase";
 export { default as Community } from "./community/Community";
 export { default as FreeBoard } from "./community/FreeBoard";
 export { default as QuestionBoard } from "./community/QuestionBoard";
@@ -22,6 +19,9 @@ export { default as FreePostDetail } from "./community/FreePostDetail";
 export { default as QuestionDetail } from "./community/QuestionDetail";
 export { default as CreatePost } from "./community/CreatePost";
 export { default as Register } from "./Register";
+export { default as TrainerDashboard } from "./trainer/TrainerDashboard";
+export { default as CreateTicket } from "./trainer/CreateTicket";
+export { default as EditTicket } from "./trainer/EditTicket";
 
 // admin page
 export { default as AdminDashboard } from "./admin/Dashboard";

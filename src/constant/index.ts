@@ -8,3 +8,4 @@ export * from "./home";
 export * from "./admin";
 export * from "./token";
 export * from "./register";
+export * from "./trainer";

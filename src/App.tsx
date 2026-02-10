@@ -17,9 +17,6 @@ import {
   CreatePost,
   FreePostDetail,
   QuestionDetail,
-  Market,
-  MarketDetail,
-  MarketPurchase,
   Leaderboard,
   CreateWallet,
   RegisterWallet,
@@ -28,6 +25,9 @@ import {
   TokenLog,
   UserManagement,
   PostManagement,
+  TrainerDashboard,
+  CreateTicket,
+  EditTicket,
 } from "@pages";
 import ExerciseAuth from "./pages/ExerciseAuth";
 import RecordAuth from "./pages/RecordAuth";
@@ -91,12 +91,6 @@ function App() {
                   <Route element={<ProtectedRoute />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/verify" element={<Verify />} />
-                    <Route path="/market" element={<Market />} />
-                    <Route path="/market/:id" element={<MarketDetail />} />
-                    <Route
-                      path="/market/:id/purchase"
-                      element={<MarketPurchase />}
-                    />
                     <Route path="/leaderboard" element={<Leaderboard />} />
                     <Route path="/community" element={<Community />}>
                       <Route index element={<Navigate to="free" replace />} />
@@ -131,6 +125,9 @@ function App() {
                       path="/location-register"
                       element={<LocationRegister />}
                     />
+                    <Route path="/trainer" element={<TrainerDashboard />} />
+                    <Route path="/trainer/create" element={<CreateTicket />} />
+                    <Route path="/trainer/edit/:id" element={<EditTicket />} />
                   </Route>
 
                   <Route path="/404" element={<Err404 />} />

@@ -23,6 +23,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     "/exercise-auth",
     "/record-auth",
     "/location-register",
+    "/trainer/create",
   ];
   const showHeaderPages: string[] = ["/leaderboard"];
   const shouldShowHeader = showHeaderPages.includes(location.pathname);

@@ -7,3 +7,4 @@ export * from "./onboarding";
 export * from "./home";
 export * from "./admin";
 export * from "./token";
+export * from "./register";

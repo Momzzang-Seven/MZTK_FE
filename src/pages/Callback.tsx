@@ -43,7 +43,7 @@ const Callback = () => {
           const { userInfo, accessToken } = response.data;
           setUser(userInfo);
           setAccessToken(accessToken);
-          navigate("/onboarding");
+          navigate("/register");
         }
       } catch (err: unknown) {
         if (axios.isAxiosError(err)) {

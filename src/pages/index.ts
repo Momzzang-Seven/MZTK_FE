@@ -21,6 +21,7 @@ export { default as QuestionBoard } from "./community/QuestionBoard";
 export { default as FreePostDetail } from "./community/FreePostDetail";
 export { default as QuestionDetail } from "./community/QuestionDetail";
 export { default as CreatePost } from "./community/CreatePost";
+export { default as Register } from "./Register";
 
 // admin page
 export { default as AdminDashboard } from "./admin/Dashboard";

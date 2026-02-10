@@ -33,6 +33,7 @@ import ExerciseAuth from "./pages/ExerciseAuth";
 import RecordAuth from "./pages/RecordAuth";
 import LocationRegister from "./pages/LocationRegister";
 import Onboarding from "./pages/Onboarding";
+import Register from "./pages/Register";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
@@ -84,6 +85,7 @@ function App() {
                   <Route path="/onboarding" element={<Onboarding />} />
                   <Route path="/create-wallet" element={<CreateWallet />} />
                   <Route path="/register-wallet" element={<RegisterWallet />} />
+                  <Route path="/register" element={<Register />} />
 
                   {/* Protected Routes */}
                   <Route element={<ProtectedRoute />}>

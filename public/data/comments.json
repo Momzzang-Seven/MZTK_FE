@@ -2,7 +2,7 @@
   {
     "id": 1,
     "postId": 101,
-    "author": {
+    "writer": {
       "userId": 1,
       "nickname": "fit_tiger",
       "profileImage": null
@@ -15,7 +15,7 @@
   {
     "id": 3,
     "postId": 102,
-    "author": {
+    "writer": {
       "userId": 19,
       "nickname": "올라잇짐으로",
       "profileImage": null
@@ -28,7 +28,7 @@
   {
     "id": 4,
     "postId": 103,
-    "author": {
+    "writer": {
       "userId": 25,
       "nickname": "하체멸시",
       "profileImage": null
@@ -41,7 +41,7 @@
   {
     "id": 2,
     "postId": 101,
-    "author": {
+    "writer": {
       "userId": 13,
       "nickname": "짐브로",
       "profileImage": null
@@ -55,7 +55,7 @@
   {
     "id": 5,
     "postId": 103,
-    "author": {
+    "writer": {
       "userId": 30,
       "nickname": "마지막한개",
       "profileImage": null

@@ -1,12 +1,12 @@
 {
   "id": 1,
-  "author": {
+  "writer": {
     "userId": 1,
     "nickname": "김운동",
     "profileImage": null
   },
   "isSolved": false,
-  "rewardToken": 50,
+  "reward": 50,
   "createdAt": "2026-01-25T13:40:00+09:00",
   "postImage": "https://picsum.photos/600/400?random=1",
   "answers": 5,

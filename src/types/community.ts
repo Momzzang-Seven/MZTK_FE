@@ -5,6 +5,7 @@ export type ActionModalType =
   | "OTHERS"
   | "DELETE_CONFIRM"
   | "REPORT"
+  | "SELECT_CONFIRM"
   | "EDIT_COMMENT"
   | null;
 
@@ -16,7 +17,7 @@ export interface Author {
 
 export interface Post {
   id: number;
-  author: Author;
+  writer: Author;
   createdAt: string;
   postImage?: string;
   description: string;
@@ -32,8 +33,12 @@ export interface Comment extends Post {
 }
 
 export interface QuestionPost extends Post {
+  question: {
+    isSolved: boolean;
+    reward: number;
+  };
   isSolved: boolean;
-  rewardToken: number;
+  reward: number;
   title: string;
   tags: string[];
   answers: number;

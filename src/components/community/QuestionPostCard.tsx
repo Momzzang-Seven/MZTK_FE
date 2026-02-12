@@ -55,17 +55,17 @@ const QuestionPostCard = ({ post }: Props) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            {post.author.profileImage ? (
+            {post.writer.profileImage ? (
               <img
-                src={post.author.profileImage}
-                alt={post.author.nickname}
+                src={post.writer.profileImage}
+                alt={post.writer.nickname}
                 className="h-6 w-6 rounded-full object-cover"
               />
             ) : (
               <div className="h-6 w-6 rounded-full bg-main" />
             )}
             <span className="text-sm text-gray-500 font-medium">
-              {post.author.nickname}
+              {post.writer.nickname}
             </span>
           </div>
           <div className="flex items-center gap-1 text-xs font-semibold text-gray-500">
@@ -76,7 +76,7 @@ const QuestionPostCard = ({ post }: Props) => {
 
         <div className="flex items-center gap-1 text-sm font-normal text-[#ffffff] bg-[#FAB12F] px-2 py-1 rounded-full">
           <img src="/icon/token.svg" alt="token" className="w-5 h-5" />
-          <span>{post.rewardToken}</span>
+          <span>{post.reward}</span>
         </div>
       </div>
     </div>

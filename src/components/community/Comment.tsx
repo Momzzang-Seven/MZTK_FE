@@ -11,10 +11,10 @@ const CommentItem = ({ comment, showProfileImage = true }: Props) => {
   return (
     <div className={"flex gap-3 p-3"}>
       {/* 프로필 사진*/}
-      {showProfileImage && comment.author.profileImage ? (
+      {showProfileImage && comment.writer.profileImage ? (
         <img
-          src={comment.author.profileImage}
-          alt={comment.author.nickname}
+          src={comment.writer.profileImage}
+          alt={comment.writer.nickname}
           className="h-10 w-10 rounded-full object-cover"
         />
       ) : (
@@ -26,7 +26,7 @@ const CommentItem = ({ comment, showProfileImage = true }: Props) => {
         <div className="flex items-center justify-between">
           <div className="flex gap-2 items-center">
             <span className="text-sm font-medium">
-              {comment.author.nickname}
+              {comment.writer.nickname}
             </span>
             <span className="text-xs text-gray-400">
               {formatTimeAgo(comment.createdAt)}
@@ -36,7 +36,7 @@ const CommentItem = ({ comment, showProfileImage = true }: Props) => {
             size="xs"
             type="comment"
             id={comment.id}
-            authorId={comment.author.userId}
+            authorId={comment.writer.userId}
             commentContent={comment.description}
           />
         </div>

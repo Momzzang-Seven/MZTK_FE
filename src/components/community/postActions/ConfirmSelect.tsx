@@ -1,26 +1,26 @@
 import { CommonButton } from "@components/common";
 
-interface ConfirmDeleteProps {
-  handleConfirmClick: () => void;
+interface ConfirmSelectProps {
+  handleSelectClick: () => void;
   handleCancelClick: () => void;
 }
 
-const ConfirmDelete = ({
-  handleConfirmClick,
+const ConfirmSelect = ({
+  handleSelectClick,
   handleCancelClick,
-}: ConfirmDeleteProps) => {
+}: ConfirmSelectProps) => {
   return (
     <div className="w-full flex flex-col gap-y-3">
-      <div className="text-16">
-        정말 이 게시물/댓글을 삭제하시겠습니까?
+      <div className="text-center text-lg font-medium">
+        해당 답변을 채택하시겠습니까?
         <br />
-        삭제된 게시물은 복구할 수 없습니다.
+        채택된 질문은 수정할 수 없습니다.
       </div>
       <CommonButton
-        label="삭제하기"
-        bgColor="bg-red-400"
+        label="채택하기"
+        bgColor="bg-main"
         className="border !rounded-full"
-        onClick={handleConfirmClick}
+        onClick={handleSelectClick}
       />
       <div
         className="text-base font-normal underline cursor-pointer"
@@ -32,4 +32,4 @@ const ConfirmDelete = ({
   );
 };
 
-export default ConfirmDelete;
+export default ConfirmSelect;

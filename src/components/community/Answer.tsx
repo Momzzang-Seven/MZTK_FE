@@ -5,9 +5,10 @@ import { formatTimeAgo } from "@utils";
 
 interface AnswerProps {
   answer: AnswerPost;
+  isSelectable: boolean;
 }
 
-const Answer = ({ answer }: AnswerProps) => {
+const Answer = ({ answer, isSelectable }: AnswerProps) => {
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
 
@@ -46,10 +47,10 @@ const Answer = ({ answer }: AnswerProps) => {
       {/* 작성자 */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          {answer.author.profileImage ? (
+          {answer.writer.profileImage ? (
             <img
-              src={answer.author.profileImage}
-              alt={answer.author.nickname}
+              src={answer.writer.profileImage}
+              alt={answer.writer.nickname}
               className="h-10 w-10 rounded-full object-cover"
             />
           ) : (
@@ -57,7 +58,7 @@ const Answer = ({ answer }: AnswerProps) => {
           )}
           <div className="flex flex-col gap-1">
             <span className="text-sm font-medium">
-              {answer.author.nickname}
+              {answer.writer.nickname}
             </span>
             <span className="text-xs text-gray-400">
               {formatTimeAgo(answer.createdAt)}
@@ -68,7 +69,8 @@ const Answer = ({ answer }: AnswerProps) => {
           size="sm"
           type="answer"
           id={answer.id}
-          authorId={answer.author.userId}
+          authorId={answer.writer.userId}
+          isSelectable={isSelectable}
         />
       </div>
 

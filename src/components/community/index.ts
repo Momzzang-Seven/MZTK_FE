@@ -18,5 +18,6 @@ export { default as MyPostActions } from "./postActions/MyPostActions";
 export { default as OtherPostActions } from "./postActions/OtherPostActions";
 export { default as ConfirmDelete } from "./postActions/ConfirmDelete";
 export { default as ConfirmReport } from "./postActions/ConfirmReport";
+export { default as ConfirmSelect } from "./postActions/ConfirmSelect";
 export { default as SharePost } from "./postActions/SharePost";
 export { default as EditComment } from "./postActions/EditComment";

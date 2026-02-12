@@ -25,7 +25,7 @@ const Question = ({ question }: QuestionProps) => {
         </span>
         <div className="flex items-center gap-1 text-sm font-normal text-[#ffffff] bg-[#FAB12F] px-2 py-1 rounded-full">
           <img src="/icon/token.svg" alt="token" className="w-5 h-5" />
-          <span>{question.rewardToken}</span>
+          <span>{question.reward}</span>
         </div>
       </div>
 

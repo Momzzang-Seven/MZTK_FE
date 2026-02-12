@@ -24,12 +24,18 @@ const QuestionDetail = () => {
 
   if (!question) return;
 
+  const stored = localStorage.getItem("user-storage");
+  const userId = stored ? JSON.parse(stored)?.state?.user?.userId : null;
+
+  const isMyQuestion = userId !== null && question.writer.userId === userId;
+  const canAcceptAnswer = isMyQuestion && !question.isSolved;
+
   return (
     <div className="h-full bg-gray-100">
       <QuestionHeader
         type="question"
         postId={Number(params.postId)}
-        author={question.author}
+        author={question.writer}
         createdAt={question.createdAt}
       />
 
@@ -43,7 +49,7 @@ const QuestionDetail = () => {
         {answers.length > 0 &&
           answers.map((answer) => (
             <div key={answer.id}>
-              <Answer answer={answer} />
+              <Answer answer={answer} isSelectable={canAcceptAnswer} />
             </div>
           ))}
       </div>

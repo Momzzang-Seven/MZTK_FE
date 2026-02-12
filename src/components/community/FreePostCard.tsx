@@ -27,10 +27,10 @@ const FreePostCard = ({ post }: Props) => {
       {/* 헤더 */}
       <div className="flex items-center justify-between px-4">
         <div className="flex items-center gap-3">
-          {post.author.profileImage ? (
+          {post.writer.profileImage ? (
             <img
-              src={post.author.profileImage}
-              alt={post.author.nickname}
+              src={post.writer.profileImage}
+              alt={post.writer.nickname}
               className="h-10 w-10 rounded-full object-cover"
             />
           ) : (
@@ -38,7 +38,7 @@ const FreePostCard = ({ post }: Props) => {
           )}
           <div className="flex flex-col">
             <span className="text-sm font-semibold fontSize-16">
-              {post.author.nickname}
+              {post.writer.nickname}
             </span>
             <span className="text-xs text-gray-500 fontSize-14">
               {formatTimeAgo(post.createdAt)}
@@ -48,7 +48,7 @@ const FreePostCard = ({ post }: Props) => {
         <ActionList
           id={post.id}
           type="free"
-          authorId={post.author.userId}
+          authorId={post.writer.userId}
           size="sm"
         />
       </div>

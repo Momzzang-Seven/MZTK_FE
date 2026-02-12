@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "author": {
+    "writer": {
       "nickname": "운동하는너구리",
       "profileImage": null
     },
@@ -13,7 +13,7 @@
   },
   {
     "id": 2,
-    "author": {
+    "writer": {
       "nickname": "헬린이",
       "profileImage": null
     },
@@ -25,7 +25,7 @@
   },
   {
     "id": 3,
-    "author": {
+    "writer": {
       "nickname": "올라잇",
       "profileImage": null
     },
@@ -37,7 +37,7 @@
   },
   {
     "id": 4,
-    "author": {
+    "writer": {
       "nickname": "오운완",
       "profileImage": null
     },
@@ -49,7 +49,7 @@
   },
   {
     "id": 5,
-    "author": {
+    "writer": {
       "nickname": "헬스보단MMA",
       "profileImage": null
     },

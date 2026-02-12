@@ -1,7 +1,7 @@
 [
   {
     "id": 101,
-    "author": {
+    "writer": {
       "userId": 1,
       "nickname": "6운동1휴식",
       "profileImage": null
@@ -15,7 +15,7 @@
   },
   {
     "id": 102,
-    "author": {
+    "writer": {
       "userId": 2,
       "nickname": "건강한육체에건강한정신이깃든다",
       "profileImage": null
@@ -28,7 +28,7 @@
   },
   {
     "id": 103,
-    "author": {
+    "writer": {
       "userId": 3,
       "nickname": "마라토너",
       "profileImage": null
@@ -41,7 +41,7 @@
   },
   {
     "id": 104,
-    "author": {
+    "writer": {
       "userId": 4,
       "nickname": "토큰약탈자",
       "profileImage": null
@@ -54,7 +54,7 @@
   },
   {
     "id": 105,
-    "author": {
+    "writer": {
       "userId": 5,
       "nickname": "몸짱코인상시거주자",
       "profileImage": null

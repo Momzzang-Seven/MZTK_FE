@@ -13,8 +13,6 @@ const ConfirmSelect = ({
     <div className="w-full flex flex-col gap-y-3">
       <div className="text-center text-lg font-medium">
         해당 답변을 채택하시겠습니까?
-        <br />
-        채택된 질문은 수정할 수 없습니다.
       </div>
       <CommonButton
         label="채택하기"

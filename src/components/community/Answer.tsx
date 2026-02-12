@@ -32,11 +32,11 @@ const Answer = ({ answer, isSelectable }: AnswerProps) => {
   return (
     <div
       className={`flex flex-col gap-3 px-4 py-5 bg-white ${
-        answer.isSelected ? "border-l-4 border-[#22C55E]" : ""
+        answer.isAccepted ? "border-l-4 border-[#22C55E]" : ""
       }`}
     >
       {/* 채택된 답변 딱지 */}
-      {answer.isSelected && (
+      {answer.isAccepted && (
         <div className="flex">
           <div className="text-sm font-semibold text-[#15803D] bg-[#F0FDF4] px-4 py-2 rounded-lg">
             ✓ 채택된 답변
@@ -68,7 +68,7 @@ const Answer = ({ answer, isSelectable }: AnswerProps) => {
         <ActionList
           size="sm"
           type="answer"
-          id={answer.id}
+          id={answer.postId}
           authorId={answer.writer.userId}
           isSelectable={isSelectable}
         />
@@ -76,13 +76,13 @@ const Answer = ({ answer, isSelectable }: AnswerProps) => {
 
       {/* 본문 */}
       <p className="text-base text-gray-700 whitespace-pre-line">
-        {answer.description}
+        {answer.content}
       </p>
 
       {/* 이미지 */}
-      {answer.postImage && (
+      {answer.imageUrls && (
         <img
-          src={answer.postImage}
+          src={answer.imageUrls}
           alt="answer"
           className="w-full rounded-lg object-cover"
         />
@@ -94,20 +94,20 @@ const Answer = ({ answer, isSelectable }: AnswerProps) => {
         className="flex items-center gap-2 pl-2 text-sm font-semibold text-gray-500 cursor-pointer"
       >
         <img src="/icon/comment.svg" alt="comment" className="w-5 h-5" />
-        {answer.comments}
+        {answer.commentCount}
       </div>
 
       {/* 댓글 영역 */}
       {isCommentsOpen && (
         <div className="flex flex-col">
-          <CommentInput isAnswerPost={true} postId={answer.id} />
+          <CommentInput isAnswerPost={true} postId={answer.postId} />
 
           {comments.length === 0 && (
             <p className="text-xs text-gray-400">댓글이 없습니다.</p>
           )}
 
           {comments.map((comment) => (
-            <div key={comment.id}>
+            <div key={comment.postId}>
               <CommentItem comment={comment} showProfileImage={false} />
             </div>
           ))}

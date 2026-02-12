@@ -9,42 +9,41 @@ export type ActionModalType =
   | "EDIT_COMMENT"
   | null;
 
-export interface Author {
+export interface Writer {
   userId: number;
   nickname: string;
   profileImage?: string;
 }
 
 export interface Post {
-  id: number;
-  writer: Author;
+  postId: number;
+  type: PostType;
+  content: string;
+  writer: Writer;
   createdAt: string;
-  postImage?: string;
-  description: string;
+  updatedAt: string;
+  imageUrls: string;
+  commentCount: number;
+  tags: string[];
 }
 
 export interface FreePost extends Post {
-  likes: number;
-  comments: number;
+  isLiked: boolean;
+  likeCount: number;
+}
+
+export interface QuestionPost extends Post {
+  title: string;
+  question: {
+    isSolved: boolean;
+    reward: number;
+  };
 }
 
 export interface Comment extends Post {
   replyCount: number;
 }
 
-export interface QuestionPost extends Post {
-  question: {
-    isSolved: boolean;
-    reward: number;
-  };
-  isSolved: boolean;
-  reward: number;
-  title: string;
-  tags: string[];
-  answers: number;
-}
-
 export interface AnswerPost extends Post {
-  comments: number;
-  isSelected: boolean;
+  isAccepted: boolean;
 }

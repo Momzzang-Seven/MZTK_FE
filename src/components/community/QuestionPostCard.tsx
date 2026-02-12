@@ -8,7 +8,7 @@ interface Props {
 
 const QuestionPostCard = ({ post }: Props) => {
   const navigate = useNavigate();
-  const status = getStatus(post.isSolved, post.answers);
+  const status = getStatus(post.question.isSolved, post.commentCount);
   const statusStyle = statusStyleMap[status];
 
   return (
@@ -28,13 +28,13 @@ const QuestionPostCard = ({ post }: Props) => {
       {/* 제목 + 내용 미리보기 */}
       <div
         className="mb-2"
-        onClick={() => navigate("/community/question/" + post.id)}
+        onClick={() => navigate("/community/question/" + post.postId)}
       >
         <div className="mb-1 text-base font-medium text-gray-900 line-clamp-1">
           {post.title}
         </div>
         <p className="text-sm text-gray-500 font-normal line-clamp-2">
-          {post.description}
+          {post.content}
         </p>
       </div>
 
@@ -70,13 +70,13 @@ const QuestionPostCard = ({ post }: Props) => {
           </div>
           <div className="flex items-center gap-1 text-xs font-semibold text-gray-500">
             <img src="/icon/comment.svg" alt="comment" className="w-5 h-5" />
-            <span>{post.answers}</span>
+            <span>{post.commentCount}</span>
           </div>
         </div>
 
         <div className="flex items-center gap-1 text-sm font-normal text-[#ffffff] bg-[#FAB12F] px-2 py-1 rounded-full">
           <img src="/icon/token.svg" alt="token" className="w-5 h-5" />
-          <span>{post.reward}</span>
+          <span>{post.question.reward}</span>
         </div>
       </div>
     </div>

@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import type { PostType, Author } from "@types";
+import type { PostType, Writer } from "@types";
 import { formatTimeAgo } from "@utils";
 import { ActionList, SharePost } from "@components/community";
 
 interface QuestionHeaderProps {
   type: PostType;
   postId: number;
-  author: Author;
+  author: Writer;
   createdAt: string;
 }
 

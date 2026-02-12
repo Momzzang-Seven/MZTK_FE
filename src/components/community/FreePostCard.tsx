@@ -10,8 +10,8 @@ interface Props {
 
 const FreePostCard = ({ post }: Props) => {
   const navigate = useNavigate();
-  const [liked, setLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(post.likes);
+  const [liked, setLiked] = useState(post.isLiked);
+  const [likeCount, setLikeCount] = useState(post.likeCount);
 
   const handleLikeClick = () => {
     setLiked((prev) => !prev);
@@ -19,7 +19,7 @@ const FreePostCard = ({ post }: Props) => {
   };
 
   const handleCommentClick = () => {
-    navigate("/community/free/" + post.id);
+    navigate("/community/free/" + post.postId);
   };
 
   return (
@@ -46,7 +46,7 @@ const FreePostCard = ({ post }: Props) => {
           </div>
         </div>
         <ActionList
-          id={post.id}
+          id={post.postId}
           type="free"
           authorId={post.writer.userId}
           size="sm"
@@ -56,7 +56,7 @@ const FreePostCard = ({ post }: Props) => {
       {/* 게시물 이미지 */}
       <div className="mt-3 w-full">
         <img
-          src={post.postImage}
+          src={post.imageUrls}
           alt="post"
           className="w-full h-auto object-cover"
         />
@@ -84,16 +84,30 @@ const FreePostCard = ({ post }: Props) => {
         >
           <img src="/icon/comment.svg" alt="comment" className="w-5 h-5" />
           <span className="text-sm font-medium text-gray-700">
-            {post.comments}
+            {post.commentCount}
           </span>
         </div>
 
         {/* 공유 */}
-        <SharePost type="free" postId={post.id} />
+        <SharePost type="free" postId={post.postId} />
       </div>
 
-      {/* 설명 */}
-      <p className="px-4 pb-7 text-sm">{post.description}</p>
+      {/* 내용 및 태그 */}
+      <div className="flex flex-col px-4 pb-7 text-sm">
+        <p>{post.content}</p>
+
+        <div className="mt-2 flex flex-wrap gap-1">
+          {post.tags.map((tag) => (
+            <span
+              key={tag}
+              className="text-blue-600"
+              onClick={() => navigate(`/community/free?tag=${tag}`)}
+            >
+              #{tag}
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

@@ -8,7 +8,7 @@
       "profileImage": null
     },
     "createdAt": "2026-01-26T09:30:00Z",
-    "description": "오늘은 하체데이🔥 스쿼트 후 레그프레스까지 하고 나니 다리가 떨리네요. 내일은 걷기도 힘들 듯!",
+    "content": "오늘은 하체데이🔥 스쿼트 후 레그프레스까지 하고 나니 다리가 떨리네요. 내일은 걷기도 힘들 듯!",
     "likes": 14,
     "replyCount": 2
   },
@@ -21,7 +21,7 @@
       "profileImage": null
     },
     "createdAt": "2026-01-26T11:00:00Z",
-    "description": "근력운동 후 단백질 쉐이크 꼭 챙기세요! 흡수 빠른 WPI가 회복에 좋아요.",
+    "content": "근력운동 후 단백질 쉐이크 꼭 챙기세요! 흡수 빠른 WPI가 회복에 좋아요.",
     "likes": 22,
     "replyCount": 1
   },
@@ -34,7 +34,7 @@
       "profileImage": null
     },
     "createdAt": "2026-01-26T12:45:00Z",
-    "description": "요즘 헬스장 대신 집에서 덤벨 세트로 전신운동 중입니다. 루틴만 잘 지켜도 효과 꽤 좋아요!",
+    "content": "요즘 헬스장 대신 집에서 덤벨 세트로 전신운동 중입니다. 루틴만 잘 지켜도 효과 꽤 좋아요!",
     "likes": 15,
     "replyCount": 3
   },
@@ -47,7 +47,7 @@
       "profileImage": null
     },
     "createdAt": "2026-01-26T10:05:00Z",
-    "description": "하체는 배신하지 않죠 💪 꾸준히 하면 진짜 체형이 달라집니다.",
+    "content": "하체는 배신하지 않죠 💪 꾸준히 하면 진짜 체형이 달라집니다.",
     "likes": 9,
     "replyCount": 0,
     "parentId": 1
@@ -61,7 +61,7 @@
       "profileImage": null
     },
     "createdAt": "2026-01-26T13:10:00Z",
-    "description": "저도 홈트 중인데 꾸준함이 제일 어렵네요 😂 그래도 일주일에 4번은 지키려고 합니다!",
+    "content": "저도 홈트 중인데 꾸준함이 제일 어렵네요 😂 그래도 일주일에 4번은 지키려고 합니다!",
     "likes": 12,
     "replyCount": 0,
     "parentId": 4

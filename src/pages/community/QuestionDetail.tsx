@@ -28,7 +28,7 @@ const QuestionDetail = () => {
   const userId = stored ? JSON.parse(stored)?.state?.user?.userId : null;
 
   const isMyQuestion = userId !== null && question.writer.userId === userId;
-  const canAcceptAnswer = isMyQuestion && !question.isSolved;
+  const canAcceptAnswer = isMyQuestion && !question.question.isSolved;
 
   return (
     <div className="h-full bg-gray-100">
@@ -40,15 +40,15 @@ const QuestionDetail = () => {
       />
 
       <div className="flex flex-col gap-3 pt-[72px]">
-        <Question question={question} />
+        <Question post={question} />
 
         <div className="pt-3 px-3 font-bold text-xl">
-          답변 {question.answers}개
+          답변 {question.commentCount}개
         </div>
 
         {answers.length > 0 &&
           answers.map((answer) => (
-            <div key={answer.id}>
+            <div key={answer.postId}>
               <Answer answer={answer} isSelectable={canAcceptAnswer} />
             </div>
           ))}

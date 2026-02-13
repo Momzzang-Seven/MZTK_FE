@@ -60,7 +60,7 @@ const CommentInput = ({
           </span>
 
           {/* 전송 아이콘 */}
-          <button
+          <div
             onClick={handleCommentSubmit}
             className="flex items-center justify-center"
           >
@@ -69,7 +69,7 @@ const CommentInput = ({
               alt="send"
               className="w-5 h-5 mt-1 mr-1"
             />
-          </button>
+          </div>
         </div>
       </div>
     );

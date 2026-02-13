@@ -18,11 +18,11 @@ const CreatePost = () => {
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [content, setContent] = useState("");
-  const [rewardToken, setRewardToken] = useState(0);
-  const [rewardTokenModalOpen, setRewardTokenModalOpen] = useState(false);
+  const [reward, setReward] = useState(0);
+  const [rewardModalOpen, setRewardModalOpen] = useState(false);
 
   const isSubmitActive =
-    content.trim() !== "" && (isQuestion ? rewardToken >= 1 : true);
+    content.trim() !== "" && (isQuestion ? reward >= 1 : true);
 
   const handleBackClick = () => {
     navigate(-1);
@@ -37,7 +37,7 @@ const CreatePost = () => {
   };
 
   const handleRewardTokenConfirm = () => {
-    setRewardTokenModalOpen(false);
+    setRewardModalOpen(false);
   };
 
   return (
@@ -46,7 +46,7 @@ const CreatePost = () => {
         onBackClick={handleBackClick}
         button={
           <div
-            className={`font-semibold text-xs items-center cursor-pointer ${
+            className={`font-semibold items-center cursor-pointer ${
               !isSubmitActive ? "text-gray-400" : "text-main"
             }`}
             onClick={isSubmitActive ? handleSubmitClick : undefined}
@@ -64,20 +64,20 @@ const CreatePost = () => {
       {isQuestion && !isAnswer && (
         <div className="fixed bottom-10 w-full max-w-[420px] px-6">
           <RewardToken
-            rewardToken={rewardToken}
-            onClick={() => setRewardTokenModalOpen(true)}
+            rewardToken={reward}
+            onClick={() => setRewardModalOpen(true)}
           />
         </div>
       )}
 
-      {isQuestion && !isAnswer && rewardTokenModalOpen && (
+      {isQuestion && !isAnswer && rewardModalOpen && (
         <CommonModal
           title="보상 토큰 지급"
-          desc={`채택된 답변의 사용자에게 <b>${rewardToken} MZTK</b>을 지급합니다.`}
+          desc={`채택된 답변의 사용자에게 <b>${reward} MZTK</b>을 지급합니다.`}
           confirmLabel="설정"
           onConfirmClick={handleRewardTokenConfirm}
         >
-          <TokenSelect setRewardToken={setRewardToken} />
+          <TokenSelect reward={reward} setReward={setReward} />
         </CommonModal>
       )}
     </div>

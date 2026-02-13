@@ -27,15 +27,13 @@ const FreePostCard = ({ post }: Props) => {
       {/* 헤더 */}
       <div className="flex items-center justify-between px-4">
         <div className="flex items-center gap-3">
-          {post.writer.profileImage ? (
-            <img
-              src={post.writer.profileImage}
-              alt={post.writer.nickname}
-              className="h-10 w-10 rounded-full object-cover"
-            />
-          ) : (
-            <div className="h-10 w-10 rounded-full bg-main" />
-          )}
+          <img
+            src={post.writer.profileImage || "/icon/defaultUser.svg"}
+            alt={post.writer.nickname}
+            className={`h-10 w-10 rounded-full ${
+              post.writer.profileImage ? "object-cover" : "bg-main pt-2"
+            }`}
+          />
           <div className="flex flex-col">
             <span className="text-sm font-semibold fontSize-16">
               {post.writer.nickname}
@@ -100,7 +98,7 @@ const FreePostCard = ({ post }: Props) => {
           {post.tags.map((tag) => (
             <span
               key={tag}
-              className="text-blue-600"
+              className="text-blue-600 cursor-pointer"
               onClick={() => navigate(`/community/free?tag=${tag}`)}
             >
               #{tag}

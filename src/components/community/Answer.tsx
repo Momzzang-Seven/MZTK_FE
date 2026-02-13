@@ -11,6 +11,10 @@ interface AnswerProps {
 const Answer = ({ answer, isSelectable }: AnswerProps) => {
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
+  const [repliesMap, setRepliesMap] = useState<Record<number, Comment[]>>({});
+  const [openMap, setOpenMap] = useState<Record<number, boolean>>({});
+
+  const [writingComment, setWritingComment] = useState("");
 
   const handleToggleComments = async () => {
     if (isCommentsOpen) {
@@ -27,6 +31,30 @@ const Answer = ({ answer, isSelectable }: AnswerProps) => {
     } catch (e) {
       console.error(e);
     }
+  };
+
+  const handleReplyClick = (commentId: number) => {
+    if (openMap[commentId]) {
+      setOpenMap((prev) => ({
+        ...prev,
+        [commentId]: false,
+      }));
+      return;
+    }
+
+    fetch("/data/replies.json")
+      .then((res) => res.json())
+      .then((data) => setRepliesMap((prev) => ({ ...prev, [commentId]: data })))
+      .then(() => setOpenMap((prev) => ({ ...prev, [commentId]: true })))
+      .catch(console.error);
+  };
+
+  const handleCommentSubmit = () => {
+    if (!writingComment.trim()) return;
+
+    // 전송 api 추가
+    console.log(answer.answerId, writingComment);
+    setWritingComment("");
   };
 
   return (
@@ -47,15 +75,13 @@ const Answer = ({ answer, isSelectable }: AnswerProps) => {
       {/* 작성자 */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          {answer.writer.profileImage ? (
-            <img
-              src={answer.writer.profileImage}
-              alt={answer.writer.nickname}
-              className="h-10 w-10 rounded-full object-cover"
-            />
-          ) : (
-            <div className="h-10 w-10 rounded-full bg-main" />
-          )}
+          <img
+            src={answer.writer.profileImage || "/icon/defaultUser.svg"}
+            alt={answer.writer.nickname}
+            className={`h-10 w-10 rounded-full ${
+              answer.writer.profileImage ? "object-cover" : "bg-main pt-2"
+            }`}
+          />
           <div className="flex flex-col gap-1">
             <span className="text-sm font-medium">
               {answer.writer.nickname}
@@ -68,7 +94,7 @@ const Answer = ({ answer, isSelectable }: AnswerProps) => {
         <ActionList
           size="sm"
           type="answer"
-          id={answer.postId}
+          id={answer.answerId}
           authorId={answer.writer.userId}
           isSelectable={isSelectable}
         />
@@ -100,15 +126,44 @@ const Answer = ({ answer, isSelectable }: AnswerProps) => {
       {/* 댓글 영역 */}
       {isCommentsOpen && (
         <div className="flex flex-col">
-          <CommentInput isAnswerPost={true} postId={answer.postId} />
+          <CommentInput
+            isAnswerPost={true}
+            postId={answer.answerId}
+            comment={writingComment}
+            setComment={setWritingComment}
+            handleCommentSubmit={handleCommentSubmit}
+          />
 
           {comments.length === 0 && (
             <p className="text-xs text-gray-400">댓글이 없습니다.</p>
           )}
 
           {comments.map((comment) => (
-            <div key={comment.postId}>
+            <div key={comment.commentId} className="mb-1">
               <CommentItem comment={comment} showProfileImage={false} />
+
+              <div className="flex gap-4 ml-2 font-semibold text-xs text-gray-500">
+                {comment.replyCount > 0 && (
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => handleReplyClick(comment.commentId)}
+                  >
+                    답글 펼쳐보기 ({comment.replyCount}개)
+                  </div>
+                )}
+
+                <div className="cursor-pointer">답글 달기</div>
+              </div>
+
+              {openMap[comment.commentId] && (
+                <div>
+                  {repliesMap[comment.commentId]?.map((reply) => (
+                    <div key={reply.commentId} className="ml-4">
+                      <CommentItem comment={reply} showProfileImage={false} />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

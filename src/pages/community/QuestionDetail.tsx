@@ -35,7 +35,7 @@ const QuestionDetail = () => {
       <QuestionHeader
         type="question"
         postId={Number(params.postId)}
-        author={question.writer}
+        writer={question.writer}
         createdAt={question.createdAt}
       />
 
@@ -48,7 +48,7 @@ const QuestionDetail = () => {
 
         {answers.length > 0 &&
           answers.map((answer) => (
-            <div key={answer.postId}>
+            <div key={answer.answerId}>
               <Answer answer={answer} isSelectable={canAcceptAnswer} />
             </div>
           ))}

@@ -39,11 +39,11 @@ const QuestionPostCard = ({ post }: Props) => {
       </div>
 
       {/* 태그 */}
-      <div className="mb-2 flex flex-wrap gap-1">
+      <div className="mb-2 flex flex-wrap gap-1 text-sm text-[#4C6FFF]">
         {post.tags.map((tag) => (
           <span
             key={tag}
-            className="text-sm text-[#4C6FFF]"
+            className="cursor-pointer"
             onClick={() => navigate(`/community/question?tag=${tag}`)}
           >
             #{tag}
@@ -55,15 +55,13 @@ const QuestionPostCard = ({ post }: Props) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            {post.writer.profileImage ? (
-              <img
-                src={post.writer.profileImage}
-                alt={post.writer.nickname}
-                className="h-6 w-6 rounded-full object-cover"
-              />
-            ) : (
-              <div className="h-6 w-6 rounded-full bg-main" />
-            )}
+            <img
+              src={post.writer.profileImage || "/icon/defaultUser.svg"}
+              alt={post.writer.nickname}
+              className={`h-6 w-6 rounded-full ${
+                post.writer.profileImage ? "object-cover" : "bg-main pt-1"
+              }`}
+            />
             <span className="text-sm text-gray-500 font-medium">
               {post.writer.nickname}
             </span>

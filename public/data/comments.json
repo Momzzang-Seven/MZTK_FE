@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "postId": 101,
+    "commentId": 101,
     "writer": {
       "userId": 1,
       "nickname": "fit_tiger",
@@ -14,7 +14,7 @@
   },
   {
     "id": 3,
-    "postId": 102,
+    "commentId": 102,
     "writer": {
       "userId": 19,
       "nickname": "올라잇짐으로",
@@ -27,7 +27,7 @@
   },
   {
     "id": 4,
-    "postId": 103,
+    "commentId": 103,
     "writer": {
       "userId": 25,
       "nickname": "하체멸시",
@@ -40,7 +40,7 @@
   },
   {
     "id": 2,
-    "postId": 101,
+    "commentId": 104,
     "writer": {
       "userId": 13,
       "nickname": "짐브로",
@@ -54,7 +54,7 @@
   },
   {
     "id": 5,
-    "postId": 103,
+    "commentId": 105,
     "writer": {
       "userId": 30,
       "nickname": "마지막한개",

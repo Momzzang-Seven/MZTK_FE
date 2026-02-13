@@ -3,8 +3,8 @@ export type PostType = "free" | "question";
 export type ActionModalType =
   | "MY"
   | "OTHERS"
+  | "REPORT_CONFIRM"
   | "DELETE_CONFIRM"
-  | "REPORT"
   | "SELECT_CONFIRM"
   | "EDIT_COMMENT"
   | null;
@@ -16,7 +16,6 @@ export interface Writer {
 }
 
 export interface Post {
-  postId: number;
   type: PostType;
   content: string;
   writer: Writer;
@@ -28,11 +27,13 @@ export interface Post {
 }
 
 export interface FreePost extends Post {
+  postId: number;
   isLiked: boolean;
   likeCount: number;
 }
 
 export interface QuestionPost extends Post {
+  postId: number;
   title: string;
   question: {
     isSolved: boolean;
@@ -40,10 +41,17 @@ export interface QuestionPost extends Post {
   };
 }
 
-export interface Comment extends Post {
-  replyCount: number;
+export interface AnswerPost extends Post {
+  answerId: number;
+  isAccepted: boolean;
 }
 
-export interface AnswerPost extends Post {
-  isAccepted: boolean;
+export interface Comment extends Post {
+  commentId: number;
+  replyCount: number;
+  isDeleted: boolean;
+}
+
+export interface Reply extends Comment {
+  replyId: number;
 }

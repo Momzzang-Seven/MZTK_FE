@@ -69,7 +69,7 @@ const ActionList = ({
   };
 
   const handleReportClick = () => {
-    setModalType("REPORT");
+    setModalType("REPORT_CONFIRM");
   };
 
   const handleConfirmReportClick = () => {
@@ -122,7 +122,7 @@ const ActionList = ({
           />
         );
 
-      case "REPORT":
+      case "REPORT_CONFIRM":
         return (
           <ConfirmReport
             handleReportClick={handleConfirmReportClick}

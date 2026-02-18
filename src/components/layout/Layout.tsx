@@ -1,15 +1,17 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthModalStore } from "@store";
 import { CommonModal } from "@components/common";
 import { Header, Footer } from "@components/layout";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { unauthorized, setUnauthorized } = useAuthModalStore();
 
   const hideFooterPages = [
     "/login",
     "/onboarding",
+    "/register",
     "/create-wallet",
     "/register-wallet",
     "/community/free/",
@@ -21,11 +23,12 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     "/exercise-auth",
     "/record-auth",
     "/location-register",
+    "/trainer/create",
   ];
   const showHeaderPages: string[] = ["/leaderboard"];
   const shouldShowHeader = showHeaderPages.includes(location.pathname);
   const shouldHideFooter = hideFooterPages.some((path) =>
-    location.pathname.startsWith(path)
+    location.pathname.toLowerCase().startsWith(path.toLowerCase())
   );
 
   return (

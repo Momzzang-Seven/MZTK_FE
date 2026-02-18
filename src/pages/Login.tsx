@@ -59,24 +59,22 @@ const Login = () => {
     },
     {
       id: 3,
-      title: "모은 코인은\n마켓에서 쓰세요",
+      title: "트레이너를 위한\n전문 관리 도구",
       description:
-        "PT,필라테스,요가 전부 가능합니다! \n땀 흘려 번 코인으로 마음껏 쇼핑하세요.",
+        "나만의 체험권을 등록하고 관리하세요. \n트레이너 전용 대시보드로 통계를 한눈에 확인하세요.",
       icon: (
         <svg
           width="120"
           height="120"
-          viewBox="0 0 24 24"
+          viewBox="0 0 31 31"
           fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          xmlns="http://www.w3.org/2000/svg"
           className="text-[#FAB12F]"
         >
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <path d="M16 10a4 4 0 0 1-8 0" />
+          <path d="M12.5 10L15.5 13L21.5 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M5 26.5V23.5C5 21.8431 6.34315 20.5 8 20.5H16C17.6569 20.5 19 21.8431 19 23.5V26.5" stroke="currentColor" strokeWidth="2" />
+          <circle cx="12" cy="11.5" r="4" stroke="currentColor" strokeWidth="2" />
+          <rect x="3" y="27" width="25" height="1" fill="currentColor" />
         </svg>
       ),
     },
@@ -163,9 +161,8 @@ const Login = () => {
           {slides.map((_, index) => (
             <div
               key={index}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                index === currentSlide ? "bg-[#FAB12F] w-6" : "bg-gray-200"
-              }`}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentSlide ? "bg-[#FAB12F] w-6" : "bg-gray-200"
+                }`}
             />
           ))}
         </div>

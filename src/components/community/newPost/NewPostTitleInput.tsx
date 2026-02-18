@@ -1,15 +1,15 @@
-// NewPostContentInput.tsx
-import React, { useState, useRef, useEffect } from "react";
+// NewPostTitleInput.tsx
+import { useState, useRef, useEffect } from "react";
 
-interface NewPostContentInputProps {
+interface NewPostTitleInputProps {
   maxLength?: number;
   onChange?: (value: string) => void;
 }
 
-const NewPostContentInput = ({
-  maxLength = 1000,
+const NewPostTitleInput = ({
+  maxLength = 50,
   onChange,
-}: NewPostContentInputProps) => {
+}: NewPostTitleInputProps) => {
   const [value, setValue] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -20,7 +20,7 @@ const NewPostContentInput = ({
 
     el.style.height = "auto";
     const lineHeight = 20;
-    const maxHeight = lineHeight * 6;
+    const maxHeight = lineHeight;
     const newHeight = Math.min(el.scrollHeight, maxHeight);
 
     el.style.height = `${newHeight}px`;
@@ -34,12 +34,12 @@ const NewPostContentInput = ({
   };
 
   return (
-    <div className="w-full px-4">
+    <div className="w-full px-4 border-b border-gray-200">
       <textarea
         ref={textareaRef}
         value={value}
         onChange={handleChange}
-        placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포 시 모니터링 후 삭제될 수 있습니다."
+        placeholder="제목을 입력하세요."
         className="
           w-full bg-transparent
           text-sm leading-relaxed text-gray-900
@@ -48,13 +48,8 @@ const NewPostContentInput = ({
           border-none
         "
       />
-      <div className="mt-1 flex justify-end">
-        <span className="text-[11px] text-gray-400">
-          {value.length}/{maxLength}
-        </span>
-      </div>
     </div>
   );
 };
 
-export default NewPostContentInput;
+export default NewPostTitleInput;

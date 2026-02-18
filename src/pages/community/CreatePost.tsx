@@ -8,6 +8,7 @@ import {
   RewardToken,
   TokenSelect,
 } from "@components/community";
+import NewPostTitleInput from "@components/community/newPost/NewPostTitleInput";
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -16,8 +17,9 @@ const CreatePost = () => {
   const isQuestion = type === "question";
   const isAnswer = type === "answer";
 
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [reward, setReward] = useState(0);
   const [rewardModalOpen, setRewardModalOpen] = useState(false);
 
@@ -31,6 +33,7 @@ const CreatePost = () => {
   const handleSubmitClick = () => {
     const formData = new FormData();
     if (imageFile) formData.append("image", imageFile);
+    if (isQuestion) formData.append("title", title);
     formData.append("content", content);
 
     navigate(-1);
@@ -58,6 +61,7 @@ const CreatePost = () => {
 
       <div className="flex flex-col gap-4">
         <NewPostImageUploader onChange={setImageFile} />
+        {isQuestion && <NewPostTitleInput onChange={setTitle} />}
         <NewPostContentInput onChange={setContent} />
       </div>
 

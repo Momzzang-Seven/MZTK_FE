@@ -46,8 +46,12 @@ export interface AnswerPost extends Post {
   isAccepted: boolean;
 }
 
-export interface Comment extends Post {
+export interface Comment {
   commentId: number;
+  content: string;
+  writer: Writer;
+  createdAt: string;
+  updatedAt: string;
   replyCount: number;
   isDeleted: boolean;
 }
